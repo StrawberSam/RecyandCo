@@ -19,8 +19,6 @@
 | As a user, I want to customize my avatar or interface so that I can make my space unique. | (not planned) | Won’t have |
 | As a foreign user, I want to change the language of the site so that I can understand the guidelines. | (not planned) | Won’t have |
 | As a user, I want to access a real shop with goodies provided by the town hall so that I can buy physical items. | (not planned) | Won’t have |
-|   |   |   |
-|   |   |   |
 
 ### 2. <u>Mockups (wireframe)</u>:
 ![mockup for index.html](picture/Accueil.png "mockup for index.html").
@@ -268,7 +266,7 @@ No external API is required for the MVP.
 | External API | Purpose | Priority |
 |---|---|---|
 | ipapi.co | Detect the user’s city automatically | Won’t Have (Optional, not part of MVP) |
-|   |   |   |
+
 
 2. <b>Internal Project API</b>
 
@@ -282,7 +280,6 @@ Récy&Co exposes a lightweight <b>REST API</b> for front-end interactions. All i
 | /api/login | POST | { "email": "...", "password": "..." } | { "token": "...", "user": { "id":1, "username":"sam", "balance":0 } } |
 | /api/me | GET | (session/JWT) | { "id":1, "username":"sam", "balance":12 } |
 | /api/logout | POST | - | { "success": true } |
-|   |   |   |
 
 <b><u>Scores & Tokens</u></b>
 
@@ -291,14 +288,12 @@ Récy&Co exposes a lightweight <b>REST API</b> for front-end interactions. All i
 | /api/scores | POST | { "points": 500, "correct_items": 14, "total_items": 20, "duration_ms": 72000 } | { "score_id":123, "balance": 25 } |
 | /api/scores/me | GET | (auth required) | [ { "id":123, "points":500, "correct_items":14, "played_at":"..." }, ... ] |
 | /api/leaderboard | GET | Optional query ?limit=10 | [ { "username":"sam", "points":500 }, ... ] |
-|   |   |   |   |
 
 <b><u>Badges</u></b>
 
 | URL Path | Method | Input | Output JSON |
 |---|---|---|---|
 | /api/badges/me | GET | - | [ { "code":"FIRST_GAME", "label":"First Game", "awarded_at":"..." }, ... ] |
-|   |   |   |   |
 
 <b><u>Wallet & Shop</u></b>
 
@@ -307,14 +302,12 @@ Récy&Co exposes a lightweight <b>REST API</b> for front-end interactions. All i
 | /api/wallet | GET | - | { "balance": 25, "transactions":[...] } |
 | /api/shop/items | GET | - | [ { "id":1, "name":"Hat", "price":10, "is_active":true }, ... ] |
 | /api/shop/purchase | POST | { "item_id": 1 } | { "success":true, "new_balance":15, "item":{ "id":1, "name":"Hat" } } |
-|   |   |   |   |
 
 <b><u>Recycling Info (local JSON)</u></b>
 
 | URL Path | Method | Input | Output JSON |
 |---|---|---|---|
 | /api/rules | GET | - | Returns the content of consignes.json (e.g., [ { "waste":"paper", "bin":"blue" }, ... ]) |
-|   |   |   |   |
 
 👉 The API design follows eco-design principles: JSON only, minimal payloads, no unnecessary endpoints, caching static data.
 
