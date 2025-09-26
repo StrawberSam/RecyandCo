@@ -15,7 +15,7 @@
 | As a user, I want to easily navigate between the pages (Home, Info, Game, Where to throw?, Login, About) so that I can quickly access the features. | Base.html(header, menu, footer) | Must have |
 | As a child/player, I want to receive visual feedback when I succeed/make a mistake so that I can improve. | Jeu-de-tri.html | Should have |
 | As a user, I want to earn badges based on my scores so that I am motivated to progress. | Jeu-de-tri.html / auth.html | Could have |
-| As a user, I want to earn virtual currency so that I can buy bonuses. | Shop.html | Could have |
+| As a user, I want to use my score points to buy bonuses in the shop. | Shop.html | Could have |
 | As a user, I want to customize my avatar or interface so that I can make my space unique. | (not planned) | Won’t have |
 | As a foreign user, I want to change the language of the site so that I can understand the guidelines. | (not planned) | Won’t have |
 | As a user, I want to access a real shop with goodies provided by the town hall so that I can buy physical items. | (not planned) | Won’t have |
@@ -71,23 +71,15 @@ flowchart LR
 
 	Attributes: `id`, `sku`, `name`, `price, is_active`.
 
-- <b>Wallet</b>
-
-	Attributes: `user_id`, `balance`.
-
-	(Managed via services and SQL procedures).
-
 <b>Business Services</b>
 
 - <b>AuthService</b>: registration, login, session management.
 
-- <b>ScoreService</b>: adds a score and calls the SQL procedure to credit tokens.
+- <b>ScoreService</b>: adds a score and updates the user’s total points.
 
 - <b>BadgeService</b>: automatically assigns badges according to conditions.
 
-- <b>WalletService</b>: read/credit/debit wallet balance.
-
-- <b>ShopService</b>: lists items, handles purchase (debit + inventory update).
+- <b>ShopService</b>: lists items, verifies if the user has enough points, deducts the price from the total score, and updates the inventory.
 
 👉 This separation makes the code clearer, more maintainable, and consistent with eco-design (less duplication, centralized logic).
 
@@ -99,12 +91,6 @@ flowchart LR
 
 - <b>scores</b><br>
 	`id`, `user_id FK→users`, `points`, `correct_items*`, `total_items*`, `duration_ms`, `played_at`
-
-- <b>users_wallet</b><br>
-	`user_id PK/FK→users`, `balance`
-
-- <b>wallet_transactions</b><br>
-	`id`, `user_id FK`, `ttype [earn|spend|adjust]`, `amount>0`, `score_id?`, `item_id?`, `description?`, `created_at`
 
 - <b>badges</b><br>
 	`id`, `code*`, `label*`, `description*`, `threshold?`
@@ -160,14 +146,8 @@ classDiagram
       +bool is_active
     }
 
-    class Wallet {
-      +int user_id
-      +int balance
-    }
-
     %% Relations
     User "1" --> "*" Score : has
-    User "1" --> "1" Wallet : owns
     User "1" --> "*" Badge : earns
     User "1" --> "*" ShopItem : purchases
 
@@ -175,24 +155,18 @@ classDiagram
 
 <b>Token Business Rule</b>
 
-1 correctly sorted item = 1 token.
+1 correctly sorted item = 1 score point.
 
-At the end of a game, the server calls the procedure:
-`sp_award_bouchons_by_items(user_id, score_id, correct_items)`
-
-This procedure credits the wallet balance (`users_wallet.balance`) and adds a record in `wallet_transactions`.
+At the end of a game, the server simply updates the user’s total score in the scores table. These points are then used directly in the shop as currency. This avoids additional wallet and transaction tables, keeping the design lightweight and eco-friendly.
 
 ```mermaid
 erDiagram
   users ||--o{ scores : has
-  users ||--|| users_wallet : has
   users ||--o{ user_badges : earns
   badges ||--o{ user_badges : awarded
   users ||--o{ user_inventory : owns
   shop_items ||--o{ user_inventory : contains
-  users ||--o{ wallet_transactions : logs
-  scores ||--o{ wallet_transactions : source
-  shop_items ||--o{ wallet_transactions : target
+
 ```
 
 ### 3. <u>Front-End – Main UI Components and Interactions</u>
@@ -210,25 +184,25 @@ erDiagram
 
 	- `DropZone` (bin),
 
-	- `ScoreHUD` (score + tokens),
+	- `ScoreHUD` (current score),
 
 	- `EndModal` (summary + replay/continue buttons).
 
 - <b>Authentication</b>: registration/login forms.
 
-- <b>Shop</b>: `ItemGrid`, `BuyButton` (purchase only if balance sufficient).
+- <b>Shop</b>: `ItemGrid`, `BuyButton` (purchase only if total score is sufficient).
 
 - <b>About / Eco-design</b>: educational goals and eco-design principles.
 
 <b>Main Interactions</b>
 
 - <b>End of game</b>: the front-end sends a POST `/api/scores` with `{points, correct_items, total_items, duration_ms}`.<br>
-	→ The server inserts the score and credits `correct_items` tokens.<br>
-	→ The response includes the updated balance, displayed in the header and `EndModal`.
+	→ The server inserts the score and adds `correct_items` points to the total score.<br>
+	→ The response includes the updated total score, displayed in the header and `EndModal`.
 
-- <b>Shop</b>: click “Buy” → POST `/api/shop/purchase` → debit wallet balance + update inventory.
+- <b>Shop</b>: click “Buy” → POST `/api/shop/purchase` → deduct points from total score.
 
-- <b>Header</b>: continuously displays the player’s balance “X”.
+- <b>Header</b>: continuously displays the player’s total score.
 
 👉 Eco-design: local JSON for sorting rules, no heavy framework (vanilla JS), SVG/WebP images, minified CSS/JS.
 
@@ -253,7 +227,7 @@ sequenceDiagram
   BE->>BE: Verify password
   alt valid credentials
     BE-->>FE: 200 OK + session token/JWT
-    FE-->>U: Redirect to dashboard (username + balance)
+    FE-->>U: Redirect to dashboard (username + total_score)
   else invalid credentials
     BE-->>FE: 401 Unauthorized
     FE-->>U: Show error message
@@ -272,11 +246,11 @@ sequenceDiagram
   U->>FE: Play drag & drop game
   FE->>U: Show score + correct_items at end
   FE->>BE: POST /api/scores {points, correct_items, total_items, duration_ms}
-  BE->>DB: INSERT INTO scores(...)
-  BE->>DB: CALL sp_award_bouchons_by_items(user_id, score_id, correct_items)
-  DB-->>BE: Update scores + wallet + transactions
-  BE-->>FE: 200 OK {score_id, new_balance}
-  FE-->>U: Display updated balance + “+X tokens” feedback
+  BE->>DB: INSERT INTO scores(user_id, points, correct_items, total_items, duration_ms, played_at)
+  DB-->>BE: Score saved and user total updated
+  BE-->>FE: 200 OK {score_id, new_total_score}
+  FE-->>U: Display updated total score + “+X points” feedback
+
 
 ```
 <br>
@@ -291,22 +265,29 @@ sequenceDiagram
 
   U->>FE: Click "Buy Item"
   FE->>BE: POST /api/shop/purchase {item_id}
-  BE->>DB: CALL sp_purchase_item(user_id, item_id)
-  DB-->>BE: Update wallet (debit), add to user_inventory, insert transaction
-  BE-->>FE: 200 OK {new_balance, item}
-  FE-->>U: Show item unlocked + new balance
+  BE->>DB: Check if user.score >= item.price
+  alt enough score
+    BE->>DB: Deduct item.price from user.score
+    BE->>DB: INSERT INTO user_inventory(user_id, item_id, acquired_at)
+    DB-->>BE: Updated score + new item
+    BE-->>FE: 200 OK {new_score, item}
+    FE-->>U: Show item unlocked + new score
+  else not enough score
+    BE-->>FE: 400 Error {message:"Not enough points"}
+    FE-->>U: Show error message
+  end
 
 ```
 <br>
 The following sequence diagrams illustrate how the <b>Front-End, Back-End, and Database components</b> interact for each case:
 
-- <b>Login</b>: The front-end collects credentials, the back-end verifies them against the database, and returns a session/JWT token if valid.
+<b>Login</b>: The front-end collects credentials, the back-end verifies them against the database, and returns a session/JWT token if valid.
 
-- <b>Game</b>: At the end of a session, the score and correct items are sent to the back-end, which inserts the score and awards tokens via an SQL procedure.
+<b>Game</b>: At the end of a session, the score and correct items are sent to the back-end, which inserts a new record into the scores table and updates the user’s total score. The updated score is then returned to the front-end, which displays feedback such as “+X points”.
 
-- <b>Shop</b>: A purchase request triggers a stored procedure that debits the wallet, inserts a transaction, and adds the item to the user inventory.
+<b>Shop</b>: A purchase request checks if the user’s total score is greater than or equal to the item price. If so, the system deducts the item price from the total score and adds the item to the user_inventory. If not, an error is returned.
 
-👉 These diagrams demonstrate the key system interactions, focusing on simplicity, database integrity, and eco-design principles (minimal calls, compact data).
+👉 These diagrams demonstrate the key system interactions, focusing on simplicity, database integrity, and eco-design principles (minimal calls, lightweight data, no redundant wallet or transactions).
 
 ---
 ## 📚​ Document External and Internal APIs.
@@ -330,15 +311,15 @@ Récy&Co exposes a lightweight <b>REST API</b> for front-end interactions. All i
 | URL Path | Method | Input JSON | Output JSON |
 |---|---|---|---|
 | /api/register | POST | { "username": "...", "email": "...", "password": "..." } | { "user_id": 1, "username": "sam" } |
-| /api/login | POST | { "email": "...", "password": "..." } | { "token": "...", "user": { "id":1, "username":"sam", "balance":0 } } |
-| /api/me | GET | (session/JWT) | { "id":1, "username":"sam", "balance":12 } |
+| /api/login | POST | { "email": "...", "password": "..." } | { "token": "...", "user": { "id":1, "username":"sam", "total_score":0 } } |
+| /api/me | GET | (session/JWT) | { "id":1, "username":"sam", "total_score":12 } |
 | /api/logout | POST | - | { "success": true } |
 
-<b><u>Scores & Tokens</u></b>
+<b><u>Scores</u></b>
 
 | URL Path | Method | Input JSON | Output JSON |
 |---|---|---|---|
-| /api/scores | POST | { "points": 500, "correct_items": 14, "total_items": 20, "duration_ms": 72000 } | { "score_id":123, "balance": 25 } |
+| /api/scores | POST | { "points": 500, "correct_items": 14, "total_items": 20, "duration_ms": 72000 } | { "score_id":123, "total_score": 25 } |
 | /api/scores/me | GET | (auth required) | [ { "id":123, "points":500, "correct_items":14, "played_at":"..." }, ... ] |
 | /api/leaderboard | GET | Optional query ?limit=10 | [ { "username":"sam", "points":500 }, ... ] |
 
@@ -348,13 +329,12 @@ Récy&Co exposes a lightweight <b>REST API</b> for front-end interactions. All i
 |---|---|---|---|
 | /api/badges/me | GET | - | [ { "code":"FIRST_GAME", "label":"First Game", "awarded_at":"..." }, ... ] |
 
-<b><u>Wallet & Shop</u></b>
+<b><u>Shop</u></b>
 
 | URL Path | Method | Input JSON | Output JSON |
 |---|---|---|---|
-| /api/wallet | GET | - | { "balance": 25, "transactions":[...] } |
 | /api/shop/items | GET | - | [ { "id":1, "name":"Hat", "price":10, "is_active":true }, ... ] |
-| /api/shop/purchase | POST | { "item_id": 1 } | { "success":true, "new_balance":15, "item":{ "id":1, "name":"Hat" } } |
+| /api/shop/purchase | POST | { "item_id": 1 } | { "success":true, "new_total_score":15, "item":{ "id":1, "name":"Hat" } } |
 
 <b><u>Recycling Info (local JSON)</u></b>
 
@@ -408,24 +388,24 @@ Récy&Co exposes a lightweight <b>REST API</b> for front-end interactions. All i
 
   - Implemented with Pytest in Python.
 
-  - Example: test that ScoreService.add_score() correctly increments tokens in the wallet.
+  - Example: test that ScoreService.add_score() correctly increments the user’s total score.
 
 - <b>Integration Tests (API)</b>:
 
   - Performed with Postman.
 
-  - Example: POST `/api/scores` should create a new score record and update the wallet balance.
+  - Example: POST `/api/scores` should update the user’s total score.
 
 - <b>Manual Tests (critical user flows)</b>:<br>
   Manual checks of essential scenarios from an end-user perspective:
 
   - User registration → new account appears in the database.
 
-  - Login → username and wallet balance are displayed.
+  - Login → username and total score are displayed.
 
-  - Play a game → score saved and tokens awarded.
+  - Play a game → score saved and total score updated.
 
-  - Purchase in the shop → balance decreases and item is added to the inventory.
+  - Purchase in the shop → total score decreases and item is added to the inventory.
 
 <b>Deployment Pipeline</b>
 
