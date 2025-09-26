@@ -120,6 +120,59 @@ flowchart LR
 
 *\* = mandatory fields · ? = optional fields*
 
+```mermaid
+classDiagram
+    class User {
+      +int id
+      +string username
+      +string email
+      +string password_hash
+      +datetime created_at
+      +datetime last_login_at
+      +verify_password(plain)
+      +to_public_dict()
+    }
+
+    class Score {
+      +int id
+      +int user_id
+      +int points
+      +int correct_items
+      +int total_items
+      +int duration_ms
+      +datetime played_at
+      +efficiency()
+    }
+
+    class Badge {
+      +int id
+      +string code
+      +string label
+      +string description
+      +int threshold
+    }
+
+    class ShopItem {
+      +int id
+      +string sku
+      +string name
+      +int price
+      +bool is_active
+    }
+
+    class Wallet {
+      +int user_id
+      +int balance
+    }
+
+    %% Relations
+    User "1" --> "*" Score : has
+    User "1" --> "1" Wallet : owns
+    User "1" --> "*" Badge : earns
+    User "1" --> "*" ShopItem : purchases
+
+```
+
 <b>Token Business Rule</b>
 
 1 correctly sorted item = 1 token.
@@ -404,6 +457,6 @@ Local JSON for sorting rules → static, cacheable, and ultra-lightweight.
 Eco-design choices → optimized SVG/WebP images, minified CSS/JS, and no unnecessary external APIs.
 
 ---
-## 🎯 Auteurs
+## 🎯 Authors
 
 - 👨‍💻 : **Roche Samira** – [GitHub](https://github.com/StrawberSam)
