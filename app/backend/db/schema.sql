@@ -1,5 +1,8 @@
-# Tables
+# Database
+CREATE DATABASE IF NOT EXISTS recyco;
+USE recyco;
 
+# Tables
 CREATE TABLE IF NOT EXISTS users(
 	id CHAR(36) PRIMARY KEY,
 	username VARCHAR(50) NOT NULL,
