@@ -101,8 +101,8 @@ class AuthService:
                 "id": utilisateur.id,
                 "username": utilisateur.username
             },
-            self.config["SECRET_KEY"],
-            self.config["JWT_EXP_MINUTES"]
+            self.config.SECRET_KEY,
+            self.config.JWT_EXP_MINUTES
         )
 
         return {
@@ -126,7 +126,7 @@ class AuthService:
             }
 
         # Décoder le token + vérif si valide
-        payload = self.security.decode_token(token, self.config["SECRET_KEY"])
+        payload = self.security.decode_token(token, self.config.SECRET_KEY)
 
         if payload is None:
             return{
