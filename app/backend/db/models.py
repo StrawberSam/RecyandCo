@@ -10,7 +10,7 @@ class User(Base):
     __tablename__ = "users" # Nom de la table dans MySQL
 
     # Création des colonnes qui doivent correspondre à la table SQL
-    id = Column(CHAR(36), primary_key=True)
+    id = Column(Integer, autoincrement=True, primary_key=True)
     username = Column(String(50), nullable=False)
     email = Column(String(255), nullable=False, unique=True)
     password_hash = Column(String(255), nullable=False)
@@ -46,7 +46,7 @@ class Score(Base):
     __tablename__ = "scores"
 
     id = Column(Integer, autoincrement=True, primary_key=True)
-    user_id = Column(CHAR(36), ForeignKey("users.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     points = Column(Integer, nullable=False)
     correct_items = Column(Integer, nullable=False)
     total_items = Column(Integer, nullable=False)
@@ -101,7 +101,7 @@ class Badge(Base):
 class UserBadge(Base):
     __tablename__ = "user_badges"
 
-    user_id = Column(CHAR(36), ForeignKey("users.id"), primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
     badge_id = Column(Integer, ForeignKey("badges.id"), primary_key=True, nullable=False)
     awarded_at = Column(DateTime, server_default=func.now(), nullable=False)
 
@@ -141,7 +141,7 @@ class ShopItem(Base):
 class UserInventory(Base):
     __tablename__ = "user_inventory"
 
-    user_id = Column(CHAR(36), ForeignKey("users.id"), primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
     item_id = Column(Integer, ForeignKey("shop_items.id"), primary_key=True, nullable=False)
     acquired_at = Column(DateTime, server_default=func.now(), nullable=False)
 
