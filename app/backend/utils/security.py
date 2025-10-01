@@ -42,7 +42,7 @@ def create_token(data: dict, secret: str, expiration_minutes: int = 60) -> str:
     Returns:
         str: Le token JWT encodé.
     """
-    
+
     payload = {
         **data,
         "exp": datetime.now(timezone.utc) + timedelta(minutes=expiration_minutes)
@@ -51,3 +51,23 @@ def create_token(data: dict, secret: str, expiration_minutes: int = 60) -> str:
     token = jwt.encode(payload, secret, algorithm="HS256")
     return token
 
+def decode_token(token: str, secret: str) -> dict | None:
+    """
+    Décode un JWT et vérifie sa validité.
+
+    Args:
+        token (str): Le token JWT fourni par l’utilisateur.
+        secret (str): La clé secrète utilisée pour signer le token.
+
+    Returns:
+        dict | None: Le payload du token si valide, sinon None.
+    """
+    try:
+        payload = jwt.decode(token, secret, algorithms=["HS256"])
+        return payload
+    except jwt.ExpiredSignatureError:
+        # Le token est expiré
+        return None
+    except jwt.InvalidTokenError:
+        # Le token est invalide (signature incorrecte, token corrompu…)
+        return None
