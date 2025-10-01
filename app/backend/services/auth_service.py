@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from app.backend.db.models import User
+from db.models import User
 from utils.validators import is_valid_email, is_valid_password
 
 class AuthService:
