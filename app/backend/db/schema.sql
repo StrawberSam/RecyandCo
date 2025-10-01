@@ -1,10 +1,11 @@
 # Database
+DROP DATABASE IF EXISTS recyco;
 CREATE DATABASE IF NOT EXISTS recyco;
 USE recyco;
 
 # Tables
 CREATE TABLE IF NOT EXISTS users(
-	id CHAR(36) PRIMARY KEY,
+	id INT AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(50) NOT NULL,
 	email VARCHAR(255) NOT NULL UNIQUE,
 	password_hash VARCHAR(255) NOT NULL,
@@ -14,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS scores(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	user_id CHAR(36) NOT NULL,
+	user_id INT NOT NULL,
 	points INT NOT NULL,
 	correct_items INT NOT NULL,
 	total_items INT NOT NULL,
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS badges(
 );
 
 CREATE TABLE IF NOT EXISTS user_badges(
-	user_id CHAR(36) NOT NULL,
+	user_id INT NOT NULL,
 	badge_id INT NOT NULL,
 	awarded_at TIMESTAMP NOT NULL,
 	PRIMARY KEY(user_id, badge_id),
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS shop_items(
 );
 
 CREATE TABLE IF NOT EXISTS user_inventory(
-	user_id CHAR(36) NOT NULL,
+	user_id INT NOT NULL,
 	item_id INT NOT NULL,
 	acquired_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(user_id, item_id),
