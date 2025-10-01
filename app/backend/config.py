@@ -18,6 +18,9 @@ class Config:
     # Mode debug désactivé par défaut (plus sûr pour la production).
     DEBUG = False
 
+        # Important pour éviter un warning Flask-SQLAlchemy
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 class DevelopmentConfig(Config):
     """

@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()  # Charge le fichier .env
 
 from flask import Flask, request, jsonify
-from db import db_session
+from db import db
 from config import config
 from utils import security
 from services.auth_service import AuthService
@@ -12,9 +12,19 @@ app = Flask(__name__)
 
 # Récupération de la config (par défaut : development)
 app_config = config["development"]()
+app.config.from_object(app_config)
+
+# Initialisation de la DB avec Flask
+db.init_app(app)
+
+# Importer les modèles (important pour db.create_all())
+from db import models
+
+with app.app_context():
+    db.create_all()
 
 # Instanciation du service d’auth
-auth_service = AuthService(db_session, security, app_config)
+auth_service = AuthService(db, security, app_config)
 
 # -------------------- ROUTES --------------------
 

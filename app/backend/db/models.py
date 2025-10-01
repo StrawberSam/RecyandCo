@@ -1,30 +1,24 @@
-from sqlalchemy.ext.declarative import declarative_base # Import pour déclarer les classes
-from sqlalchemy import Boolean, Text, Column, ForeignKey, String, DateTime, CHAR, Integer # Import pour définir les colonnes
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
-
-Base = declarative_base() # La classe de base de tous nos modèles
+from . import db
 
 # ---------- USER ----------
-class User(Base):
-    __tablename__ = "users" # Nom de la table dans MySQL
+class User(db.Model):
+    __tablename__ = "users"
 
-    # Création des colonnes qui doivent correspondre à la table SQL
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    username = Column(String(50), nullable=False)
-    email = Column(String(255), nullable=False, unique=True)
-    password_hash = Column(String(255), nullable=False)
-    created_at = Column(DateTime, server_default=func.now(), nullable=False)
-    last_login_at = Column(DateTime, nullable=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(255), nullable=False, unique=True)
+    password_hash = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
+    last_login_at = db.Column(db.DateTime, nullable=True)
 
-    #Relations
-    scores = relationship("Score", back_populates="user")
-    badges = relationship("UserBadge", back_populates="user")
-    inventory = relationship("UserInventory", back_populates="user")
+    # Relations
+    scores = db.relationship("Score", back_populates="user")
+    badges = db.relationship("UserBadge", back_populates="user")
+    inventory = db.relationship("UserInventory", back_populates="user")
 
     def to_dict(self):
-        # Retourne un utilisateur sous forme de dictionnaire pour API
-        return{
+        return {
             "id": self.id,
             "username": self.username,
             "email": self.email,
@@ -33,8 +27,7 @@ class User(Base):
         }
 
     def to_public_dict(self):
-        # Retourne un utilisateur sous forme de dictionnaire public
-        return{
+        return {
             "id": self.id,
             "username": self.username,
             "created_at": self.created_at,
@@ -42,28 +35,25 @@ class User(Base):
         }
 
 # ---------- SCORE ----------
-class Score(Base):
+class Score(db.Model):
     __tablename__ = "scores"
 
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    points = Column(Integer, nullable=False)
-    correct_items = Column(Integer, nullable=False)
-    total_items = Column(Integer, nullable=False)
-    duration_ms = Column(Integer, nullable=False)
-    played_at = Column(DateTime, server_default=func.now(), nullable=False)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    points = db.Column(db.Integer, nullable=False)
+    correct_items = db.Column(db.Integer, nullable=False)
+    total_items = db.Column(db.Integer, nullable=False)
+    duration_ms = db.Column(db.Integer, nullable=False)
+    played_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
-    #Relations
-    user = relationship("User", back_populates="scores")
+    # Relations
+    user = db.relationship("User", back_populates="scores")
 
     def efficiency(self):
-        # Calcule le ratio correct_item/total_item
-        if self.total_items == 0:
-            return 0
-        return self.correct_items / self.total_items
+        return 0 if self.total_items == 0 else self.correct_items / self.total_items
 
     def to_dict(self):
-        return{
+        return {
             "id": self.id,
             "points": self.points,
             "correct_items": self.correct_items,
@@ -74,21 +64,21 @@ class Score(Base):
         }
 
 # ---------- BADGE ----------
-class Badge(Base):
+class Badge(db.Model):
     __tablename__ = "badges"
 
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    code = Column(String(50), unique=True, nullable=False)
-    label = Column(String(100), nullable=False)
-    description = Column(Text, nullable=False)
-    threshold = Column(Integer, nullable=True)
-    icon = Column(String(255), nullable=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    code = db.Column(db.String(50), unique=True, nullable=False)
+    label = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    threshold = db.Column(db.Integer, nullable=True)
+    icon = db.Column(db.String(255), nullable=True)
 
     # Relations
-    users = relationship("UserBadge", back_populates="badge")
+    users = db.relationship("UserBadge", back_populates="badge")
 
     def to_dict(self):
-        return{
+        return {
             "id": self.id,
             "code": self.code,
             "label": self.label,
@@ -98,38 +88,38 @@ class Badge(Base):
         }
 
 # ---------- USERBADGE ----------
-class UserBadge(Base):
+class UserBadge(db.Model):
     __tablename__ = "user_badges"
 
-    user_id = Column(Integer, ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
-    badge_id = Column(Integer, ForeignKey("badges.id"), primary_key=True, nullable=False)
-    awarded_at = Column(DateTime, server_default=func.now(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
+    badge_id = db.Column(db.Integer, db.ForeignKey("badges.id"), primary_key=True, nullable=False)
+    awarded_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
     # Relations
-    user = relationship("User", back_populates="badges")
-    badge = relationship("Badge", back_populates="users")
+    user = db.relationship("User", back_populates="badges")
+    badge = db.relationship("Badge", back_populates="users")
 
     def to_dict(self):
-        return{
+        return {
             "badge_id": self.badge_id,
             "awarded_at": self.awarded_at
         }
 
 # ---------- SHOPITEM ----------
-class ShopItem(Base):
+class ShopItem(db.Model):
     __tablename__ = "shop_items"
 
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    sku = Column(String(100), unique=True, nullable=False)
-    name = Column(String(100), nullable=False)
-    price = Column(Integer, nullable=False)
-    is_active = Column(Boolean, nullable=False, server_default="1")
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    sku = db.Column(db.String(100), unique=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    is_active = db.Column(db.Boolean, nullable=False, server_default="1")
 
     # Relations
-    users = relationship("UserInventory", back_populates="item")
+    users = db.relationship("UserInventory", back_populates="item")
 
     def to_dict(self):
-        return{
+        return {
             "id": self.id,
             "sku": self.sku,
             "name": self.name,
@@ -138,19 +128,19 @@ class ShopItem(Base):
         }
 
 # ---------- USERINVENTORY ----------
-class UserInventory(Base):
+class UserInventory(db.Model):
     __tablename__ = "user_inventory"
 
-    user_id = Column(Integer, ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
-    item_id = Column(Integer, ForeignKey("shop_items.id"), primary_key=True, nullable=False)
-    acquired_at = Column(DateTime, server_default=func.now(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey("shop_items.id"), primary_key=True, nullable=False)
+    acquired_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
     # Relations
-    user = relationship("User", back_populates="inventory")
-    item = relationship("ShopItem", back_populates="users")
+    user = db.relationship("User", back_populates="inventory")
+    item = db.relationship("ShopItem", back_populates="users")
 
     def to_dict(self):
-        return{
+        return {
             "item_id": self.item_id,
             "acquired_at": self.acquired_at
         }
