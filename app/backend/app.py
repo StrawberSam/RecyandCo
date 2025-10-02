@@ -1,11 +1,14 @@
 from dotenv import load_dotenv
-load_dotenv()  # Charge le fichier .env
+load_dotenv() # Charge le fichier .env
 
-from flask import Flask, request, jsonify
+from flask import Flask
 from db import db
 from config import config
 from utils import security
 from services.auth_service import AuthService
+from facade.auth_facade import auth_bp, init_auth_routes
+from facade.badge_facade import badge_bp, init_badge_routes
+from services.badge_service import BadgeService
 
 # Initialisation de l’app Flask
 app = Flask(__name__)
@@ -19,51 +22,20 @@ db.init_app(app)
 
 # Importer les modèles (important pour db.create_all())
 from db import models
-
 with app.app_context():
     db.create_all()
 
-# Instanciation du service d’auth
+# Instanciation des services
 auth_service = AuthService(db, security, app_config)
+badge_service = BadgeService(db)
 
-# -------------------- ROUTES --------------------
+# Injection du service dans la façade
+init_auth_routes(auth_service)
+init_badge_routes(auth_service, badge_service)
 
-@app.route("/api/register", methods=["POST"])
-def register():
-    data = request.get_json()
-    response = auth_service.register_user(
-        username=data.get("username"),
-        email=data.get("email"),
-        password=data.get("password")
-    )
-    return jsonify(response)
-
-
-@app.route("/api/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    response = auth_service.login_user(
-        email=data.get("email"),
-        password=data.get("password")
-    )
-    return jsonify(response)
-
-
-@app.route("/api/me", methods=["GET"])
-def me():
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
-        return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    token = auth_header.split(" ")[1]  # "Bearer <token>"
-    response = auth_service.get_user_by_id(token)
-    return jsonify(response)
-
-
-@app.route("/api/logout", methods=["POST"])
-def logout():
-    response = auth_service.logout_user()
-    return jsonify(response)
+# Routes
+app.register_blueprint(auth_bp)
+app.register_blueprint(badge_bp)
 
 
 if __name__ == "__main__":
