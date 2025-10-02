@@ -5,12 +5,12 @@ from db.models import Badge, Score, UserBadge
 class BadgeService:
     def __init__(self, db):
         self.db = db
-        self.badges = self.db.query(Badge).all()
+        self.badges = []
 
     def get_user_badges(self, user_id):
         # Récupère les badge de l'user
         resultat = (
-            self.db.query(UserBadge)
+            self.db.session.query(UserBadge)
             .filter(UserBadge.user_id == user_id)
             .join(Badge)
             .with_entities(Badge.code, Badge.label, Badge.description, UserBadge.awarded_at)
@@ -38,7 +38,7 @@ class BadgeService:
         # RequêteSQLAlchemy pour totaux globaux utilisateur
         # Scalar utilisé pour transformer un objet en entier(valeur simple)
         user_total_points = (
-            self.db.query(func.sum(Score.points))
+            self.db.session.query(func.sum(Score.points))
             .filter(Score.user_id == user_id)
             .scalar() or 0
         )
@@ -47,7 +47,7 @@ class BadgeService:
             # Badges enfants
             "TRIEUR_MALIN": lambda: user_total_points >= 10,
             "TRIEUR_FUTE": lambda: user_total_points >= 40,
-            "TRIEUR_PROPRE": lambda: user_total_points >= 60,
+            "TRIEUR_PROPRET": lambda: user_total_points >= 60,
             "TRIEUR_CHAMPION": lambda: user_total_points >=80,
             "TRIEUR_RAPIDE": lambda: score.duration_ms and score.duration_ms < 2000, # 2 secondes
             "TRIEUR_JOUEUR": lambda: score.total_items >= 20,
@@ -86,5 +86,22 @@ class BadgeService:
                         "description": badge.description,
                         "awarded_at": str(maintenant)
                     })
-        self.db.add(new_entry)
+        self.db.commit()
         return new_badges
+
+    def get_all_badges(self):
+        if not self.badges: # si la liste est vide
+            self.load_badges()
+
+        badge_list = []
+        for badge in self.badges:
+            badge_list.append({
+                "code": badge.code,
+                "label": badge.label,
+                "description": badge.description
+            })
+
+        return badge_list
+
+    def load_badges(self):
+        self.badges = self.db.session.query(Badge).all()
