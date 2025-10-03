@@ -100,5 +100,20 @@ class AuthService:
             }
         }
 
+    def get_all_users(self):
+        utilisateurs = User.query.all()
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": u.id,
+                    "username": u.username,
+                    "email": u.email,
+                    "created_at": u.created_at.isoformat()
+                }
+                for u in utilisateurs
+            ]
+        }
+
     def logout_user(self, token=None):
         return {"success": True, "message": "Déconnexion réussie"}
