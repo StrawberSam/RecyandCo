@@ -11,20 +11,20 @@ class AuthService:
 
     def register_user(self, username, email, password):
         if username == "" or len(username) < 3 or len(username) > 50:
-            return {"success": False, "message": "Nom d'utilisateur invalide"}
+            return {"success": False, "message": "Nom d'utilisateur invalide", "status_code": 400}
 
         if not is_valid_email(email):
-            return {"success": False, "message": "Email invalide"}
+            return {"success": False, "message": "Email invalide", "status_code": 400}
 
         if not is_valid_password(password):
-            return {"success": False, "message": "Mot de passe trop court (minimum 8 caractères)"}
+            return {"success": False, "message": "Mot de passe trop court (minimum 8 caractères)", "status_code": 400}
 
         # Vérifications unicité DB
         if User.query.filter_by(username=username).first():
-            return {"success": False, "message": "Nom d'utilisateur déjà utilisé"}
+            return {"success": False, "message": "Nom d'utilisateur déjà utilisé", "status_code": 409}
 
         if User.query.filter_by(email=email).first():
-            return {"success": False, "message": "Email déjà utilisé"}
+            return {"success": False, "message": "Email déjà utilisé", "status_code": 409}
 
         # Préparation données
         password_hash = self.security.hash_password(password)
@@ -46,19 +46,20 @@ class AuthService:
                 "username": nouvel_utilisateur.username,
                 "email": nouvel_utilisateur.email,
                 "created_at": nouvel_utilisateur.created_at.isoformat()
-            }
+            },
+            "status_code": 201
         }
 
     def login_user(self, email, password):
         if email == "" or password == "":
-            return {"success": False, "message": "Email ou mot de passe manquant"}
+            return {"success": False, "message": "Email ou mot de passe manquant", "status_code": 400}
 
         utilisateur = User.query.filter_by(email=email).first()
         if not utilisateur:
-            return {"success": False, "message": "Email introuvable"}
+            return {"success": False, "message": "Email introuvable", "status_code": 404}
 
         if not self.security.verify_password(password, utilisateur.password_hash):
-            return {"success": False, "message": "Mot de passe incorrect"}
+            return {"success": False, "message": "Mot de passe incorrect", "status_code": 401}
 
         token = self.security.create_token(
             {"id": utilisateur.id, "username": utilisateur.username},
@@ -75,20 +76,21 @@ class AuthService:
                     "username": utilisateur.username,
                     "email": utilisateur.email,
                 }
-            }
+            },
+            "status_code": 200
         }
 
     def get_user_by_id(self, token):
         if not token:
-            return {"success": False, "message": "Token manquant"}
+            return {"success": False, "message": "Token manquant", "status_code": 401}
 
         payload = self.security.decode_token(token, self.config.SECRET_KEY)
         if payload is None:
-            return {"success": False, "message": "Token invalide ou expiré"}
+            return {"success": False, "message": "Token invalide ou expiré", "status_code": 401}
 
         utilisateur = User.query.filter_by(id=payload["id"]).first()
         if not utilisateur:
-            return {"success": False, "message": "Utilisateur introuvable"}
+            return {"success": False, "message": "Utilisateur introuvable", "status_code": 404}
 
         return {
             "success": True,
@@ -97,7 +99,8 @@ class AuthService:
                 "username": utilisateur.username,
                 "email": utilisateur.email,
                 "created_at": utilisateur.created_at.isoformat()
-            }
+            },
+            "status_code": 200
         }
 
     def get_all_users(self):
@@ -112,8 +115,9 @@ class AuthService:
                     "created_at": u.created_at.isoformat()
                 }
                 for u in utilisateurs
-            ]
+            ],
+            "status_code": 200
         }
 
     def logout_user(self, token=None):
-        return {"success": True, "message": "Déconnexion réussie"}
+        return {"success": True, "message": "Déconnexion réussie", "status_code": 200}
