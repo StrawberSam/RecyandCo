@@ -1,17 +1,12 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 
 badge_bp = Blueprint("badge", __name__)
 
-auth_service = None
-badge_service = None
-
-def init_badge_routes(auth_srv, badge_srv):
-    global auth_service, badge_service
-    auth_service = auth_srv
-    badge_service = badge_srv
-
 @badge_bp.route("/api/badges/me", methods=["GET"])
 def user_badges():
+    auth_service = current_app.config["services"]["auth"]
+    badge_service = current_app.config["services"]["badge"]
+
     auth_header = request.headers.get("Authorization")
     if not auth_header:
         return jsonify({"success": False, "message": "Token manquant"}), 401
@@ -28,5 +23,6 @@ def user_badges():
 
 @badge_bp.route("/api/badges", methods=["GET"])
 def all_badges():
+    badge_service = current_app.config["services"]["badge"]
     response = badge_service.get_all_badges()
     return jsonify(response)
