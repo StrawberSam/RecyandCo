@@ -3,6 +3,7 @@ load_dotenv() # Charge le fichier .env
 
 import os
 from flask import Flask
+from flask_migrate import Migrate
 from db import db
 from config import config
 from utils import security
@@ -23,11 +24,8 @@ app.config["ADMIN_ID"] = int(os.getenv("ADMIN_ID", 0))
 
 # Initialisation de la DB avec Flask
 db.init_app(app)
-
-# Importer les modèles (important pour db.create_all())
-from db import models
-with app.app_context():
-    db.create_all()
+# Gestion des migrations
+migrate = Migrate(app, db)
 
 # Instanciation des services
 auth_service = AuthService(db, security, app_config)
