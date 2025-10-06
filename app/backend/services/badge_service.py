@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import func
-from db.models import Badge, Score, UserBadge
+from db.models import Badge, Score, User, UserBadge
 
 class BadgeService:
     def __init__(self, db):
@@ -8,6 +8,14 @@ class BadgeService:
         self.badges = []
 
     def get_user_badges(self, user_id):
+
+        if not isinstance(user_id, int):
+            return {"success": False, "message": "user_id doit être un entier", "status_code": 400}
+
+        utilisateur = self.db.session.get(User, user_id)
+        if not utilisateur:
+            return {"success": False, "message": "User non trouvé", "status_code": 404}
+
         # Récupère les badge de l'user
         resultat = (
             self.db.session.query(UserBadge)
@@ -26,22 +34,24 @@ class BadgeService:
                 "awarded_at": str(awarded_at)
                 })
 
-        return badges_list
+        return {
+            "success": True,
+            "data": badges_list,
+            "status_code": 200
+        }
 
     def check_and_award_badges(self, user_id, score):
-        # Vérifie et donne les badges
-        # Récupération des badges existants de l'utilisateur
-        user_badges = self.get_user_badges(user_id)
-        # Extraire leurs codes dans un set
-        owned_badges = { badge["code"] for badge in user_badges}
+        # Récupération utilisateur et ses badges existants
+        utilisateur = self.db.session.get(User, user_id)
+        if not utilisateur:
+            return []
 
-        # RequêteSQLAlchemy pour totaux globaux utilisateur
-        # Scalar utilisé pour transformer un objet en entier(valeur simple)
-        user_total_points = (
-            self.db.session.query(func.sum(Score.points))
-            .filter(Score.user_id == user_id)
-            .scalar() or 0
-        )
+        user_badges_response = self.get_user_badges(user_id)
+        user_badges = user_badges = user_badges_response["data"]
+        owned_badges = {badge["code"] for badge in user_badges}
+
+        # Points totaux = compteur global stocké directement
+        user_total_points = utilisateur.total_score
         # Définition des règles des badges
         badge_rules = {
             # Badges enfants
@@ -87,7 +97,11 @@ class BadgeService:
                         "awarded_at": str(maintenant)
                     })
         self.db.commit()
-        return new_badges
+        return {
+            "success": True,
+            "data": new_badges,
+            "status_code": 200
+        }
 
     def get_all_badges(self):
         if not self.badges: # si la liste est vide
