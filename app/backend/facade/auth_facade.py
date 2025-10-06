@@ -11,7 +11,7 @@ def register():
         email=data.get("email"),
         password=data.get("password")
     )
-    return jsonify(response)
+    return jsonify(response), response["status_code"]
 
 
 @auth_bp.route("/api/login", methods=["POST"])
@@ -22,7 +22,7 @@ def login():
         email=data.get("email"),
         password=data.get("password")
     )
-    return jsonify(response)
+    return jsonify(response), response["status_code"]
 
 
 @auth_bp.route("/api/me", methods=["GET"])
@@ -34,14 +34,14 @@ def me():
 
     token = auth_header.split(" ")[1] # "Bearer <token>"
     response = service.get_user_by_id(token)
-    return jsonify(response)
+    return jsonify(response), response["status_code"]
 
 
 @auth_bp.route("/api/logout", methods=["POST"])
 def logout():
     service = current_app.config["services"]["auth"]
     response = service.logout_user()
-    return jsonify(response)
+    return jsonify(response), response["status_code"]
 
 @auth_bp.route("/api/users", methods=["GET"])
 def all_users():
@@ -68,4 +68,4 @@ def all_users():
         return jsonify({"success": False, "message": "Accès refusé"}), 403
 
     # Retourne tous les users (seulement si admin)
-    return jsonify(service.get_all_users())
+    return jsonify(service.get_all_users()), 200

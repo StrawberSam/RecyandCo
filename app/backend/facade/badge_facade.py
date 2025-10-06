@@ -19,10 +19,10 @@ def user_badges():
 
     user_id = user["data"]["id"]
     response = badge_service.get_user_badges(user_id)
-    return jsonify(response)
+    return jsonify(response), response["status_code"]
 
 @badge_bp.route("/api/badges", methods=["GET"])
 def all_badges():
     badge_service = current_app.config["services"]["badge"]
     response = badge_service.get_all_badges()
-    return jsonify(response)
+    return jsonify(response), response["status_code"]
