@@ -22,6 +22,21 @@ def login():
         email=data.get("email"),
         password=data.get("password")
     )
+
+    # Si connexion réussie → stocker refresh token dans un cookie sécurisé
+    if response.get("success"):
+        flask_response = jsonify(response)
+        refresh_token = response["data"].pop("refresh_token") # on ne renvoie plus le refresh token dans le JSON
+        flask_response.set_cookie(
+            "refresh_token",
+            refresh_token,
+            httponly=True, # non accessible par le JS (anti-XSS)
+            secure=True, # obligatoire en HTTPS
+            samesite="Lax", # empêche le vol de cookie entre sites
+            max_age=60*60*24*7 # 7 jours
+        )
+        return flask_response, 200
+
     return jsonify(response), response["status_code"]
 
 
@@ -69,3 +84,15 @@ def all_users():
 
     # Retourne tous les users (seulement si admin)
     return jsonify(service.get_all_users()), 200
+
+@auth_bp.route("/api/refresh", methods=["POST"])
+def refresh_token():
+    service = current_app.config["services"]["auth"]
+
+    # On récupère le refresh token depuis le cookie
+    refresh_token = request.cookies.get("refresh_token")
+    if not refresh_token:
+        return jsonify({"success": False, "message": "Refresh token manquant"}), 401
+
+    response = service.refresh_access_token(refresh_token)
+    return jsonify(response), response["status_code"]

@@ -61,20 +61,27 @@ class AuthService:
         if not self.security.verify_password(password, utilisateur.password_hash):
             return {"success": False, "message": "Mot de passe incorrect", "status_code": 401}
 
-        token = self.security.create_token(
+        # === Génération des deux tokens ===
+        access_token = self.security.create_token(
             {"id": utilisateur.id, "username": utilisateur.username},
             self.config.SECRET_KEY,
             self.config.JWT_EXP_MINUTES
         )
 
+        refresh_token = self.security.create_token(
+            {"id": utilisateur.id},
+            self.config.SECRET_KEY,
+            expiration_minutes=self.config.JWT_REFRESH_EXP_MINUTES
+        )
+
         return {
             "success": True,
             "data": {
-                "token": token,
+                "acess_token": access_token,
+                "refresh_token": refresh_token,
                 "user": {
                     "id": utilisateur.id,
-                    "username": utilisateur.username,
-                    "email": utilisateur.email,
+                    "username": utilisateur.username
                 }
             },
             "status_code": 200
@@ -121,3 +128,22 @@ class AuthService:
 
     def logout_user(self, token=None):
         return {"success": True, "message": "Déconnexion réussie", "status_code": 200}
+
+    def refresh_access_token(self, refresh_token):
+        payload = self.security.decode_token(refresh_token, self.config.SECRET_KEY)
+        if payload is None:
+            return {"success": False, "message": "Token invalide ou expiré", "status_code": 401}
+
+        # On génère un nouveau access token (1h)
+        new_access_token = self.security.create_token(
+            {"id": payload["id"]},
+            self.config.SECRET_KEY,
+            expiration_minutes=self.config.JWT_EXP_MINUTES
+        )
+
+        return {
+            "success": True,
+            "message": "Nouveau access token généré",
+            "data": {"access_token": new_access_token},
+            "status_code": 200
+        }
