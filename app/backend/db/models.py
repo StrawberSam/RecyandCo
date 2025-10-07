@@ -11,6 +11,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
     last_login_at = db.Column(db.DateTime, nullable=True)
+    total_score = db.Column(db.Integer, default=0, nullable=False)
 
     # Relations
     scores = db.relationship("Score", back_populates="user")
