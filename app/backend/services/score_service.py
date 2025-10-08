@@ -41,7 +41,7 @@ class ScoreService:
         utilisateur.total_score += points
 
         # Commit + retourner la réponse
-        db.session.commit()
+        self.db.session.commit()
 
         return {
             "success": True,
