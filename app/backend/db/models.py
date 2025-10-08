@@ -5,6 +5,9 @@ from . import db
 class User(db.Model):
     __tablename__ = "users"
 
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
@@ -39,6 +42,9 @@ class User(db.Model):
 class Score(db.Model):
     __tablename__ = "scores"
 
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     points = db.Column(db.Integer, nullable=False)
@@ -68,6 +74,9 @@ class Score(db.Model):
 class Badge(db.Model):
     __tablename__ = "badges"
 
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     code = db.Column(db.String(50), unique=True, nullable=False)
     label = db.Column(db.String(100), nullable=False)
@@ -92,6 +101,9 @@ class Badge(db.Model):
 class UserBadge(db.Model):
     __tablename__ = "user_badges"
 
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
     badge_id = db.Column(db.Integer, db.ForeignKey("badges.id"), primary_key=True, nullable=False)
     awarded_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
@@ -109,6 +121,9 @@ class UserBadge(db.Model):
 # ---------- SHOPITEM ----------
 class ShopItem(db.Model):
     __tablename__ = "shop_items"
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     sku = db.Column(db.String(100), unique=True, nullable=False)
@@ -131,6 +146,9 @@ class ShopItem(db.Model):
 # ---------- USERINVENTORY ----------
 class UserInventory(db.Model):
     __tablename__ = "user_inventory"
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("shop_items.id"), primary_key=True, nullable=False)
