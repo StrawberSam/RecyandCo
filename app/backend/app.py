@@ -10,9 +10,11 @@ from utils import security
 from services.auth_service import AuthService
 from services.badge_service import BadgeService
 from services.score_service import ScoreService
+from services.shop_service import ShopService
 from facade.auth_facade import auth_bp
 from facade.badge_facade import badge_bp
 from facade.score_facade import score_bp
+from facade.shop_facade import shop_bp
 
 # Initialisation de l’app Flask
 app = Flask(__name__)
@@ -33,18 +35,21 @@ migrate = Migrate(app, db)
 auth_service = AuthService(db, security, app_config)
 badge_service = BadgeService(db)
 score_service = ScoreService(db)
+shop_service = ShopService(db)
 
 # Stockage des services dans app.config
 app.config["services"] = {
     "auth": auth_service,
     "badge": badge_service,
-    "score": score_service
+    "score": score_service,
+    "shop": shop_service
 }
 
 # Routes
 app.register_blueprint(auth_bp)
 app.register_blueprint(badge_bp)
 app.register_blueprint(score_bp)
+app.register_blueprint(shop_bp)
 
 
 if __name__ == "__main__":
