@@ -96,7 +96,7 @@ class BadgeService:
                         "description": badge.description,
                         "awarded_at": str(maintenant)
                     })
-        self.db.commit()
+        self.db.session.commit()
         return {
             "success": True,
             "data": new_badges,
