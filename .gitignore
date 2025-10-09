@@ -9,3 +9,4 @@ __pycache__/
 # Fichiers systèmes
 .DB_Store
 Thumbs.db
+.vscode/settings.json
