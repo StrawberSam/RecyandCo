@@ -10,3 +10,4 @@ flask-cors==5.0.0
 pymysql
 cryptography
 Flask-Migrate
+pytest-order
