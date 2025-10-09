@@ -77,7 +77,7 @@ class AuthService:
         return {
             "success": True,
             "data": {
-                "acess_token": access_token,
+                "access_token": access_token,
                 "refresh_token": refresh_token,
                 "user": {
                     "id": utilisateur.id,
