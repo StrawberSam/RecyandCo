@@ -14,6 +14,7 @@ class Config:
     # sinon 'default_secret_key' est utilisée (mais ce n'est PAS recommandé en production).
     SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
     JWT_EXP_MINUTES = int(os.getenv("JWT_EXP_MINUTES", "60"))
+    JWT_REFRESH_EXP_MINUTES = int(os.getenv("JWT_REFRESH_EXP_MINUTES", "10080"))
 
     # Mode debug désactivé par défaut (plus sûr pour la production).
     DEBUG = False
