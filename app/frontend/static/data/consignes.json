@@ -1,0 +1,316 @@
+{
+  "jaune": [
+    {
+      "nom": "Bouteille en plastique",
+      "categorie": "Plastique",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
+      "bon_a_savoir": "Écrase la bouteille pour gagner de la place. Ne retire pas le bouchon : il est maintenant attaché et sera recyclé avec la bouteille!",
+      "mots_cles": ["bouteille", "plastique", "eau", "flacon", "pet", "emballage"]
+    },
+    {
+      "nom": "Bouteille de shampoing",
+      "categorie": "Plastique",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
+      "bon_a_savoir": "Pense à bien vider la bouteille avant de la jeter. Inutile de la rincer : cela gaspillerait de l’eau !",
+      "mots_cles": ["bouteille", "shampoing", "flacon", "gel", "savon", "plastique"]
+    },
+    {
+      "nom": "Barquette alimentaire",
+      "categorie": "Plastique",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
+      "bon_a_savoir": "Jette-la bien vidée, même si elle est un peu sale. Inutile de la laver : elle sera nettoyée pendant le recyclage.",
+      "mots_cles": ["barquette", "alimentaire", "emballage", "plastique", "plat", "restes"]
+    },
+    {
+      "nom": "Pot de yaourt",
+      "categorie": "Plastique",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
+      "bon_a_savoir": "Videz bien le pot avant de le jeter, mais ne le lavez pas. Jette aussi l’opercule en aluminium dans le même bac : tout se recycle !",
+      "mots_cles": ["pot", "yaourt", "plastique", "emballage", "dessert", "operule"]
+    },
+    {
+      "nom": "Boite de conserve",
+      "categorie": "Métal",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages métalliques.",
+      "bon_a_savoir": "Pense à bien la vider avant de la jeter. Le métal se recycle à l’infini sans perdre sa qualité !",
+      "mots_cles": ["boite", "conserve", "métal", "acier", "emballage", "alimentaire"]
+    },
+    {
+      "nom": "Canette en aluminium",
+      "categorie": "Métal",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages métalliques.",
+      "bon_a_savoir": "Vides bien ta canette avant de la jeter. L’aluminium se recycle à l’infini : une canette triée peut redevenir une nouvelle canette en seulement 60 jours !",
+      "mots_cles": ["canette", "boisson", "alu", "aluminium", "soda", "biere"]
+    },
+    {
+      "nom": "Brique alimentaire",
+      "categorie": "Carton",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages recyclables.",
+      "bon_a_savoir": "Même si elle ressemble à du carton, la brique alimentaire va dans le bac jaune : c’est un mélange de carton, plastique et aluminium. Tout est recyclé ensemble !",
+      "mots_cles": ["brique", "alimentaire", "lait", "jus", "soupe", "carton"]
+    },
+    {
+      "nom": "Emballage carton",
+      "categorie": "Carton",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages recyclables.",
+      "bon_a_savoir": "Même si c’est du carton, elle va dans le bac jaune car c’est un emballage. Le bac bleu est réservé aux papiers et journaux !",
+      "mots_cles": ["emballage", "carton", "boite", "paquet", "colis", "emballages"]
+    },
+    {
+      "nom": "Boite de céréale",
+      "categorie": "Carton",
+      "poubelle": "jaune",
+      "icon": "",
+      "description": "À jeter dans le bac jaune avec les autres emballages recyclables.",
+      "bon_a_savoir": "Même si elle est propre, la boîte de céréales va dans le bac jaune car c’est un emballage. Le sachet plastique intérieur, lui, va à la poubelle ordinaire.",
+      "mots_cles": ["boite", "cereales", "carton", "petit-dejeuner", "emballage", "sachet"]
+    }
+  ],
+
+	"verte": [
+    {
+      "nom": "Bouteille en verre",
+      "categorie": "Verre",
+      "poubelle": "verte",
+      "icon": "",
+      "description": "À jeter dans le conteneur vert réservé au verre.",
+      "bon_a_savoir": "Jette-la sans le bouchon ni le couvercle. Le verre se recycle à l’infini sans rien perdre de sa qualité !",
+      "mots_cles": ["bouteille", "verre", "vin", "biere", "jus", "recyclage"]
+    },
+    {
+      "nom": "Pot de confiture",
+      "categorie": "Verre",
+      "poubelle": "verte",
+      "icon": "",
+      "description": "À jeter dans le conteneur vert réservé au verre.",
+      "bon_a_savoir": "Pense à retirer le couvercle et à le mettre dans le bac jaune. Le verre se recycle à l’infini, inutile de le laver !",
+      "mots_cles": ["pot", "confiture", "verre", "couvercle", "bocal", "recyclage"]
+    },
+    {
+      "nom": "Bocal",
+      "categorie": "Verre",
+      "poubelle": "verte",
+      "icon": "",
+      "description": "À jeter dans le conteneur vert réservé au verre.",
+      "bon_a_savoir": "Retire le couvercle et jette-le dans le bac jaune. Le verre se recycle à l’infini, mais les joints en caoutchouc vont à la poubelle ordinaire.",
+      "mots_cles": ["bocal", "verre", "conserve", "couvercle", "joint", "recyclage"]
+    },
+    {
+      "nom": "Flacon de parfum",
+      "categorie": "Verre",
+      "poubelle": "verte",
+      "icon": "",
+      "description": "À déposer dans le conteneur vert réservé au verre, s’il est entièrement en verre.",
+      "bon_a_savoir": "Vérifie que le flacon ne contient plus de liquide. Retire le bouchon ou le vaporisateur s’il se démonte, sinon jette-le tel quel dans le conteneur à verre.",
+      "mots_cles": ["flacon", "parfum", "verre", "cosmetique", "vaporisateur", "bouchon"]
+    }
+  ],
+
+	"bleue": [
+    {
+      "nom": "Magazine ou prospectus",
+      "categorie": "Papier",
+      "poubelle": "bleue",
+      "icon": "",
+      "description": "À jeter dans le conteneur bleu réservé aux papiers et cartons non alimentaires.",
+      "bon_a_savoir": "Les journaux, magazines et prospectus vont dans le bac bleu. Pense à retirer les films plastiques des magazines avant de les jeter !",
+      "mots_cles": ["magazine", "prospectus", "papier", "pub", "journal", "lecture"]
+    },
+    {
+      "nom": "Journal",
+      "categorie": "Papier",
+      "poubelle": "bleue",
+      "icon": "",
+      "description": "À jeter dans le conteneur bleu réservé aux papiers et cartons non alimentaires.",
+      "bon_a_savoir": "Les feuilles, enveloppes et papiers imprimés vont dans le bac bleu. Évite de les froisser ou les déchirer trop : cela facilite leur recyclage !",
+      "mots_cles": ["journal", "presse", "papier", "quotidien", "revue", "article"]
+    },
+    {
+      "nom": "Feuille papier",
+      "categorie": "Papier",
+      "poubelle": "bleue",
+      "icon": "",
+      "description": "À jeter dans le conteneur bleu réservé aux papiers et cartons non alimentaires.",
+      "bon_a_savoir": "Les feuilles, cahiers et enveloppes vont dans le bac bleu. Évite d’y mettre du papier gras, mouillé ou plastifié : il ne se recycle pas !",
+      "mots_cles": ["feuille", "papier", "impression", "brouillon", "document", "ecriture"]
+    },
+    {
+      "nom": "Enveloppe",
+      "categorie": "Papier",
+      "poubelle": "bleue",
+      "icon": "",
+      "description": "À jeter dans le conteneur bleu réservé aux papiers et cartons non alimentaires.",
+      "bon_a_savoir": "Les enveloppes, même avec une petite fenêtre plastique, vont dans le bac bleu. Inutile d’enlever les agrafes ou les trombones, ils sont retirés pendant le tri !",
+      "mots_cles": ["enveloppe", "courrier", "lettre", "papier", "fenetre", "postal"]
+    },
+    {
+      "nom": "Cahier",
+      "categorie": "Papier",
+      "poubelle": "bleue",
+      "icon": "",
+      "description": "À jeter dans le conteneur bleu réservé aux papiers et cartons non alimentaires.",
+      "bon_a_savoir": "Les cahiers et blocs-notes vont dans le bac bleu, même avec les agrafes ou la spirale. Tu peux arracher la couverture plastifiée si tu veux, mais ce n’est pas obligatoire. Attention, cahier mouillé, peint ou colle dessus : non recyclé.",
+      "mots_cles": ["cahier", "bloc", "note", "papier", "spirale", "ecole"]
+    }
+  ],
+
+	"biodechets": [
+    {
+      "nom": "Épluchures de fruits et légumes",
+      "categorie": "Biodéchet",
+      "poubelle": "marron",
+      "icon": "",
+      "description": "À mettre dans le composteur ou dans le bac marron des biodéchets.",
+      "bon_a_savoir": "Les épluchures se décomposent naturellement et deviennent un engrais riche pour les plantes !",
+      "mots_cles": ["epluchures", "fruits", "legumes", "compost", "dechets", "bio"]
+    },
+    {
+      "nom": "Restes alimentaires",
+      "categorie": "Biodéchet",
+      "poubelle": "marron",
+      "icon": "",
+      "description": "À jeter dans le bac marron avec les autres biodéchets.",
+      "bon_a_savoir": "Les restes de repas (riz, pain, légumes…) peuvent être compostés. Évite simplement la viande et le poisson qui attirent les nuisibles.",
+      "mots_cles": ["restes", "alimentaires", "repas", "compost", "pain", "riz"]
+    },
+    {
+      "nom": "Marc de café",
+      "categorie": "Biodéchet",
+      "poubelle": "marron",
+      "icon": "",
+      "description": "À mettre dans le composteur ou dans le bac marron.",
+      "bon_a_savoir": "Excellent pour le compost ! Le marc de café nourrit les plantes et éloigne les limaces. Tu peux aussi l’utiliser comme engrais naturel.",
+      "mots_cles": ["marc", "cafe", "compost", "engrais", "plante", "dechets"]
+    },
+    {
+      "nom": "Sachet de thé",
+      "categorie": "Biodéchet",
+      "poubelle": "marron",
+      "icon": "",
+      "description": "À jeter dans le composteur ou le bac marron avec les déchets organiques.",
+      "bon_a_savoir": "Les sachets de thé en papier se compostent. Retire l’agrafe ou l’étiquette s’il y en a une !",
+      "mots_cles": ["sachet", "the", "compost", "bio", "papier", "boisson"]
+    },
+    {
+      "nom": "Fleurs fanées",
+      "categorie": "Biodéchet",
+      "poubelle": "marron",
+      "icon": "",
+      "description": "À déposer dans le compost ou le bac marron avec les autres déchets verts.",
+      "bon_a_savoir": "Les fleurs fanées se décomposent très bien au compost. Coupe-les en morceaux pour accélérer la décomposition.",
+      "mots_cles": ["fleurs", "fanee", "plante", "compost", "jardin", "vert"]
+    }
+  ],
+
+	"gris": [
+    {
+      "nom": "Couche jetable",
+      "categorie": "Déchet non recyclable",
+      "poubelle": "grise",
+      "icon": "",
+      "description": "À jeter dans le bac gris avec les ordures ménagères.",
+      "bon_a_savoir": "Les couches contiennent du plastique, du papier et des matières organiques : elles ne sont pas recyclables. Jette-les bien dans un sac fermé.",
+      "mots_cles": ["couche", "bebe", "jetable", "dechet", "sac", "ordure"]
+    },
+    {
+      "nom": "Mouchoir usagé",
+      "categorie": "Papier souillé",
+      "poubelle": "grise",
+      "icon": "",
+      "description": "À jeter dans le bac gris avec les ordures ménagères.",
+      "bon_a_savoir": "Les mouchoirs en papier ne se recyclent pas car ils sont souillés. Tu peux les composter s’ils ne sont pas trop utilisés ou malades.",
+      "mots_cles": ["mouchoir", "usage", "papier", "malade", "dechet", "ordure"]
+    },
+    {
+      "nom": "Vaisselle cassée",
+      "categorie": "Inerte / Non recyclable",
+      "poubelle": "grise",
+      "icon": "",
+      "description": "À jeter dans le bac gris. Les assiettes et verres cassés ne se recyclent pas avec le verre d’emballage.",
+      "bon_a_savoir": "Le verre culinaire (assiettes, plats, vitres) fond à une température différente du verre d’emballage. Ne le mets pas dans le conteneur à verre.",
+      "mots_cles": ["vaisselle", "cassee", "assiette", "plat", "verre", "ordure"]
+    },
+    {
+      "nom": "Papier gras",
+      "categorie": "Papier souillé",
+      "poubelle": "grise",
+      "icon": "",
+      "description": "À jeter dans le bac gris avec les ordures ménagères.",
+      "bon_a_savoir": "Le papier ou le carton sali par la nourriture ou la graisse ne peut pas être recyclé. Le gras empêche la fabrication de nouveau papier.",
+      "mots_cles": ["papier", "gras", "sale", "carton", "nourriture", "ordure"]
+    },
+    {
+      "nom": "Brosse à dents",
+      "categorie": "Plastique non recyclable",
+      "poubelle": "grise",
+      "icon": "",
+      "description": "À jeter dans le bac gris avec les ordures ménagères.",
+      "bon_a_savoir": "Les brosses à dents sont composées de plastiques mélangés et de poils en nylon : elles ne se recyclent pas. Préfère une brosse à dents en bambou ou à tête rechargeable.",
+      "mots_cles": ["brosse", "dents", "dent", "plastique", "hygiene", "jetable"]
+    }
+  ],
+
+	"decheterie": [
+    {
+      "nom": "Pile",
+      "categorie": "Déchet dangereux",
+      "poubelle": "déchèterie",
+      "icon": "",
+      "description": "À déposer dans un point de collecte ou à la déchèterie.",
+      "bon_a_savoir": "Ne jette jamais les piles à la poubelle ! Elles contiennent des métaux lourds. Dépose-les dans les bornes de collecte en magasin ou en déchèterie.",
+      "mots_cles": ["pile", "batterie", "rechargeable", "metaux", "collecte", "energie"]
+    },
+    {
+      "nom": "Ampoule",
+      "categorie": "Déchet dangereux",
+      "poubelle": "déchèterie",
+      "icon": "",
+      "description": "À déposer à la déchèterie ou dans un point de collecte en magasin.",
+      "bon_a_savoir": "Les ampoules basse consommation et LED contiennent des métaux et composants électroniques. Ne les mets jamais avec le verre !",
+      "mots_cles": ["ampoule", "led", "lumiere", "lampe", "eclairage", "verre"]
+    },
+    {
+      "nom": "Peinture",
+      "categorie": "Déchet chimique",
+      "poubelle": "déchèterie",
+      "icon": "",
+      "description": "À apporter à la déchèterie dans son pot bien fermé.",
+      "bon_a_savoir": "Les restes de peinture, vernis ou solvants sont dangereux pour l’environnement. Ils doivent être déposés à la déchèterie.",
+      "mots_cles": ["peinture", "vernis", "solvant", "pot", "chimique", "bricolage"]
+    },
+    {
+      "nom": "Téléphone ou appareil électronique",
+      "categorie": "Déchet électrique et électronique (D3E)",
+      "poubelle": "déchèterie",
+      "icon": "",
+      "description": "À déposer en déchèterie ou en magasin lors d’un rachat.",
+      "bon_a_savoir": "Les appareils électroniques contiennent des métaux précieux et des batteries recyclables. Tu peux les rapporter en magasin ou les donner à une association.",
+      "mots_cles": ["telephone", "portable", "electronique", "appareil", "batterie", "d3e"]
+    },
+    {
+      "nom": "Produit chimique",
+      "categorie": "Déchet dangereux",
+      "poubelle": "déchèterie",
+      "icon": "",
+      "description": "À déposer à la déchèterie, jamais à la poubelle ni dans l’évier.",
+      "bon_a_savoir": "Les produits d’entretien, solvants, détartrants ou déboucheurs sont dangereux pour l’eau et la santé. Dépose-les à la déchèterie.",
+      "mots_cles": ["produit", "chimique", "entretien", "solvant", "danger", "toxique"]
+    }
+  ]
+}

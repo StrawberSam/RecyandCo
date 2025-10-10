@@ -15,6 +15,7 @@ from facade.auth_facade import auth_bp
 from facade.badge_facade import badge_bp
 from facade.score_facade import score_bp
 from facade.shop_facade import shop_bp
+from facade.rules_facade import rules_bp
 
 # Initialisation de l’app Flask
 app = Flask(__name__)
@@ -50,6 +51,7 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(badge_bp)
 app.register_blueprint(score_bp)
 app.register_blueprint(shop_bp)
+app.register_blueprint(rules_bp)
 
 
 if __name__ == "__main__":
