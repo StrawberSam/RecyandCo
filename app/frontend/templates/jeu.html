@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Jeu de tri - Récy&Co{% endblock %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/jeu.css') }}">{% endblock %}
+
+{% block content %}
+<div class="game-header">
+    <span class="username" id="user-info">...</span>
+    <span id="score-display">0 pts</span>
+    <a href="/profil" class="btn-profil">Mon profil</a>
+</div>
+
+
+<section id="zone-jeu">
+    <h2>Glisse chaque déchet dans la bonne poubelle !</h2>
+
+    <!--POUBELLES-->
+    <div class="poubelles-container">
+
+        <!--BlEUE-->
+        <div class="poubelle poubelle-bleue" data-bin="bleue">
+            <div class="couvercle"></div>
+            <div class="corps"></div>
+            <p class="poubelle-label">Papier & Carton</p>
+        </div>
+
+        <!--JAUNE-->
+        <div class="poubelle poubelle-jaune" data-bin="jaune">
+            <div class="couvercle"></div>
+            <div class="corps"></div>
+            <p class="poubelle-label">Plastique & Métal</p>
+        </div>
+
+        <!--VERTE-->
+        <div class="poubelle poubelle-verte" data-bin="verte">
+            <div class="couvercle"></div>
+            <div class="corps"></div>
+            <p class="poubelle-label">Verre</p>
+        </div>
+    </div>
+
+    <!--LES CARTES DE DECHETS-->
+    <div class="cartes-container">
+        <h3>Déchets à trier</h3>
+        <div id="cartes-zone" class="cartes-grille">
+            <!--Générées par javascript ici-->
+        </div>
+
+    </div>
+
+</section>
+
+<!--Bouton quitter/sauvegarder-->
+<footer class="game-footer">
+    <button id="btn-quit" class="btn-secondary">Quitter/Sauvegarder</button>
+</footer>
+
+<!--SCRIPT DU JEU : vérification auth, jeu, protection-->
+<script src="{{ url_for ('static', filename= 'js/auth-check.js') }}"></script>
+<script src="{{ url_for ('static', filename='js/jeu-de-tri.js') }}"></script>
+{% endblock %}

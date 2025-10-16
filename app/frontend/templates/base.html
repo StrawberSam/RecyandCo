@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Récy&Co{% endblock %}</title>
+
+    <!-- CSS commun à toutes les pages -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+    <!-- CSS spécifique selon la page -->
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+    {% include "header.html" %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "footer.html" %}
+
+    <script src="{{ url_for('static', filename='js/auth-refresh.js') }}"></script>
+
+    <!-- Scripts spécifiques aux pages -->
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

@@ -4,7 +4,7 @@
       "nom": "Bouteille en plastique",
       "categorie": "Plastique",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/plastique-bouteille.svg",
+      "icon": "poubelle_jaune/plastique-bouteille.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
       "bon_a_savoir": "Écrase la bouteille pour gagner de la place. Ne retire pas le bouchon : il est maintenant attaché et sera recyclé avec la bouteille!",
       "mots_cles": ["bouteille", "plastique", "eau", "flacon", "pet", "emballage"]
@@ -13,7 +13,7 @@
       "nom": "Bouteille de shampoing",
       "categorie": "Plastique",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/plastique-shampoing.svg",
+      "icon": "poubelle_jaune/plastique-shampoing.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
       "bon_a_savoir": "Pense à bien vider la bouteille avant de la jeter. Inutile de la rincer : cela gaspillerait de l’eau !",
       "mots_cles": ["bouteille", "shampoing", "flacon", "gel", "savon", "plastique"]
@@ -22,7 +22,7 @@
       "nom": "Barquette alimentaire",
       "categorie": "Plastique",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/plastique-barquette.svg",
+      "icon": "poubelle_jaune/plastique-barquette.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
       "bon_a_savoir": "Jette-la bien vidée, même si elle est un peu sale. Inutile de la laver : elle sera nettoyée pendant le recyclage.",
       "mots_cles": ["barquette", "alimentaire", "emballage", "plastique", "plat", "restes"]
@@ -31,7 +31,7 @@
       "nom": "Pot de yaourt",
       "categorie": "Plastique",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/plastique-yaourt.svg",
+      "icon": "poubelle_jaune/plastique-yaourt.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages en plastique.",
       "bon_a_savoir": "Videz bien le pot avant de le jeter, mais ne le lavez pas. Jette aussi l’opercule en aluminium dans le même bac : tout se recycle !",
       "mots_cles": ["pot", "yaourt", "plastique", "emballage", "dessert", "operule"]
@@ -40,7 +40,7 @@
       "nom": "Boite de conserve",
       "categorie": "Métal",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/metal-conserve.svg",
+      "icon": "poubelle_jaune/metal-conserve.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages métalliques.",
       "bon_a_savoir": "Pense à bien la vider avant de la jeter. Le métal se recycle à l’infini sans perdre sa qualité !",
       "mots_cles": ["boite", "conserve", "métal", "acier", "emballage", "alimentaire"]
@@ -49,7 +49,7 @@
       "nom": "Canette en aluminium",
       "categorie": "Métal",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/metal-canette.svg",
+      "icon": "poubelle_jaune/metal-canette.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages métalliques.",
       "bon_a_savoir": "Vides bien ta canette avant de la jeter. L’aluminium se recycle à l’infini : une canette triée peut redevenir une nouvelle canette en seulement 60 jours !",
       "mots_cles": ["canette", "boisson", "alu", "aluminium", "soda", "biere"]
@@ -58,7 +58,7 @@
       "nom": "Brique alimentaire",
       "categorie": "Carton",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/carton-brique.svg",
+      "icon": "poubelle_jaune/carton-brique.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages recyclables.",
       "bon_a_savoir": "Même si elle ressemble à du carton, la brique alimentaire va dans le bac jaune : c’est un mélange de carton, plastique et aluminium. Tout est recyclé ensemble !",
       "mots_cles": ["brique", "alimentaire", "lait", "jus", "soupe", "carton"]
@@ -67,7 +67,7 @@
       "nom": "Emballage carton",
       "categorie": "Carton",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/carton-emballage.svg",
+      "icon": "poubelle_jaune/carton-emballage.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages recyclables.",
       "bon_a_savoir": "Même si c’est du carton, elle va dans le bac jaune car c’est un emballage. Le bac bleu est réservé aux papiers et journaux !",
       "mots_cles": ["emballage", "carton", "boite", "paquet", "colis", "emballages"]
@@ -76,7 +76,7 @@
       "nom": "Boite de céréale",
       "categorie": "Carton",
       "poubelle": "jaune",
-      "icon": "poubelle-jaune/carton-cereales.svg",
+      "icon": "poubelle_jaune/carton-cereales.svg",
       "description": "À jeter dans le bac jaune avec les autres emballages recyclables.",
       "bon_a_savoir": "Même si elle est propre, la boîte de céréales va dans le bac jaune car c’est un emballage. Le sachet plastique intérieur, lui, va à la poubelle ordinaire.",
       "mots_cles": ["boite", "cereales", "carton", "petit-dejeuner", "emballage", "sachet"]

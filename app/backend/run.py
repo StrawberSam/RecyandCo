@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv() # Charge le fichier .env
 
 import os
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 from db import db
 from config import config
@@ -18,7 +18,11 @@ from facade.shop_facade import shop_bp
 from facade.rules_facade import rules_bp
 
 # Initialisation de l’app Flask
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder="../frontend/templates",
+    static_folder="../frontend/static"
+    )
 
 # Récupération de la config (par défaut : development)
 app_config = config["development"]()
@@ -46,12 +50,33 @@ app.config["services"] = {
     "shop": shop_service
 }
 
-# Routes
+# Blueprints (API)
 app.register_blueprint(auth_bp)
 app.register_blueprint(badge_bp)
 app.register_blueprint(score_bp)
 app.register_blueprint(shop_bp)
 app.register_blueprint(rules_bp)
+
+# Routes Front (HTML)
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/auth")
+def auth():
+    return render_template("auth.html")
+
+@app.route("/jeu")
+def jeu():
+    return render_template("jeu.html")
+
+@app.route("/infos")
+def infos():
+    return render_template("infos.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 if __name__ == "__main__":
