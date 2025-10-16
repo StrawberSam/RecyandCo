@@ -25,13 +25,14 @@ def login():
 
     # Si connexion réussie → stocker refresh token dans un cookie sécurisé
     if response.get("success"):
-        flask_response = jsonify(response)
         refresh_token = response["data"].pop("refresh_token") # on ne renvoie plus le refresh token dans le JSON
+        flask_response = jsonify(response)
+
         flask_response.set_cookie(
             "refresh_token",
             refresh_token,
             httponly=True, # non accessible par le JS (anti-XSS)
-            secure=True, # obligatoire en HTTPS
+            secure=False, # obligatoire en HTTPS
             samesite="Lax", # empêche le vol de cookie entre sites
             max_age=60*60*24*7 # 7 jours
         )
