@@ -21,6 +21,20 @@
 
 		<button type="submit" class="btn-primary">Se connecter</button>
 	</form>
+
+	<!-- Formulaire d'inscription (caché par défaut) -->
+	<form id="register-form" style="display: none;">
+    	<input type="text" id="register-username" placeholder="Pseudo" required />
+    	<input type="email" id="register-email" placeholder="Email" required />
+    	<input type="password" id="register-password" placeholder="Mot de passe" required />
+    	<button type="submit">S'inscrire</button>
+	</form>
+
+<!-- Lien pour basculer -->
+<p>
+    <span id="toggle-text">Pas encore de compte ?</span>
+    <a href="#" id="toggle-link">S'inscrire</a>
+</p>
 </div>
 
 <script src="{{ url_for('static', filename='js/auth.js') }}"></script>

@@ -11,6 +11,24 @@ document.addEventListener('DOMContentLoaded', function() {
       handleLogin();
     });
   }
+
+  // Formulaire d'inscription
+    let registerForm = document.getElementById('register-form');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            handleRegister();
+        });
+    }
+
+    // Lien pour basculer entre login/register
+    let toggleLink = document.getElementById('toggle-link');
+    if (toggleLink) {
+        toggleLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            toggleForms();
+        });
+    }
 });
 
 // Gère la connexion de l'utilisateur
@@ -65,6 +83,77 @@ function handleLogin() {
     console.error('erreur réseau:', error);
     showMessage('Erreur de connexion. Vérifier votre connexion internet.', 'error');
   });
+}
+
+// Gère l'inscription de l'utilisateur
+// ==================================
+function handleRegister() {
+  console.log('Tentative d\'inscription');
+
+  // Récupération des valeurs du formulaire
+  let username = document.getElementById('register-username').value;
+  let email = document.getElementById('register-email').value;
+  let password = document.getElementById('register-password').value;
+
+  // Masquer anciens messages
+  hideMessage();
+
+  // ✅ Utilise fetch() normal (pas de token nécessaire pour register)
+  fetch('/api/register', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Réponse reçue :', data);
+
+    if (data.success === true) {
+        console.log('Inscription réussie');
+        showMessage('Inscription réussie ! Vous pouvez maintenant vous connecter.', 'success');
+
+        // Basculer vers le formulaire de login après 2 secondes
+        setTimeout(function() {
+            toggleForms();
+        }, 2000);
+    } else {
+        console.log('Inscription échouée');
+        showMessage(data.message || 'Erreur lors de l\'inscription', 'error');
+      }
+  })
+  .catch(error => {
+    console.error('Erreur réseau:', error);
+    showMessage('Erreur de connexion. Vérifier votre connexion internet.', 'error');
+  });
+}
+
+// Bascule entre formulaire login et register
+// ==========================================
+function toggleForms() {
+    let loginForm = document.getElementById('login-form');
+    let registerForm = document.getElementById('register-form');
+    let toggleText = document.getElementById('toggle-text');
+    let toggleLink = document.getElementById('toggle-link');
+
+    if (loginForm.style.display === 'none') {
+        // Afficher login, cacher register
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        toggleText.textContent = 'Pas encore de compte ?';
+        toggleLink.textContent = 'S\'inscrire';
+    } else {
+        // Afficher register, cacher login
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        toggleText.textContent = 'Déjà un compte ?';
+        toggleLink.textContent = 'Se connecter';
+    }
 }
 
 function recupererScoreApresLogin() {
