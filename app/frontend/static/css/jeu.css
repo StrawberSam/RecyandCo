@@ -1,0 +1,206 @@
+/* ============================================
+   TABLE DES MATIÈRES
+   ============================================
+   1. Styles Généraux (body, liens, titres...)
+   2. Header et Navigation
+   3. Footer
+   4. PAGE JEU - Poubelles
+   5. PAGE JEU - Cartes de Déchets
+   6. PAGE JEU - Mascotte Récy
+   7. PAGE JEU - Animations et Feedbacks
+   8. Autres pages...
+   ============================================ */
+
+
+/* ============================================
+   4. PAGE JEU - POUBELLES
+   ============================================ */
+
+/* Conteneur des 3 poubelles */
+.poubelles-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+/* Structure de base d'une poubelle */
+.poubelle {
+  position: relative;
+  width: 80px;
+  height: 120px;
+  cursor: pointer;
+}
+
+/* Couvercle de la poubelle */
+.couvercle {
+  width: 90px;
+  height: 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: -5px;
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+}
+
+/* Corps de la poubelle */
+.corps {
+  width: 80px;
+  height: 90px;
+  border-radius: 0 0 8px 8px;
+  position: absolute;
+  top: 20px;
+}
+
+/* Animation du couvercle au survol */
+.poubelle:hover .couvercle {
+  transform: rotate(-10deg);
+}
+
+/* --- COULEURS DES POUBELLES --- */
+
+/* Poubelle Bleue */
+.poubelle-bleue .couvercle,
+.poubelle-bleue .corps {
+  background-color: #2196F3;
+}
+
+/* Poubelle Jaune */
+.poubelle-jaune .couvercle,
+.poubelle-jaune .corps {
+  background-color: #f7cb00;
+}
+
+/* Poubelle Verte */
+.poubelle-verte .couvercle,
+.poubelle-verte .corps {
+  background-color: #4CAF50;
+}
+
+/* Label sur la poubelle */
+.poubelle-label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: white;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  pointer-events: none;
+  z-index: 10;
+}
+
+
+/* ============================================
+   5. PAGE JEU - CARTES DE DÉCHETS
+   ============================================ */
+
+/* Conteneur principal des cartes */
+.cartes-container {
+  margin: 40px 0;
+  text-align: center;
+}
+
+/* Titre de la section cartes */
+.cartes-container h3 {
+  color: #2E7D32;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+/* Grille d'affichage des 7 cartes */
+.cartes-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Style d'une carte de déchet */
+.carte-dechet {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 15px;
+  cursor: grab;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Effet au survol de la carte */
+.carte-dechet:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-color: #4CAF50;
+}
+
+/* Quand on clique sur la carte */
+.carte-dechet:active {
+  cursor: grabbing;
+}
+
+/* Icône du déchet dans la carte */
+.carte-dechet img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+  pointer-events: none;
+}
+
+/* Nom du déchet dans la carte */
+.carte-dechet p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  pointer-events: none;
+}
+
+/* mode clic-clic */
+.carte-dechet.selectionnee {
+  border: 3px solid #4CAF50;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  transform: scale(1.05);
+}
+
+/* ============================================
+   6. PAGE JEU - MASCOTTE RÉCY
+   ============================================ */
+
+/* (On ajoutera ça plus tard quand on fera la mascotte) */
+
+
+/* ============================================
+   7. PAGE JEU - ANIMATIONS ET FEEDBACKS
+   ============================================ */
+
+/* Animation de succès (bonne réponse) */
+@keyframes succes-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.feedback-succes {
+  animation: succes-pulse 0.5s ease;
+  border-color: #4CAF50 !important;
+  background: rgba(76, 175, 80, 0.2) !important;
+}
+
+/* Animation d'erreur (mauvaise réponse) */
+@keyframes erreur-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.feedback-erreur {
+  animation: erreur-shake 0.5s ease;
+  border-color: #F44336 !important;
+}
