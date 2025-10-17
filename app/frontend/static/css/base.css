@@ -46,10 +46,30 @@ nav a {
 
 /* Footer */
 footer {
+  font-size: small;
   background-color: #B0C7B4;
+  padding: 1rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-bottom {
   text-align: center;
 }
 
+footer a {
+  color: black;
+}
 /* Navigation */
 
 /* Boutons */
