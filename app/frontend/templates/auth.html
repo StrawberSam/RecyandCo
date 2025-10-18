@@ -1,40 +1,58 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
 {% block title %} Connexion - Récy&Co {% endblock %}
 
 {% block content %}
-<div class="auth-container">
-	<h1>Connexion</h1>
+<div class="auth-page-wrapper">
 
-	<div id="message" class="message" style="display: none;"></div>
+    <div class="auth-container">
+        <img src="{{ url_for('static', filename='icons/recy.svg') }}" alt="Récy le raton laveur" class="mascot">
+        <h2>Connexion</h2>
 
-	<form id="login-form">
-		<div class="form-group">
-			<label for="email">Email:</label>
-			<input type="email" id="email" name="email" required>
-		</div>
+        <div id="message" class="message" style="display: none;"></div>
 
-		<div class="form-group">
-			<label for ="password">Mot de passe :</label>
-			<input type="password" id ="password" name="password" required>
-		</div>
+        <form id="login-form">
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+            <button type="submit" class="btn-primary">Se connecter</button>
+        </form>
 
-		<button type="submit" class="btn-primary">Se connecter</button>
-	</form>
+        <!-- Formulaire d'inscription (caché par défaut) -->
+        <form id="register-form" style="display: none;">
+            <input type="text" id="register-username" placeholder="Pseudo" required />
+            <input type="email" id="register-email" placeholder="Email" required />
+            <input type="password" id="register-password" placeholder="Mot de passe" required />
+            <button type="submit">S'inscrire</button>
+        </form>
 
-	<!-- Formulaire d'inscription (caché par défaut) -->
-	<form id="register-form" style="display: none;">
-    	<input type="text" id="register-username" placeholder="Pseudo" required />
-    	<input type="email" id="register-email" placeholder="Email" required />
-    	<input type="password" id="register-password" placeholder="Mot de passe" required />
-    	<button type="submit">S'inscrire</button>
-	</form>
+        <!-- Lien pour basculer -->
+        <p>
+            <span id="toggle-text">Pas encore de compte ?</span>
+            <a href="#" id="toggle-link">S'inscrire</a>
+        </p>
+    </div>
 
-<!-- Lien pour basculer -->
-<p>
-    <span id="toggle-text">Pas encore de compte ?</span>
-    <a href="#" id="toggle-link">S'inscrire</a>
-</p>
+    <div class="warning-container">
+         <p>
+        <strong>Coucou, c'est Récy !</strong><br>
+        Avant de jouer, écoute-moi bien :<br><br>
+
+        <strong>Choisis un pseudo marrant !</strong><br>
+        Comme "MaîtrePoubelle" ou "RecycloMan" ou encore "ReineTrieuse". Ne jamais donner ton vrai nom !<br><br>
+
+        <strong>Tes secrets restent secrets !</strong> 🤫<br>
+        Ne donne jamais ton adresse, ton numéro de téléphone, ton mot de passe, ton email ou le nom de ton école.<br><br>
+
+        <strong>Parents :</strong><br>
+        On ne demande qu'un pseudo et un email pour jouer et récolter les points. Les points serviront à la boutique. Vos données sont en sécurité, promesse de raton ! 🔒<br><br>
+
+        <strong>Amusez-vous et devenez les rois du tri !</strong>
+        </p>
+    </div>
 </div>
 
 <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
