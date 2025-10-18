@@ -140,19 +140,22 @@ function toggleForms() {
     let registerForm = document.getElementById('register-form');
     let toggleText = document.getElementById('toggle-text');
     let toggleLink = document.getElementById('toggle-link');
+    let title = document.querySelector('.auth-container h2');
 
     if (loginForm.style.display === 'none') {
         // Afficher login, cacher register
-        loginForm.style.display = 'block';
+        loginForm.style.display = 'flex';
         registerForm.style.display = 'none';
         toggleText.textContent = 'Pas encore de compte ?';
         toggleLink.textContent = 'S\'inscrire';
+        title.textContent = 'Connexion';
     } else {
         // Afficher register, cacher login
         loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
+        registerForm.style.display = 'flex';
         toggleText.textContent = 'Déjà un compte ?';
         toggleLink.textContent = 'Se connecter';
+        title.textContent = 'Inscription';
     }
 }
 

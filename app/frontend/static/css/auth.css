@@ -1,14 +1,23 @@
+.auth-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+    margin-top: 12vh;
+    flex-wrap: wrap; /* Important pour le responsive */
+}
+
 .auth-container {
     background-color: #F7F8F5;
     text-align: center;
     padding: 2rem;
 
-    max-width: 500px;
+    max-width: 400px;
     width: 90%;
-    margin: 2rem auto;
+    margin: 0;
     border-radius: 10px;
     box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 20vh;
 }
 
 .form-group {
@@ -66,4 +75,38 @@
     width: 150px;
     height: auto;
     margin-bottom: 0.5rem;
+}
+
+.warning-container {
+    background-color: #F7F8F5;
+    border-left: 4px solid #B0C7B4; /* Bordure pour le côté "attention" */
+    text-align: justify;
+    padding: 1rem;
+
+    max-width: 400px;
+    width: 90%;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.warning-container h3 {
+    color: #94A698;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.warning-container p {
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.warning-container strong {
+    color: #5A6B5E;
+}
+
+.warning-container em {
+    font-size: 0.9rem;
+    color: #666;
 }
