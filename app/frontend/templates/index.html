@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <!--SECTION 1: HERO-->
+    <section class="hero">
+        <div class="hero-images">
+            <img src="{{ url_for('static', filename='img/Foret-1.webp') }}" alt="Forêt" class="forest">
+            <img src="{{ url_for('static', filename='img/Foret-2.webp') }}" alt="Champignon" class="forest-2">
+        </div>
+        <div class="hero-text">
+            <h2>Bienvenue sur Récy&Co<br> Le tri, c’est rigolo !<br>͞͞͞͞ ͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞</h2><br><br>
+            <p>
+                Apprends à mieux trier tes déchets grâce à :<br><br>
+
+                Des infos claires<br>
+                Une recherche pour savoir où jeter,<br>
+                Un jeu interactif avec notre mascotte Récy,<br>
+                Une boutique bonus pour dépenser tes bouchons !<br><br>
+
+                Un site simple, gratuit et pensé en éco-conception,<br>
+                pour sensibiliser petits et grands tout en s’amusant!
+            </p>
+        </div>
+    </section>
+    <div class="auth-buttons">
+        <div class="auth-option">
+            <p>Connecte-toi pour pouvoir jouer<br> et avoir accès à la boutique !</p>
+            <a href="{{ url_for('auth') }}" class="btn-auth">Connexion</a>
+        </div>
+
+        <div class="auth-option">
+            <p>Pas encore de compte ? Inscris-toi !</p>
+            <a href="{{ url_for('auth') }}" class="btn-auth">Inscription</a>
+        </div>
+    </div>
+
+    <!--SECTION 2: FONCTIONNALITES-->
+    <section class="features">
+        <h2>Découvre nos fonctionnalités</h2>
+
+        <div class="features-grid">
+            <article class="feature-card">
+                <img src="{{ url_for('static', filename='icons/info.svg') }}" alt="Info" class="feature-icon"><br><br>
+                <h3>Infos tri</h3>
+                <p>Consulte les consignes</p>
+                <a href="{{ url_for('infos') }}">Découvrir</a>
+            </article>
+
+            <article class="feature-card">
+                <img src="{{ url_for('static', filename='icons/recy.svg') }}" alt="Récy" class="feature-icon">
+                <h3>Jeu de tri</h3>
+                <p>apprends en t'amusant</p>
+                <a href="{{ url_for('jeu') }}">Jouer</a>
+            </article>
+
+            <article class="feature-card">
+                <img src="{{ url_for('static', filename='icons/search.svg') }}" alt="Search" class="feature-icon"><br><br>
+                <h3>Où jeter ?</h3>
+                <p>Trouver la bonne poubelle</p>
+                <a href="{{ url_for('jeter') }}">Rechercher</a>
+            </article>
+        </div>
+    </section>
+
+    <!--SECTION 3: BOUTIQUE-->
+    <section class="shop-section">
+        <div class="shop-text">
+            <h2>La boutique de Récy<br> ͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ </h2>
+            <p>
+                Chaque déchet bien trié te rapporte des points.<br>
+                Utilise-les pour débloquer des articles exclusifs dans la boutique:<br><br>
+                - Badges<br>
+                - Skin encadrement de ton espace personnel (à venir)<br><br>
+            </p>
+            <a href="{{ url_for('shop') }}" class="btn-shop">Voir la boutique</a>
+        </div>
+
+        <div class="shop-images">
+            <img src="{{ url_for('static', filename='img/shop-1.webp') }}" alt="Boutique" class="shop-img-1">
+            <img src="{{ url_for('static', filename='img/shop-2.webp') }}" alt="Boutique-1" class="shop-img-2">
+        </div>
+    </section>
+
+    <!--SECTION 4 : A PROPOS-->
+    <section class="propos-section">
+        <div class="propos-text">
+            <h2>À propos de Récy</h2><br><br>
+            <p>
+                Vous voulez en savoir plus sur Récy et sa création ? C'est par ici !
+            </p><br><br>
+            <a href="{{ url_for('about') }}" class="btn-propos">À propos du projet</a>
+        </div>
+    </section>
+</main>
+{% endblock %}

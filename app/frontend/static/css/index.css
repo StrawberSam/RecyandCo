@@ -1,0 +1,215 @@
+/* SECTION HERO */
+.hero {
+    background-color: #F7F8F5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    max-width: auto;
+    margin: 0 auto; /* Centre automatiquement */
+}
+
+.hero-images {
+    position: relative;
+    width: 550px;
+    height: 550px;
+    flex-shrink: 0;
+    margin-left: 8rem;
+}
+
+.forest {
+    width: 450px;
+    height: 500px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+    border-radius: 200px 200px 0 0;
+}
+
+.forest-2 {
+    width: 380px;
+    height: 400px;
+    position: absolute; /* Se superpose à la première */
+    bottom: 0px;
+    right: -110px; /* Dépasse un peu à droite */
+    z-index: 2; /* Au-dessus du grand */
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15)); /* Ombre plus légère */
+    border-radius: 200px 200px 0 0;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: center;
+    max-width: 1200px;
+}
+
+.hero-text p {
+    font-size: 1rem;
+}
+
+/* SECTION AUTHENTIFICATION*/
+
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15rem;
+    padding: 3rem 2rem;
+}
+
+.auth-option {
+    text-align: center;
+    max-width: 350px;
+}
+
+.auth-option p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.btn-auth {
+    display: inline-block;
+    background-color: #edeeea;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-auth:hover {
+    background-color: #dfe0dc;
+}
+
+/* SECTION FONCTIONNALITES */
+.features {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: flex;
+
+    gap: 2rem;
+    justify-content: center;
+}
+
+.feature-card {
+    background-color: #CFE0D3;
+    border-radius: 50px;
+    padding: 3rem 2rem;
+    width: 280px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-icon {
+    width: 120px;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    margin: 1rem 0;
+}
+
+.feature-card a {
+    display: inline-block;
+    background-color: #E8EDE9;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #333;
+    margin-top: 1rem;
+}
+
+/* SHOP SECTION */
+.shop-section {
+    background-color: #F7F8F5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+}
+
+.shop-text {
+    flex: 1;
+    text-align: center;
+}
+
+.shop-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.shop-images {
+    position: relative;
+    width: 450px;
+    height: 500px;
+    flex-shrink: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.shop-img-1 {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    z-index: 2;
+    right: 200px;
+    border-radius: 0 0 200px 200px;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+}
+
+.shop-img-2 {
+    width: 380px;
+    height: 500px;
+    position: absolute;
+    z-index: 1;
+    border-radius: 0 0 200px 200px;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+}
+
+.btn-shop {
+    display: inline-block;
+    background-color: #edeeea;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #333;
+    margin-top: 1rem;
+}
+
+/* SECTION A PROPOS */
+.propos-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+}
+
+.propos-text {
+    text-align: center;
+}
+
+.btn-propos {
+    display: inline-block;
+    background-color: #edeeea;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #333;
+    margin-top: 1rem;
+}
+
