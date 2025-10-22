@@ -15,13 +15,16 @@ class ScoreService:
     def __init__(self, db):
         self.db = db
 
-    def add_score(self, user_id, points):
+    def add_score(self, user_id, points, correct_items=None, total_items=None, duration_ms=None):
         """
         Ajoute un nouveau score pour un utilisateur et met à jour son total_score.
 
         Args:
             user_id (int): identifiant de l’utilisateur
             points (int): points gagnés (1 point = 1 item trié correct)
+            correct_items (int): nombre d'items correctement triés
+            total_items (int): nombre total d'items triés (correct + incorrect)
+            duration_ms (int): durée de la partie en millisecondes
 
         Returns:
             dict: infos du score ajouté + total_score mis à jour
@@ -38,6 +41,17 @@ class ScoreService:
         if points < 0:
             return {"success": False, "message": "Les données de la partie sont invalides", "status_code": 400}
 
+        new_score = Score(
+            user_id=user_id,
+            points=points,
+            correct_items=correct_items or 0,
+            total_items=total_items or 0,
+            duration_ms=duration_ms or 0
+        )
+
+        # Ajout à la session
+        self.db.session.add(new_score)
+
         # MAJ du total
         utilisateur.total_score += points
 
@@ -48,7 +62,8 @@ class ScoreService:
             "success": True,
             "data": {
                 "user_id": user_id,
-                "total_score": utilisateur.total_score
+                "total_score": utilisateur.total_score,
+                "score_id": new_score.id
             },
             "status_code": 200
         }

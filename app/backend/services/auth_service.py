@@ -127,9 +127,6 @@ class AuthService:
             "status_code": 200
         }
 
-    def logout_user(self, token=None):
-        return {"success": True, "message": "Déconnexion réussie", "status_code": 200}
-
     def refresh_access_token(self, refresh_token):
         payload = self.security.decode_token(refresh_token, self.config.SECRET_KEY)
         if payload is None:

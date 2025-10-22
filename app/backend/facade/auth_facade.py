@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, request, current_app
+from flask import Blueprint, config, jsonify, make_response, request, current_app
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -60,7 +60,7 @@ def login():
 def me():
     service = current_app.config["services"]["auth"]
 
-    # ✅ CORRECTION : Lire uniquement depuis les cookies
+    # Lire uniquement depuis les cookies
     token = request.cookies.get("access_token")
 
     if not token:
@@ -72,16 +72,44 @@ def me():
 
 @auth_bp.route("/api/logout", methods=["POST"])
 def logout():
-    service = current_app.config["services"]["auth"]
-    response = service.logout_user()
-    return jsonify(response), response["status_code"]
+    """
+    Déconnecte l'utilisateur en supprimant les cookies de tokens
+    """
 
+    response = make_response(jsonify({
+        "success": True,
+        "message": "Déconnexion réussie"
+    }), 200)
+
+    # Supprimer access_token avec les MÊMES attributs que lors de la création
+    response.set_cookie(
+        'access_token',
+        value='',
+        max_age=0,
+        httponly=True,
+        secure=False,
+        samesite='Lax',
+        path='/'
+    )
+
+    # Supprimer refresh_token avec les MÊMES attributs
+    response.set_cookie(
+        'refresh_token',
+        value='',
+        max_age=0,
+        httponly=True,
+        secure=False,
+        samesite='Lax',
+        path='/'
+    )
+
+    return response
 
 @auth_bp.route("/api/users", methods=["GET"])
 def all_users():
     service = current_app.config["services"]["auth"]
 
-    # ✅ CORRECTION : Lire depuis les cookies
+    # Lire depuis les cookies
     token = request.cookies.get("access_token")
 
     if not token:

@@ -20,7 +20,10 @@ def add_scores():
     data = request.get_json()
     response = score_service.add_score(
         user_id=user_id,
-        points=data.get("points")
+        points=data.get("points"),
+        correct_items=data.get("correct_items"),
+        total_items=data.get("total_items"),
+        duration_ms=data.get("duration_ms")
         )
     return jsonify(response), response["status_code"]
 
@@ -32,7 +35,7 @@ def user_score():
     token = request.cookies.get("access_token")
     if not token:
         return jsonify({"success": False, "message": "Token manquant"}), 401
-    
+
     user = auth_service.get_user_by_id(token)
     if not user.get("success"):
         return jsonify(user), 401
