@@ -105,7 +105,8 @@ class AuthService:
                 "id": utilisateur.id,
                 "username": utilisateur.username,
                 "email": utilisateur.email,
-                "created_at": utilisateur.created_at.isoformat()
+                "created_at": utilisateur.created_at.isoformat(),
+                "total_score": utilisateur.total_score
             },
             "status_code": 200
         }

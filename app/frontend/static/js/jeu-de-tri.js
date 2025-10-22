@@ -2,22 +2,27 @@
 // JEU DE TRI - RÉCY&CO
 // ============================================
 
-// 0. Vérification de l'utilisateur si connecté avant de charger le jeu
+// 1. Vérification de l'utilisateur si connecté avant de charger le jeu
 // ============================================
 
-if (typeof protegerPage === 'function') {
-    protegerPage();
-} else {
-    console.error('auth-check.js n\'est pas chargé.')
-}
+document.addEventListener('DOMContentLoaded', async function () {
+  if (typeof protegerPage === 'function') {
+    await protegerPage();
+  } else {
+    console.error('auth-check.js n\'est pas chargé.');
+  }
 
-// Récupère info utilisateur
-let infosUtilisateur = getInfosUtilisateur();
-if (!infosUtilisateur) {
-    console.error('Impossible de récupérer les infos utilisateur');
-}
+  console.log('🎮 Jeu de tri chargé !');
+  chargerInfosUtilisateur();
+  chargerDechets();
 
-// 1. VARIABLES GLOBALES
+  let btnQuit = document.getElementById('btn-quit');
+  if (btnQuit) {
+    btnQuit.addEventListener('click', sauvegarderEtQuitter);
+  }
+});
+
+// 2. VARIABLES GLOBALES
 // ============================================
 
 // Tous les déchets recyclables (bleue, jaune, verte)
@@ -34,23 +39,6 @@ let scoreTotalUtilisateur = 0;
 let nombreTentatives = 0;
 // nb de déchet correctement triés
 let nombreCorrects = 0;
-
-
-// 2. INITIALISATION AU CHARGEMENT DE LA PAGE
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎮 Jeu de tri chargé !');
-    afficherUsername();
-    recupererScoreTotal();
-    chargerDechets();
-
-    let btnQuit = document.getElementById('btn-quit');
-    if (btnQuit) {
-        btnQuit.addEventListener('click', sauvegarderEtQuitter);
-    }
-});
-
 
 // 3. CHARGEMENT ET FILTRAGE DES DONNÉES
 // ============================================
@@ -398,33 +386,34 @@ function mettreAJourAffichageScore() {
     }
 }
 
-function afficherUsername() {
-    let username = localStorage.getItem('username');
+async function chargerInfosUtilisateur() {
+    try {
+        const response = await fetchWithAuth('/api/me', {
+            method: 'GET'
+        });
 
-    let userInfo = document.getElementById('user-info');
+        if (!response.ok) {
+            return;
+        }
 
-    if (userInfo && username) {
-        userInfo.textContent = '👤 ' + username;
-        console.log('Username affiché', username);
-    } else {
-        console.error('Username ou élément #user-info introuvable');
-    }
-}
+        const data = await response.json();
 
-// Récupération du score total du user depuis l'API
-function recupererScoreTotal(){
-    console.log('Récupération du score total');
+        if (data.success && data.data) {
+            // afficher username
+            const username = data.data.username;
+            let userInfo = document.getElementById('user-info');
+            if (userInfo) {
+                userInfo.textContent = '👤 ' + username;
+            }
 
-    let scoreStocke = localStorage.getItem('total_score');
-
-    if (scoreStocke !== null) {
-        scoreTotalUtilisateur = parseInt(scoreStocke, 10);
-        console.log('Score total récupéré :', scoreTotalUtilisateur, 'pts');
-    } else {
-        console.warn('Aucun score trouvé, initialisation à 0');
+            // récupère le score
+            scoreTotalUtilisateur = data.data.total_score || 0;
+            mettreAJourAffichageScore();
+        }
+    } catch (error) {
         scoreTotalUtilisateur = 0;
+        mettreAJourAffichageScore();
     }
-    mettreAJourAffichageScore();
 }
 
 function sauvegarderEtQuitter() {
@@ -459,12 +448,14 @@ function sauvegarderEtQuitter() {
             console.log('🎉 Score sauvegardé avec succès !');
             console.log('🏆 Nouveau score total :', data.data.total_score);
 
-            // MAJ localStorage
-            let nouveauTotal = scoreTotalUtilisateur + scoreSession;
-            localStorage.setItem('total_score', nouveauTotal);
+            // MAJ score total
+            scoreTotalUtilisateur = data.data.total_score;
+            mettreAJourAffichageScore();
 
             // Rediriger vers la page d'accueil
-            window.location.href = '/';
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
         } else {
             console.error('Erreur lors de la sauvegarde :', data);
             alert('Erreur lors de la sauvegarde du score');

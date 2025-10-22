@@ -7,11 +7,10 @@ def add_scores():
     auth_service = current_app.config["services"]["auth"]
     score_service = current_app.config["services"]["score"]
 
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
+    token = request.cookies.get("access_token")
+    if not token:
         return jsonify({"success": False, "message": "Token manquant"}), 401
 
-    token = auth_header.split(" ")[1]
     user = auth_service.get_user_by_id(token)
     if not user.get("success"):
         return jsonify(user), 401
@@ -30,11 +29,10 @@ def user_score():
     auth_service = current_app.config["services"]["auth"]
     score_service = current_app.config["services"]["score"]
 
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
+    token = request.cookies.get("access_token")
+    if not token:
         return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    token = auth_header.split(" ")[1]
+    
     user = auth_service.get_user_by_id(token)
     if not user.get("success"):
         return jsonify(user), 401
@@ -50,3 +48,47 @@ def leaderboard():
 
     response = score_service.get_leaderboard(limit)
     return jsonify(response), response["status_code"]
+
+@score_bp.route("/api/stats/me", methods=["GET"])
+def get_my_stats():
+    """
+    Route pour récupérer les statistiques de l'utilisateur connecté.
+    Nécessite un token JWT valide dans les cookies.
+    """
+    # 1. Récupérer les services
+    auth_service = current_app.config["services"]["auth"]
+    score_service = current_app.config["services"]["score"]
+
+    # 2. Récupérer le token depuis les COOKIES
+    token = request.cookies.get("access_token")
+    if not token:
+        return jsonify({
+            "success": False,
+            "message": "Token manquant"
+        }), 401
+
+    # 3. Vérifier le token et récupérer l'utilisateur
+    user = auth_service.get_user_by_id(token)
+    if not user.get("success"):
+        return jsonify(user), 401
+
+    # 4. Récupérer l'user_id
+    user_id = user["data"]["id"]
+
+    try:
+        # 5. Appeler la fonction du service pour obtenir les stats
+        stats = score_service.get_user_stats(user_id)
+
+        # 6. Renvoyer les stats en JSON avec succès
+        return jsonify({
+            "success": True,
+            "data": stats
+        }), 200
+
+    except Exception as e:
+        # En cas d'erreur, renvoyer un message d'erreur
+        return jsonify({
+            "success": False,
+            "message": "Erreur lors de la récupération des statistiques",
+            "error": str(e)
+        }), 500

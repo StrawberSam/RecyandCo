@@ -1,5 +1,6 @@
 from sqlalchemy import desc
-from db.models import db, User
+from db.models import Score, db, User
+
 
 class ScoreService:
     """
@@ -78,7 +79,7 @@ class ScoreService:
             "status_code": 200
         }
 
-    def get_leaderboard(self, limit = 15):
+    def get_leaderboard(self, limit=15):
         """
         Récupère le classement global des utilisateurs par total_score.
 
@@ -110,4 +111,35 @@ class ScoreService:
             "success": True,
             "data": leaderboard,
             "status_code": 200
+        }
+
+
+    def get_user_stats(self, user_id: int):
+        """
+        Récupère les statistiques de jeu d'un utilisateur
+        """
+        # 1. Compter le nombre de parties
+        parties_jouees = Score.query.filter_by(user_id=user_id).count()
+
+        # 2. Trouver le meilleur score (le plus grand 'points')
+        meilleur_score = db.session.query(db.func.max(Score.points))\
+            .filter_by(user_id=user_id)\
+            .scalar()
+
+        # 3. Additionner tous les 'correct_items'
+        total_correct_items = db.session.query(db.func.sum(Score.correct_items))\
+            .filter_by(user_id=user_id)\
+            .scalar()
+
+        # Si l'utilisateur n'a jamais joué, on met des valeurs par défaut à 0
+        if meilleur_score is None:
+            meilleur_score = 0
+        if total_correct_items is None:
+            total_correct_items = 0
+
+        # ✅ UTILISER LES VRAIS NOMS DE LA DB
+        return {
+            "parties_jouees": parties_jouees,
+            "points": meilleur_score,
+            "correct_items": total_correct_items
         }

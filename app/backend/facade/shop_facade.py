@@ -14,12 +14,10 @@ def can_purchase_item():
     shop_service = current_app.config["services"]["shop"]
 
     #Vérification token
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
+    token = request.cookies.get("access_token")
+    if not token:
         return jsonify({"success": False, "message": "Token manquant"}), 401
 
-    # Récupère l'utilisateur
-    token = auth_header.split(" ")[1]
     user = auth_service.get_user_by_id(token)
 
     if not user.get("success"):
@@ -51,12 +49,10 @@ def purchase_item():
     shop_service = current_app.config["services"]["shop"]
 
     #Vérification token
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
+    token = request.cookies.get("access_token")
+    if not token:
         return jsonify({"success": False, "message": "Token manquant"}), 401
 
-    # Récupère l'utilisateur
-    token = auth_header.split(" ")[1]
     user = auth_service.get_user_by_id(token)
 
     if not user.get("success"):
