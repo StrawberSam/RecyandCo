@@ -1,9 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}Jeu de tri - Récy&Co{% endblock %}
-{% block css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/jeu.css') }}">{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jeu.css') }}">{% endblock %}
 
 {% block content %}
+
+
+<!--SECTION: HERO-->
+<section class="hero">
+    <div class="hero-images">
+        <img src="{{ url_for('static', filename='img/Foret-1.webp') }}" alt="Forêt" class="forest">
+        <img src="{{ url_for('static', filename='img/Foret-2.webp') }}" alt="Champignon" class="forest-2">
+    </div>
+    <div class="hero-text">
+        <h2>Joue avec Récy !<br> ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+            ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞</h2><br><br>
+        <p>
+            Jeu de tri : À toi de jouer !<br><br>
+            Aide Récy à trier les déchets. Fais glisser chaque objet vers sa poubelle<br> et découvre si tu as juste. Plus tu tries bien, plus tu marques de points ! 🏆
+        </p>
+    </div>
+</section>
+
+
 <div class="game-header">
     <span class="username" id="user-info">...</span>
     <span id="score-display">0 pts</span>
@@ -12,8 +32,6 @@
 
 
 <section id="zone-jeu">
-    <h2>Glisse chaque déchet dans la bonne poubelle !</h2>
-
     <!--POUBELLES-->
     <div class="poubelles-container">
 

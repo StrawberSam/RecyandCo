@@ -6,6 +6,21 @@
 
 {% block content %}
 <main>
+	<!--SECTION: HERO-->
+	<section class="hero">
+		<div class="hero-images">
+			<img src="{{ url_for('static', filename='img/Foret-1.webp') }}" alt="Forêt" class="forest">
+			<img src="{{ url_for('static', filename='img/Foret-2.webp') }}" alt="Champignon" class="forest-2">
+		</div>
+		<div class="hero-text">
+			<h2>Profil<br> ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+				͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞</h2><br><br>
+			<p>
+				Consulte tes scores, tes badges et continue à progresser avec Récy ! 🦝
+			</p>
+		</div>
+	</section>
+
 	<div class="profil-container">
 		<!--TIROIR 1-->
 		<h2>Bienvenue <span id="user-pseudo"></span> !</h2>

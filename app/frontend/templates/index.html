@@ -69,23 +69,20 @@
         </div>
     </section>
 
-    <!--SECTION 3: BOUTIQUE-->
-    <section class="shop-section">
-        <div class="shop-text">
-            <h2>La boutique de Récy<br> ͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+    <!--SECTION 3: PROFIL-->
+    <section class="profil-section">
+        <div class="profil-text">
+            <h2>Suis tes progrès !<br> ͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
                 ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ </h2>
             <p>
-                Chaque déchet bien trié te rapporte des points.<br>
-                Utilise-les pour débloquer des articles exclusifs dans la boutique:<br><br>
-                - Badges<br>
-                - Skin encadrement de ton espace personnel (à venir)<br><br>
+                Crée ton compte pour sauvegarder tes scores,<br> débloquer des badges et mesurer ton évolution.<br> Récy t'accompagne pour devenir un pro du tri ! 🦝🏆
             </p>
-            <a href="{{ url_for('shop') }}" class="btn-shop">Voir la boutique</a>
+            <a href="{{ url_for('profil') }}" class="btn-profil">Voir le profil</a>
         </div>
 
-        <div class="shop-images">
-            <img src="{{ url_for('static', filename='img/shop-1.webp') }}" alt="Boutique" class="shop-img-1">
-            <img src="{{ url_for('static', filename='img/shop-2.webp') }}" alt="Boutique-1" class="shop-img-2">
+        <div class="profil-images">
+            <img src="{{ url_for('static', filename='img/shop-1.webp') }}" alt="Boutique" class="profil-img-1">
+            <img src="{{ url_for('static', filename='img/shop-2.webp') }}" alt="Boutique-1" class="profil-img-2">
         </div>
     </section>
 

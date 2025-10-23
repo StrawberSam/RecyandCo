@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/infos.css') }}">{% endblock %}
+
+{% block content %}
+<main>
+	<!--Section hero page-->
+    <!--SECTION 1: HERO-->
+    <section class="hero">
+        <div class="hero-images">
+            <img src="{{ url_for('static', filename='img/Foret-1.webp') }}" alt="Forêt" class="forest">
+            <img src="{{ url_for('static', filename='img/Foret-2.webp') }}" alt="Champignon" class="forest-2">
+        </div>
+        <div class="hero-text">
+            <h2>Guide du tri sélectif<br> ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞</h2><br><br>
+            <p>
+                Apprends à trier comme un pro avec Récy !<br>
+				Clique sur une poubelle pour découvrir quels déchets y jeter et nos conseils malins. 🦝♻️
+            </p>
+        </div>
+    </section>
+
+
+	<!--Section poubelle-->
+	<section class="sorting-guide">
+		<div class="bin-info">
+			<!--BlEUE-->
+			<div class="poubelle poubelle-bleue" data-bin="bleue">
+				<div class="couvercle"></div>
+				<div class="corps"></div>
+				<p class="poubelle-label">Papier & Carton</p>
+			</div>
+
+			<!--JAUNE-->
+			<div class="poubelle poubelle-jaune" data-bin="jaune">
+				<div class="couvercle"></div>
+				<div class="corps"></div>
+				<p class="poubelle-label">Plastique, Métal & Carton recyclables</p>
+			</div>
+
+			<!--VERTE-->
+			<div class="poubelle poubelle-verte" data-bin="verte">
+				<div class="couvercle"></div>
+				<div class="corps"></div>
+				<p class="poubelle-label">Verre</p>
+			</div>
+
+			<!--GRISE-->
+			<div class="poubelle poubelle-grise" data-bin="grise">
+				<div class="couvercle"></div>
+				<div class="corps"></div>
+				<p class="poubelle-label">Non recyclable</p>
+			</div>
+
+			<!--BIODECHET-->
+			<div class="poubelle poubelle-biodechet" data-bin="biodechets">
+				<div class="couvercle"></div>
+				<div class="corps"></div>
+				<p class="poubelle-label">Biodéchets</p>
+			</div>
+
+			<!--DECHETERIE-->
+			<div class="poubelle poubelle-decheterie" data-bin="decheterie">
+				<div class="couvercle"></div>
+				<div class="corps"></div>
+				<p class="poubelle-label">Déchéterie</p>
+			</div>
+		</div>
+	</section>
+
+	<!--Section info des déchets-->
+	<section class="details-tri">
+		<div id="bins-details">
+		</div>
+	</section>
+
+	<script src="/static/js/infos.js"></script>
+</main>
+
+
+{% endblock %}
