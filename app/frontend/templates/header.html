@@ -5,6 +5,11 @@
         <a href="{{ url_for('jeu') }}">Jeu</a>
         <a href="{{ url_for('infos') }}">Infos tri</a>
         <a href="{{ url_for('shop') }}">Boutique</a>
-        <a href="{{ url_for('auth') }}">Se connecter</a>
+
+        <!-- Lien Connexion (visible si déconnecté) -->
+        <a href="/auth" id="auth-link-login" style="display: none;">Connexion</a>
+
+        <!-- Bouton Déconnexion (visible si connecté) -->
+        <button id="logout-btn" class="btn-logout" style="display: none;">Déconnexion</button>
     </nav>
 </header>

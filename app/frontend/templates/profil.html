@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profil.css') }}">
+{% endblock %}
+
+{% block content %}
+<main>
+	<div class="profil-container">
+		<!--TIROIR 1-->
+		<h2>Bienvenue <span id="user-pseudo"></span> !</h2>
+
+		<!--TIROIR 2-->
+		<section class="infos-utilisateur">
+			<h2>Mes informations</h2>
+			<div class="info-card">
+				<p>Email : <span id="user-email"></span></p>
+				<p>Score total : <span id="user-score"></span></p>
+				<p>Date d'inscription : <span id="user-created-at"></span></p>
+			</div>
+		</section>
+
+		<!--TIROIR 3-->
+		<section class="statistiques">
+			<h2>Mes statistiques</h2>
+			<div class="stats-container">
+				<!--Carte 1 : Partie jouées-->
+				<div class="stat-card">
+					<div class="stat-icon">🎮</div>
+					<div class="stat-value" id="stats-games"></div>
+					<div class="stat-label">Parties jouées</div>
+				</div>
+				<!--Carte 2 : Meilleure score-->
+				<div class="stat-card">
+					<div class="stat-icon">🏆</div>
+					<div class="stat-value" id="stats-best">0</div>
+					<div class="stat-label">Meilleur score</div>
+				</div>
+				<!--Carte 3 : Déchets triés-->
+				<div class="stat-card">
+					<div class="stat-icon">✅</div>
+					<div class="stat-value" id="stats-correct">0</div>
+					<div class="stat-label">Déchets triés</div>
+				</div>
+			</div>
+		</section>
+
+		<!--TIROIR 4-->
+		<section class="badges">
+			<h2>Mes badges</h2>
+			<div id="badges-container">
+
+			</div>
+		</section>
+	</div>
+
+	<script src="/static/js/auth_refresh.js"></script>
+	<script src="/static/js/profil.js"></script>
+</main>
+{% endblock %}
