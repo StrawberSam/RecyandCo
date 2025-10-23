@@ -132,7 +132,7 @@
 }
 
 /* SHOP SECTION */
-.shop-section {
+.profil-section {
     background-color: #F7F8F5;
     display: flex;
     flex-direction: row;
@@ -141,18 +141,18 @@
     padding: 3rem 2rem;
 }
 
-.shop-text {
+.profil-text {
     flex: 1;
     text-align: center;
 }
 
-.shop-text h2 {
+.profil-text h2 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
     text-align: center;
 }
 
-.shop-images {
+.profil-images {
     position: relative;
     width: 450px;
     height: 500px;
@@ -161,7 +161,7 @@
     gap: 1rem;
 }
 
-.shop-img-1 {
+.profil-img-1 {
     width: 300px;
     height: 400px;
     position: relative;
@@ -171,7 +171,7 @@
     filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
 }
 
-.shop-img-2 {
+.profil-img-2 {
     width: 380px;
     height: 500px;
     position: absolute;
@@ -180,7 +180,7 @@
     filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
 }
 
-.btn-shop {
+.btn-profil {
     display: inline-block;
     background-color: #edeeea;
     padding: 0.75rem 2rem;

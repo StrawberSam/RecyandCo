@@ -1,0 +1,145 @@
+/* SECTION HERO */
+.hero {
+    background-color: #F7F8F5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    max-width: auto;
+    margin: 0 auto; /* Centre automatiquement */
+}
+
+.hero-images {
+    position: relative;
+    width: 550px;
+    height: 550px;
+    flex-shrink: 0;
+    margin-left: 8rem;
+}
+
+.forest {
+    width: 450px;
+    height: 500px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+    border-radius: 200px 200px 0 0;
+}
+
+.forest-2 {
+    width: 380px;
+    height: 400px;
+    position: absolute; /* Se superpose à la première */
+    bottom: 0px;
+    right: -110px; /* Dépasse un peu à droite */
+    z-index: 2; /* Au-dessus du grand */
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15)); /* Ombre plus légère */
+    border-radius: 200px 200px 0 0;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: center;
+    max-width: 1200px;
+}
+
+.hero-text p {
+    font-size: 1rem;
+}
+
+/* POUBELLES */
+/* Conteneur des 3 poubelles */
+.poubelles-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+/* Structure de base d'une poubelle */
+.poubelle {
+  position: relative;
+  width: 80px;
+  height: 120px;
+  cursor: pointer;
+}
+
+/* Couvercle de la poubelle */
+.couvercle {
+  width: 90px;
+  height: 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: -5px;
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+}
+
+/* Corps de la poubelle */
+.corps {
+  width: 80px;
+  height: 90px;
+  border-radius: 0 0 8px 8px;
+  position: absolute;
+  top: 20px;
+}
+
+/* Animation du couvercle au survol */
+.poubelle:hover .couvercle {
+  transform: rotate(-10deg);
+}
+
+/* --- COULEURS DES POUBELLES --- */
+
+/* Poubelle Bleue */
+.poubelle-bleue .couvercle,
+.poubelle-bleue .corps {
+  background-color: #2196F3;
+}
+
+/* Poubelle Jaune */
+.poubelle-jaune .couvercle,
+.poubelle-jaune .corps {
+  background-color: #f7cb00;
+}
+
+/* Poubelle Verte */
+.poubelle-verte .couvercle,
+.poubelle-verte .corps {
+  background-color: #4CAF50;
+}
+
+/* Poubelle Grise */
+.poubelle-grise .couvercle,
+.poubelle-grise .corps {
+  background-color: grey;
+}
+
+/* Poubelle Biodéchet */
+.poubelle-biodechet .couvercle,
+.poubelle-biodechet .corps {
+  background-color: green;
+}
+
+/* Poubelle Déchéterie */
+.poubelle-decheterie .couvercle,
+.poubelle-decheterie .corps {
+  background-color: rgb(2, 65, 2);
+}
+
+/* Label sur la poubelle */
+.poubelle-label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.80rem;
+  color: black;
+  font-weight: 700;
+  pointer-events: none;
+  z-index: 10;
+}

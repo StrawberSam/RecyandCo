@@ -1,19 +1,58 @@
 /* ============================================
-   TABLE DES MATIÈRES
+   SECTION HERO
    ============================================
-   1. Styles Généraux (body, liens, titres...)
-   2. Header et Navigation
-   3. Footer
-   4. PAGE JEU - Poubelles
-   5. PAGE JEU - Cartes de Déchets
-   6. PAGE JEU - Mascotte Récy
-   7. PAGE JEU - Animations et Feedbacks
-   8. Autres pages...
-   ============================================ */
+/* SECTION HERO */
+.hero {
+    background-color: #F7F8F5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    max-width: auto;
+    margin: 0 auto; /* Centre automatiquement */
+}
 
+.hero-images {
+    position: relative;
+    width: 550px;
+    height: 550px;
+    flex-shrink: 0;
+    margin-left: 8rem;
+}
+
+.forest {
+    width: 450px;
+    height: 500px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+    border-radius: 200px 200px 0 0;
+}
+
+.forest-2 {
+    width: 380px;
+    height: 400px;
+    position: absolute; /* Se superpose à la première */
+    bottom: 0px;
+    right: -110px; /* Dépasse un peu à droite */
+    z-index: 2; /* Au-dessus du grand */
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15)); /* Ombre plus légère */
+    border-radius: 200px 200px 0 0;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: center;
+    max-width: 1200px;
+}
+
+.hero-text p {
+    font-size: 1rem;
+}
 
 /* ============================================
-   4. PAGE JEU - POUBELLES
+   POUBELLES
    ============================================ */
 
 /* Conteneur des 3 poubelles */
@@ -95,7 +134,7 @@
 
 
 /* ============================================
-   5. PAGE JEU - CARTES DE DÉCHETS
+   CARTES DE DÉCHETS
    ============================================ */
 
 /* Conteneur principal des cartes */
@@ -169,15 +208,23 @@
   transform: scale(1.05);
 }
 
+.game-footer {
+  background-color: white;
+  text-align: center;
+}
+
+.btn-secondary {
+    background-color: #e2e4df;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
 /* ============================================
-   6. PAGE JEU - MASCOTTE RÉCY
-   ============================================ */
-
-/* (On ajoutera ça plus tard quand on fera la mascotte) */
-
-
-/* ============================================
-   7. PAGE JEU - ANIMATIONS ET FEEDBACKS
+   ANIMATIONS ET FEEDBACKS
    ============================================ */
 
 /* Animation de succès (bonne réponse) */
