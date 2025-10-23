@@ -6,19 +6,14 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', async function () {
-  if (typeof protegerPage === 'function') {
-    await protegerPage();
-  } else {
-    console.error('auth-check.js n\'est pas chargé.');
-  }
-
   console.log('🎮 Jeu de tri chargé !');
+  tempsDebut = Date.now();
   chargerInfosUtilisateur();
   chargerDechets();
 
   let btnQuit = document.getElementById('btn-quit');
   if (btnQuit) {
-    btnQuit.addEventListener('click', sauvegarderEtQuitter);
+    btnQuit.addEventListener('click', sauvegarderScore);
   }
 });
 
@@ -39,6 +34,8 @@ let scoreTotalUtilisateur = 0;
 let nombreTentatives = 0;
 // nb de déchet correctement triés
 let nombreCorrects = 0;
+// timestamp
+let tempsDebut = Date.now();
 
 // 3. CHARGEMENT ET FILTRAGE DES DONNÉES
 // ============================================
@@ -123,7 +120,6 @@ function choisir7DechetsAleatoires() {
     afficherCartes(septDechets);
 }
 
-
 // 4. AFFICHAGE DES CARTES
 // ============================================
 
@@ -191,7 +187,6 @@ function creerNomCarte(dechet) {
     return nom;
 }
 
-
 // 5. MODE DRAG & DROP (DESKTOP/SOURIS)
 // ============================================
 
@@ -252,7 +247,6 @@ function ajouterEvenementDropSurPoubelle(poubelle) {
         verifierEtRemplacer(bonnePoubell, poubelleChoisie, nomDechet);
     });
 }
-
 
 // 6. MODE CLIC-CLIC (MOBILE/TACTILE)
 // ============================================
@@ -319,7 +313,6 @@ function ajouterEvenementClicSurPoubelle(poubelle) {
         console.log('🔄 Sélection réinitialisée');
     });
 }
-
 
 // 7. LOGIQUE DE VÉRIFICATION (COMMUNE)
 // ============================================
@@ -416,55 +409,138 @@ async function chargerInfosUtilisateur() {
     }
 }
 
-function sauvegarderEtQuitter() {
-    console.log('Sauvegarde du score en cours');
+/**
+ * Sauvegarde le score de la session en cours SANS quitter le jeu
+ */
+function sauvegarderScore() {
+    console.log('💾 Sauvegarde du score en cours...');
 
-    // Si aucun point, on quitte
+    // Si aucun point, pas besoin de sauvegarder
     if (scoreSession === 0) {
-        console.log('Aucun point à sauvegarder');
-        window.location.href = '/';
+        console.log('ℹ️ Aucun point à sauvegarder pour le moment');
+        afficherMessageUtilisateur('Aucun point à sauvegarder pour le moment', 'info');
         return;
     }
 
+    console.log('📊 Score session à sauvegarder :', scoreSession);
+    console.log('⏰ tempsDebut:', tempsDebut);
+    console.log('⏰ Date.now():', Date.now());
+
     // Préparation des données à envoyer
-    let donnesScore = {
+    let dureeMsPartie = Date.now() - tempsDebut;
+    let donneesScore = {
         points: scoreSession,
         correct_items: nombreCorrects,
         total_items: nombreTentatives,
-        duration_ms: Date.now()
+        duration_ms: dureeMsPartie
     };
-    console.log('Envoi des données :', donnesScore)
+
+    console.log('📤 Envoi des données :', donneesScore);
+
+    // Désactiver le bouton pendant la sauvegarde (éviter double-clic)
+    let btnSave = document.getElementById('btn-save');
+    if (btnSave) {
+        btnSave.disabled = true;
+        btnSave.textContent = '⏳ Sauvegarde...';
+    }
 
     // Envoyer à l'API
     fetchWithAuth('/api/scores', {
         method: 'POST',
-        body: JSON.stringify(donnesScore)
+        body: JSON.stringify(donneesScore)
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Réponse de l\'API :', data);
+        console.log('📥 Réponse de l\'API :', data);
 
         if (data.success === true) {
             console.log('🎉 Score sauvegardé avec succès !');
             console.log('🏆 Nouveau score total :', data.data.total_score);
 
-            // MAJ score total
+            // MAJ du score total utilisateur
             scoreTotalUtilisateur = data.data.total_score;
             mettreAJourAffichageScore();
 
-            // Rediriger vers la page d'accueil
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1000);
+            // Réinitialiser le score de session (car déjà sauvegardé)
+            scoreSession = 0;
+            nombreCorrects = 0;
+            nombreTentatives = 0;
+            tempsDebut = Date.now(); // Nouveau départ pour la prochaine session
+
+            // Afficher un message de succès
+            afficherMessageUtilisateur('✅ Score sauvegardé avec succès !', 'success');
+
+            // Réactiver le bouton
+            if (btnSave) {
+                btnSave.disabled = false;
+                btnSave.textContent = '💾 Sauvegarder';
+            }
+
         } else {
-            console.error('Erreur lors de la sauvegarde :', data);
-            alert('Erreur lors de la sauvegarde du score');
+            console.error('❌ Erreur lors de la sauvegarde :', data);
+            afficherMessageUtilisateur('❌ Erreur lors de la sauvegarde', 'error');
+
+            // Réactiver le bouton
+            if (btnSave) {
+                btnSave.disabled = false;
+                btnSave.textContent = '💾 Sauvegarder';
+            }
         }
     })
     .catch(error => {
-        console.error('Erreur réseau :', error);
-        alert('Erreur de connexion. Votre score n\'a pas été sauvegardé.');
+        console.error('❌ Erreur réseau :', error);
+        afficherMessageUtilisateur('❌ Erreur de connexion. Score non sauvegardé.', 'error');
+
+        // Réactiver le bouton
+        if (btnSave) {
+            btnSave.disabled = false;
+            btnSave.textContent = '💾 Sauvegarder';
+        }
     });
+}
+
+/**
+ * Affiche un message temporaire à l'utilisateur
+ */
+function afficherMessageUtilisateur(message, type) {
+    // Créer un élément pour le message
+    let messageDiv = document.createElement('div');
+    messageDiv.className = 'message-notification message-' + type;
+    messageDiv.textContent = message;
+
+    // Style par défaut (tu peux adapter dans ton CSS)
+    messageDiv.style.position = 'fixed';
+    messageDiv.style.top = '20px';
+    messageDiv.style.left = '50%';
+    messageDiv.style.transform = 'translateX(-50%)';
+    messageDiv.style.padding = '15px 30px';
+    messageDiv.style.borderRadius = '8px';
+    messageDiv.style.fontWeight = 'bold';
+    messageDiv.style.zIndex = '9999';
+    messageDiv.style.animation = 'fadeIn 0.3s ease-in';
+
+    // Couleurs selon le type
+    if (type === 'success') {
+        messageDiv.style.backgroundColor = '#4CAF50';
+        messageDiv.style.color = 'white';
+    } else if (type === 'error') {
+        messageDiv.style.backgroundColor = '#f44336';
+        messageDiv.style.color = 'white';
+    } else {
+        messageDiv.style.backgroundColor = '#2196F3';
+        messageDiv.style.color = 'white';
+    }
+
+    // Ajouter au body
+    document.body.appendChild(messageDiv);
+
+    // Retirer après 3 secondes
+    setTimeout(() => {
+        messageDiv.style.animation = 'fadeOut 0.3s ease-out';
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 300);
+    }, 3000);
 }
 
 // 8. REMPLACEMENT DES CARTES
