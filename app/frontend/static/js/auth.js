@@ -115,11 +115,11 @@ function handleLogin() {
       if (data.success === true) {
         console.log('Connexion réussie');
 
-        // ✅ Rediriger vers le jeu après connexion réussie
+        // ✅ Rediriger vers la page d'accueil après connexion réussie
         showMessage('Connexion réussie! Redirection...', 'success');
 
         setTimeout(function () {
-          window.location.href = '/jeu';
+          window.location.href = '/';
         }, 1000);
 
       } else {
