@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ou-jeter.css') }}">{% endblock %}
+
+{% block content %}
+<main>
+    <!--Section hero page-->
+    <!--SECTION 1: HERO-->
+    <section class="hero">
+        <div class="hero-images">
+            <img src="{{ url_for('static', filename='img/Foret-1.webp') }}" alt="Forêt" class="forest">
+            <img src="{{ url_for('static', filename='img/Foret-2.webp') }}" alt="Champignon" class="forest-2">
+        </div>
+        <div class="hero-text">
+            <h2>Où jeter ?<br> ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞</h2><br><br>
+            <p>
+                Apprends à trier comme un pro avec Récy !<br>
+                Clique sur une poubelle pour découvrir quels déchets y jeter et nos conseils malins. 🦝♻️
+            </p>
+        </div>
+    </section>
+
+
+    <!--Section recherche-->
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Ex: bouteille">
+        <button id="search-button">🔍</button>
+    </div>
+
+    <div id="result-container"></div>
+
+    <script src="/static/js/ou-jeter.js"></script>
+</main>
+{% endblock %}
