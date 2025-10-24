@@ -46,7 +46,7 @@ let tempsDebut = Date.now();
 function chargerDechets() {
     console.log('📂 Chargement du fichier consignes.json...');
 
-    fetch('/static/data/consignes.json')
+    fetch('/api/rules')
         .then(response => response.json())
         .then(data => {
             console.log('✅ Fichier chargé !', data);

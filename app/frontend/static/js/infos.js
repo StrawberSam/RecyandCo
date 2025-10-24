@@ -4,7 +4,7 @@ let consignesData = null;
 function chargerConsignes() {
     console.log('📂 Chargement des consignes...');
 
-    fetch('/static/data/consignes.json')
+    fetch('/api/rules')
         .then(response => response.json())
         .then(data => {
             console.log('✅ Fichier chargé !', data);
