@@ -49,7 +49,7 @@ function handleLogin() {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: 'include', // ✅ Important : envoie et reçoit les cookies
+    credentials: 'include', // envoie et reçoit les cookies
     body: JSON.stringify({
       email: email,
       password: password
@@ -61,9 +61,6 @@ function handleLogin() {
 
       if (data.success === true) {
         console.log('Connexion réussie');
-
-        // ✅ Les tokens sont maintenant dans les cookies automatiquement
-        // ✅ Plus besoin de localStorage pour les tokens
 
         // Rediriger vers le jeu
         showMessage('Connexion réussie! Redirection...', 'success');
@@ -86,24 +83,26 @@ function handleLogin() {
 
 // Gère l'inscription de l'utilisateur
 // ==================================
-function handleLogin() {
-  console.log('tentative de connexion');
+function handleRegister() {
+  console.log('tentative d\'inscription');
 
   // Récupération des valeurs du formulaire
-  let email = document.getElementById('email').value;
-  let password = document.getElementById('password').value;
+  let email = document.getElementById('register-email').value;
+  let password = document.getElementById('register-password').value;
+  let username = document.getElementById('register-username').value;
 
   // Masquer anciens messages
   hideMessage();
 
   // Envoyer la requête à l'API
-  fetch('/api/login', {
+  fetch('/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     credentials: 'include',
     body: JSON.stringify({
+      username: username,
       email: email,
       password: password
     })
@@ -113,25 +112,41 @@ function handleLogin() {
       console.log('réponse reçue :', data);
 
       if (data.success === true) {
-        console.log('Connexion réussie');
+        console.log('Inscription réussie');
 
-        // ✅ Rediriger vers la page d'accueil après connexion réussie
-        showMessage('Connexion réussie! Redirection...', 'success');
+        // Rediriger vers la connexion après inscription réussie
+        showMessage('Inscription réussie! Redirection...', 'success');
 
         setTimeout(function () {
-          window.location.href = '/';
+          window.location.href = '/auth';
         }, 1000);
 
       } else {
         // Identifiant incorrect
-        console.log('Connexion échouée');
-        showMessage('Email ou mot de passe incorrect', 'error');
+        console.log('Inscription échouée');
+        showMessage(data.message, 'error');
       }
     })
     .catch(error => {
       console.error('erreur réseau:', error);
       showMessage('Erreur de connexion. Vérifier votre connexion internet.', 'error');
     });
+}
+
+// Affiche/cacher le mot de passe
+// =============================
+function togglePasswordVisibility(inputId, iconElement) {
+  let passwordInput = document.getElementById(inputId);
+
+  if (passwordInput.type === 'password') {
+    // Montrer le mot de passe
+    passwordInput.type = 'text';
+    iconElement.textContent = '🙈'; // Change l'icône
+  } else {
+    // Cacher le mot de passe
+    passwordInput.type = 'password';
+    iconElement.textContent = '👁️'; // Remet l'icône initiale
+  }
 }
 
 // Bascule entre formulaire login et register
@@ -158,6 +173,28 @@ function toggleForms() {
     toggleLink.textContent = 'Se connecter';
     title.textContent = 'Inscription';
   }
+
+  // === Réinitialisation complète des formulaires ===
+
+  // 1. Vider tous les champs
+  document.getElementById('email').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('register-username').value = '';
+  document.getElementById('register-email').value = '';
+  document.getElementById('register-password').value = '';
+
+  // 2. Remettre les inputs en type password
+  document.getElementById('password').type = 'password';
+  document.getElementById('register-password').type = 'password';
+
+  // 3. Remettre toutes les icônes en 👁️
+  let allIcons = document.querySelectorAll('.toggle-password');
+  allIcons.forEach(function(icon) {
+    icon.textContent = '👁️';
+  });
+
+  // 4. Masquer les messages d'erreur
+  hideMessage();
 }
 
 // Affiche message à l'utilisateur

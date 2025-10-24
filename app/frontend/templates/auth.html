@@ -17,7 +17,10 @@
 
         <form id="login-form">
             <input type="email" id="email" name="email" placeholder="Email" required>
-            <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Mot de passe" required />
+                <span class="toggle-password" onclick="togglePasswordVisibility('register-password', this)">👁️</span>
+            </div>
             <button type="submit" class="btn-primary">Se connecter</button>
         </form>
 
@@ -25,7 +28,10 @@
         <form id="register-form" style="display: none;">
             <input type="text" id="register-username" placeholder="Pseudo" required />
             <input type="email" id="register-email" placeholder="Email" required />
-            <input type="password" id="register-password" placeholder="Mot de passe" required />
+            <div class="password-wrapper">
+                <input type="password" id="register-password" placeholder="Mot de passe" required />
+                <span class="toggle-password" onclick="togglePasswordVisibility('register-password', this)">👁️</span>
+            </div>
             <button type="submit">S'inscrire</button>
         </form>
 
@@ -37,20 +43,22 @@
     </div>
 
     <div class="warning-container">
-         <p>
-        <strong>Coucou, c'est Récy !</strong><br>
-        Avant de jouer, écoute-moi bien :<br><br>
+        <p>
+            <strong>Coucou, c'est Récy !</strong><br>
+            Avant de jouer, écoute-moi bien :<br><br>
 
-        <strong>Choisis un pseudo marrant !</strong><br>
-        Comme "MaîtrePoubelle" ou "RecycloMan" ou encore "ReineTrieuse". Ne jamais donner ton vrai nom !<br><br>
+            <strong>Choisis un pseudo marrant !</strong><br>
+            Comme "MaîtrePoubelle" ou "RecycloMan" ou encore "ReineTrieuse". Ne jamais donner ton vrai nom !<br><br>
 
-        <strong>Tes secrets restent secrets !</strong> 🤫<br>
-        Ne donne jamais ton adresse, ton numéro de téléphone, ton mot de passe, ton email ou le nom de ton école.<br><br>
+            <strong>Tes secrets restent secrets !</strong> 🤫<br>
+            Ne donne jamais ton adresse, ton numéro de téléphone, ton mot de passe, ton email ou le nom de ton
+            école.<br><br>
 
-        <strong>Parents :</strong><br>
-        On ne demande qu'un pseudo et un email pour jouer et récolter les points. Les points serviront à la boutique. Vos données sont en sécurité, promesse de raton ! 🔒<br><br>
+            <strong>Parents :</strong><br>
+            On ne demande qu'un pseudo et un email pour jouer et récolter les points. Les points serviront à la
+            boutique. Vos données sont en sécurité, promesse de raton ! 🔒<br><br>
 
-        <strong>Amusez-vous et devenez les rois du tri !</strong>
+            <strong>Amusez-vous et devenez les rois du tri !</strong>
         </p>
     </div>
 </div>
