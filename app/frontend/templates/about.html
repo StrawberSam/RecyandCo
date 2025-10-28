@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!--SECTION: HERO-->
+    <section class="hero">
+        <div class="hero-images">
+            <img src="{{ url_for('static', filename='img/Foret-1.webp') }}" alt="Forêt" class="forest">
+            <img src="{{ url_for('static', filename='img/Foret-2.webp') }}" alt="Champignon" class="forest-2">
+        </div>
+        <div class="hero-text">
+            <h2>A propos de Récy !<br> ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞
+                ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞ ͞͞͞͞</h2><br><br>
+            <p>
+                Cette page vous présente le projet Récy&Co, son engagement pour l'éco-conception<br>
+                numérique, ainsi que les mentions légales et la politique de confidentialité<br>
+                conformes au RGPD.
+            </p>
+        </div>
+    </section>
+
+<main class="about-container">
+    <!-- Section 1: À propos du projet -->
+    <section class="about-project" id="a-propos">
+        <h1>À propos de Récy&Co</h1>
+
+        <div class="project-intro">
+            <p>
+                <strong>Récy&Co</strong> est un projet éducatif et ludique conçu pour sensibiliser
+                les enfants et les familles au tri sélectif. À travers une interface interactive,
+                un jeu de tri amusant et une mascotte attachante (Récy le raton laveur), ce site
+                vise à rendre l'apprentissage du recyclage simple, accessible et motivant.
+            </p>
+            <p>
+                Développé dans le cadre de mon projet de fin de première année à
+                <strong>Holberton School Laval</strong>, Récy&Co est le fruit de 9 mois de
+                formation intensive aux fondamentaux du développement web. Ce projet reflète
+                ma volonté de mettre la technologie au service de l'écologie et de l'éducation.
+            </p>
+        </div>
+
+        <div class="project-goals">
+            <h3>Objectifs du projet</h3>
+            <ul>
+                <li>Rendre le tri des déchets <strong>ludique et accessible</strong> pour tous</li>
+                <li>Accompagner les habitants de la <strong>Communauté de Communes d'Évron</strong>
+                    dans leur démarche de tri</li>
+                <li>Encourager les bonnes pratiques dès le plus jeune âge</li>
+                <li>Proposer un outil <strong>gratuit, local et évolutif</strong></li>
+            </ul>
+        </div>
+
+        <div class="project-features">
+            <h3>Fonctionnalités principales</h3>
+            <ul>
+                <li><strong>Guide de tri local :</strong> Consignes adaptées à la communauté d'Évron</li>
+                <li><strong>Moteur de recherche "Où jeter ?" :</strong> Trouve rapidement dans quelle
+                    poubelle jeter un déchet</li>
+                <li><strong>Jeu de tri interactif :</strong> Apprends en t'amusant avec le système de
+                    drag & drop</li>
+                <li><strong>Système de scores et badges :</strong> Progresse et débloque des récompenses</li>
+                <li><strong>Boutique virtuelle :</strong> Utilise tes points pour acheter des bonus</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 2: Éco-conception -->
+    <section class="ecodesign" id="eco-conception">
+        <h2>Éco-conception</h2>
+
+        <p>
+            Ce projet a été développé en suivant les <strong>principes de l'éco-conception numérique</strong>,
+            afin de minimiser son impact environnemental tout en offrant une expérience utilisateur optimale.
+        </p>
+
+        <div class="ecodesign-principles">
+            <h3>Nos choix techniques responsables</h3>
+
+            <div class="principle">
+                <h4>Architecture légère</h4>
+                <ul>
+                    <li>Backend en <strong>Python/Flask</strong> : framework minimaliste et efficace</li>
+                    <li>Base de données <strong>MySQL</strong> : robuste et peu gourmande en ressources</li>
+                    <li>Frontend en <strong>HTML, CSS et JavaScript vanilla</strong> : aucun framework
+                        lourd, code optimisé</li>
+                </ul>
+            </div>
+
+            <div class="principle">
+                <h4>Données locales et optimisées</h4>
+                <ul>
+                    <li>Consignes de tri stockées dans un <strong>fichier JSON local</strong> :
+                        chargement rapide, pas d'appels API externes inutiles</li>
+                    <li>Images optimisées en <strong>SVG et WebP</strong> : léger et adaptatif</li>
+                    <li>CSS et JavaScript <strong>minifiés</strong> pour réduire le poids des pages</li>
+                </ul>
+            </div>
+
+            <div class="principle">
+                <h4>Design responsive et accessible</h4>
+                <ul>
+                    <li>Interface adaptée à <strong>tous les appareils</strong> (PC, tablette, smartphone)</li>
+                    <li>Contrastes respectés pour une <strong>meilleure accessibilité</strong></li>
+                    <li>Navigation intuitive et <strong>temps de chargement réduits</strong></li>
+                </ul>
+            </div>
+
+            <div class="principle">
+                <h4>Impact carbone réduit</h4>
+                <ul>
+                    <li>Hébergement sobre (serveur léger, pas de sur-dimensionnement)</li>
+                    <li>Pas de tracking publicitaire ni de scripts tiers inutiles</li>
+                    <li>Mise en cache intelligente pour limiter les requêtes serveur</li>
+                </ul>
+            </div>
+        </div>
+
+        <p class="ecodesign-conclusion">
+            <em>
+                En adoptant ces pratiques, Récy&Co démontre qu'il est possible de créer un site
+                web performant, éducatif et respectueux de l'environnement. Chaque ligne de code
+                a été pensée pour limiter l'empreinte numérique du projet.
+            </em>
+        </p>
+    </section>
+
+    <!-- Section 3: Mentions légales -->
+    <section class="legal" id="mentions-legales">
+        <h2>Mentions légales</h2>
+
+        <div class="legal-item">
+            <h3>Éditeur du site</h3>
+            <p>
+                <strong>Nom :</strong> Samira Roche<br>
+                <strong>Email :</strong> <a href="mailto:s.roche53@hotmail.com">s.roche53@hotmail.com</a><br>
+                <strong>Localisation :</strong> Évron, Mayenne, France
+            </p>
+        </div>
+
+        <div class="legal-item">
+            <h3>Responsable de publication</h3>
+            <p>
+                Samira Roche
+            </p>
+        </div>
+
+        <div class="legal-item">
+            <h3>Hébergement</h3>
+            <p>
+                <strong>Hébergeur :</strong> À déterminer<br>
+                <em>(Cette information sera mise à jour lors du déploiement en production)</em>
+            </p>
+        </div>
+
+        <div class="legal-item">
+            <h3>Propriété intellectuelle</h3>
+            <p>
+                Le contenu de ce site (textes, images, graphismes, logo, icônes) est la propriété
+                de Samira Roche, sauf mention contraire.
+            </p>
+            <p>
+                Toute reproduction, distribution, modification ou utilisation, même partielle,
+                des éléments du site est interdite sans autorisation préalable écrite.
+            </p>
+            <p>
+                <strong>Mascotte Récy :</strong> Création originale pour le projet Récy&Co.
+            </p>
+        </div>
+
+        <div class="legal-item">
+            <h3>Crédits</h3>
+            <p>
+                Ce projet a été réalisé dans le cadre de la formation
+                <strong>Web and Mobile Web Developer (RNCP5)</strong> à
+                <strong>Holberton School Laval</strong>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 4: Politique de confidentialité (RGPD) -->
+    <section class="privacy" id="confidentialite">
+        <h2>Politique de confidentialité</h2>
+
+        <div class="privacy-intro">
+            <p>
+                Récy&Co respecte votre vie privée et s'engage à protéger vos données personnelles
+                conformément au <strong>Règlement Général sur la Protection des Données (RGPD)</strong>.
+            </p>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Données collectées</h3>
+            <p>Lors de votre inscription sur Récy&Co, nous collectons les informations suivantes :</p>
+            <ul>
+                <li><strong>Nom d'utilisateur</strong> : pour vous identifier sur le site</li>
+                <li><strong>Adresse email</strong> : pour la gestion de votre compte et l'envoi
+                    éventuel de goodies</li>
+                <li><strong>Mot de passe</strong> : stocké de manière sécurisée (hashé) dans notre
+                    base de données</li>
+                <li><strong>Scores et badges</strong> : pour suivre votre progression dans le jeu</li>
+                <li><strong>Achats dans la boutique virtuelle</strong> : pour gérer votre inventaire</li>
+            </ul>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Utilisation des données</h3>
+            <p>Vos données sont utilisées uniquement pour :</p>
+            <ul>
+                <li>Vous permettre de créer et gérer votre compte</li>
+                <li>Sauvegarder vos scores et votre progression</li>
+                <li>Vous attribuer des badges et récompenses</li>
+                <li>Gérer la boutique virtuelle (achats avec vos points)</li>
+                <li>Vous contacter si nécessaire concernant votre compte</li>
+            </ul>
+            <p>
+                <strong>Nous ne vendons, ne louons ni ne partageons vos données personnelles avec
+                    des tiers.</strong>
+            </p>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Conservation des données</h3>
+            <p>
+                Vos données sont conservées tant que votre compte est actif. Vous pouvez demander
+                la suppression de votre compte et de toutes vos données à tout moment.
+            </p>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Vos droits (RGPD)</h3>
+            <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+            <ul>
+                <li><strong>Droit d'accès :</strong> Vous pouvez consulter les données que nous
+                    détenons sur vous</li>
+                <li><strong>Droit de rectification :</strong> Vous pouvez corriger vos informations
+                    personnelles</li>
+                <li><strong>Droit à l'effacement :</strong> Vous pouvez demander la suppression de
+                    votre compte et de vos données</li>
+                <li><strong>Droit à la portabilité :</strong> Vous pouvez récupérer vos données
+                    dans un format lisible</li>
+                <li><strong>Droit d'opposition :</strong> Vous pouvez vous opposer au traitement
+                    de vos données</li>
+            </ul>
+            <p>
+                Pour exercer ces droits, contactez-nous à :
+                <a href="mailto:s.roche53@hotmail.com">s.roche53@hotmail.com</a>
+            </p>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Sécurité des données</h3>
+            <p>
+                Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles pour
+                protéger vos données contre tout accès, modification, divulgation ou destruction non autorisés :
+            </p>
+            <ul>
+                <li>Mots de passe <strong>hashés avec bcrypt</strong></li>
+                <li>Authentification sécurisée avec <strong>JWT (JSON Web Tokens)</strong></li>
+                <li>Base de données protégée et hébergée de manière sécurisée</li>
+                <li>Connexions HTTPS pour chiffrer les échanges</li>
+            </ul>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Cookies</h3>
+            <p>
+                Récy&Co utilise uniquement des <strong>cookies de session essentiels</strong> pour
+                le fonctionnement du site (authentification). Aucun cookie publicitaire ou de tracking
+                n'est utilisé.
+            </p>
+        </div>
+
+        <div class="privacy-item">
+            <h3>Modifications de la politique de confidentialité</h3>
+            <p>
+                Cette politique peut être mise à jour pour refléter les évolutions du site ou de la
+                législation. La date de dernière mise à jour sera indiquée en haut de cette page.
+            </p>
+        </div>
+
+        <div class="privacy-contact">
+            <p>
+                <strong>Des questions sur vos données ?</strong><br>
+                Contactez-nous : <a href="mailto:s.roche53@hotmail.com">s.roche53@hotmail.com</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Section 5: Contact -->
+    <section class="contact" id="contact">
+        <h2>📧 Contact</h2>
+        <p>
+            Pour toute question, suggestion ou demande concernant Récy&Co,
+            vous pouvez me contacter :
+        </p>
+        <p>
+            <strong>Email :</strong> <a href="mailto:s.roche53@hotmail.com">s.roche53@hotmail.com</a><br>
+            <strong>Localisation :</strong> Évron, Mayenne, France
+        </p>
+    </section>
+
+</main>
+{% endblock %}
