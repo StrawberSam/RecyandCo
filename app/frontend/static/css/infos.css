@@ -7,7 +7,7 @@
     gap: 1rem;
     padding: 3rem;
     max-width: auto;
-    margin: 0 auto; /* Centre automatiquement */
+    margin: 0 auto;
 }
 
 .hero-images {
@@ -23,18 +23,18 @@
     height: 500px;
     position: relative;
     z-index: 1;
-    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2));
     border-radius: 200px 200px 0 0;
 }
 
 .forest-2 {
     width: 380px;
     height: 400px;
-    position: absolute; /* Se superpose à la première */
+    position: absolute;
     bottom: 0px;
-    right: -110px; /* Dépasse un peu à droite */
-    z-index: 2; /* Au-dessus du grand */
-    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15)); /* Ombre plus légère */
+    right: -110px;
+    z-index: 2;
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15));
     border-radius: 200px 200px 0 0;
 }
 
@@ -48,48 +48,66 @@
     font-size: 1rem;
 }
 
-/* POUBELLES */
-/* Conteneur des 3 poubelles */
-.poubelles-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+/* NOUVEAU : Layout poubelles + détails côte à côte */
+.sorting-layout {
+    display: flex;
+    flex-direction: row; /* Côte à côte */
+    gap: 10rem; /* Espace entre les deux colonnes */
+    padding: 3rem;
+    align-items: flex-start; /* Alignement en haut */
+}
+
+/* GAUCHE : Conteneur des poubelles */
+.bin-info {
+    display: flex;
+    flex-direction: column; /* Poubelles empilées verticalement */
+    gap: 30px; /* Espace entre chaque poubelle */
+    flex-shrink: 0; /* Empêche la colonne de rétrécir */
+    margin-left: 5rem;
+}
+
+/* DROITE : Zone des détails */
+.details-tri {
+    flex: 1; /* Prend tout l'espace restant */
+}
+
+#bins-details {
+  padding: 2rem;
   gap: 40px;
-  margin: 40px 0;
 }
 
 /* Structure de base d'une poubelle */
 .poubelle {
-  position: relative;
-  width: 80px;
-  height: 120px;
-  cursor: pointer;
+    position: relative;
+    width: 80px;
+    height: 120px;
+    cursor: pointer;
 }
 
 /* Couvercle de la poubelle */
 .couvercle {
-  width: 90px;
-  height: 20px;
-  border-radius: 5px;
-  position: absolute;
-  top: 0;
-  left: -5px;
-  transform-origin: left center;
-  transition: transform 0.2s ease;
+    width: 90px;
+    height: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    transform-origin: left center;
+    transition: transform 0.2s ease;
 }
 
 /* Corps de la poubelle */
 .corps {
-  width: 80px;
-  height: 90px;
-  border-radius: 0 0 8px 8px;
-  position: absolute;
-  top: 20px;
+    width: 80px;
+    height: 90px;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    top: 20px;
 }
 
 /* Animation du couvercle au survol */
 .poubelle:hover .couvercle {
-  transform: rotate(-10deg);
+    transform: rotate(-10deg);
 }
 
 /* --- COULEURS DES POUBELLES --- */
@@ -97,49 +115,111 @@
 /* Poubelle Bleue */
 .poubelle-bleue .couvercle,
 .poubelle-bleue .corps {
-  background-color: #2196F3;
+    background-color: #2196F3;
 }
 
 /* Poubelle Jaune */
 .poubelle-jaune .couvercle,
 .poubelle-jaune .corps {
-  background-color: #f7cb00;
+    background-color: #f7cb00;
 }
 
 /* Poubelle Verte */
 .poubelle-verte .couvercle,
 .poubelle-verte .corps {
-  background-color: #4CAF50;
+    background-color: #4CAF50;
 }
 
 /* Poubelle Grise */
 .poubelle-grise .couvercle,
 .poubelle-grise .corps {
-  background-color: grey;
+    background-color: grey;
 }
 
 /* Poubelle Biodéchet */
 .poubelle-biodechet .couvercle,
 .poubelle-biodechet .corps {
-  background-color: green;
+    background-color: brown;
 }
 
 /* Poubelle Déchéterie */
 .poubelle-decheterie .couvercle,
 .poubelle-decheterie .corps {
-  background-color: rgb(2, 65, 2);
+    background-color: green;
 }
 
 /* Label sur la poubelle */
 .poubelle-label {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.80rem;
-  color: black;
-  font-weight: 700;
-  pointer-events: none;
-  z-index: 10;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.80rem;
+    color: black;
+    font-weight: 700;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Icônes des déchets */
+.dechet-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+    pointer-events: none;
+}
+
+/* Style de la zone de détails */
+#bins-details {
+    padding: 1rem;
+}
+
+#bins-details h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+    text-transform: capitalize; /* "bleue" → "Bleue" */
+}
+
+/* Style de la liste */
+#bins-details ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espace entre chaque déchet */
+}
+
+/* Style de chaque déchet (chaque <li>) */
+#bins-details li {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /*Espace entre icône, nom et texte */
+    background-color: #f9f9f9;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+    padding: 15px;
+    border-radius: 20px;
+    transition: transform 0.2s ease;
+}
+
+/* Icône du déchet */
+.dechet-icon {
+    width: 60px;
+    height: 60px;
+    align-self: flex-start; /* Alignement à gauche */
+}
+
+/* Nom du déchet */
+#bins-details strong {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Bon à savoir */
+.bon-a-savoir {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
 }
