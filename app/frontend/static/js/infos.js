@@ -59,7 +59,7 @@ function afficherDetailsPoubelle(couleur) {
 
     const nom = document.createElement('strong');
     nom.textContent = dechet.nom;
-    liste.appendChild(nom);
+    item.appendChild(nom);
 
     const bonASavoir = document.createElement('p');
     bonASavoir.className = 'bon-a-savoir';
