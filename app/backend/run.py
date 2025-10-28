@@ -82,9 +82,9 @@ def about():
 def shop():
     return render_template("shop.html")
 
-@app.route("/jeter")
-def jeter():
-    return render_template("ou-jeter.html")
+@app.route("/guide")
+def guide():
+    return render_template("guide-tri.html")
 
 @app.route("/profil")
 def profil():
