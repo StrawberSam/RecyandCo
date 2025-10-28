@@ -48,23 +48,23 @@
         <div class="features-grid">
             <article class="feature-card">
                 <img src="{{ url_for('static', filename='icons/info.svg') }}" alt="Info" class="feature-icon"><br><br>
-                <h3>Infos tri</h3>
-                <p>Consulte les consignes</p>
+                <h3>Les poubelles</h3>
+                <p>Consulte les poubelles</p>
                 <a href="{{ url_for('infos') }}">Découvrir</a>
             </article>
 
             <article class="feature-card">
                 <img src="{{ url_for('static', filename='icons/recy.svg') }}" alt="Récy" class="feature-icon">
                 <h3>Jeu de tri</h3>
-                <p>apprends en t'amusant</p>
+                <p>Apprends en t'amusant avec Récy !</p>
                 <a href="{{ url_for('jeu') }}">Jouer</a>
             </article>
 
             <article class="feature-card">
                 <img src="{{ url_for('static', filename='icons/search.svg') }}" alt="Search" class="feature-icon"><br><br>
-                <h3>Où jeter ?</h3>
-                <p>Trouver la bonne poubelle</p>
-                <a href="{{ url_for('jeter') }}">Rechercher</a>
+                <h3>Guide de tri</h3>
+                <p>Tu ne sais pas où trier ton déchet ? Passe par ici !</p>
+                <a href="{{ url_for('guide') }}">Rechercher</a>
             </article>
         </div>
     </section>
