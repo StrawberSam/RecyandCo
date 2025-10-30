@@ -13,7 +13,6 @@ Project: Récy&Co - Sorting is fun!
 """
 
 from datetime import datetime
-from sqlalchemy import func
 from db.models import Badge, User, UserBadge
 
 class BadgeService:

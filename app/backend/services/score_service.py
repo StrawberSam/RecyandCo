@@ -13,7 +13,7 @@ Project: Récy&Co - Sorting is fun!
 """
 
 from sqlalchemy import desc
-from db.models import Score, db, User
+from db.models import Score, User
 
 
 class ScoreService:
@@ -260,12 +260,12 @@ class ScoreService:
         parties_jouees = Score.query.filter_by(user_id=user_id).count()
 
         # 2. Trouver le meilleur score (le plus grand 'points')
-        meilleur_score = db.session.query(db.func.max(Score.points))\
+        meilleur_score = self.db.session.query(self.db.func.max(Score.points))\
             .filter_by(user_id=user_id)\
             .scalar()
 
         # 3. Additionner tous les 'correct_items'
-        total_correct_items = db.session.query(db.func.sum(Score.correct_items))\
+        total_correct_items = self.db.session.query(self.db.func.sum(Score.correct_items))\
             .filter_by(user_id=user_id)\
             .scalar()
 

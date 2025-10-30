@@ -12,7 +12,7 @@ Author: Roche Samira
 Project: Récy&Co - Sorting is fun!
 """
 
-from db.models import ShopItem, User, UserInventory, db
+from db.models import ShopItem, User, UserInventory
 
 class ShopService:
     """
