@@ -66,7 +66,7 @@ function handleLogin() {
         showMessage('Connexion réussie! Redirection...', 'success');
 
         setTimeout(function () {
-          window.location.href = '/jeu';
+          window.location.href = '/';
         }, 1000);
 
       } else {
