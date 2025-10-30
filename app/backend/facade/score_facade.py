@@ -78,20 +78,8 @@ def get_my_stats():
     # 4. Récupérer l'user_id
     user_id = user["data"]["id"]
 
-    try:
-        # 5. Appeler la fonction du service pour obtenir les stats
-        stats = score_service.get_user_stats(user_id)
+    # 5. Appeler la fonction du service pour obtenir les stats
+    stats = score_service.get_user_stats(user_id)
 
-        # 6. Renvoyer les stats en JSON avec succès
-        return jsonify({
-            "success": True,
-            "data": stats
-        }), 200
-
-    except Exception as e:
-        # En cas d'erreur, renvoyer un message d'erreur
-        return jsonify({
-            "success": False,
-            "message": "Erreur lors de la récupération des statistiques",
-            "error": str(e)
-        }), 500
+    # 6. Return direct sur le résultat
+    return jsonify(stats), stats["status_code"]
