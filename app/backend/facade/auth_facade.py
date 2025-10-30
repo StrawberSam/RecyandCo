@@ -105,30 +105,6 @@ def logout():
 
     return response
 
-@auth_bp.route("/api/users", methods=["GET"])
-def all_users():
-    service = current_app.config["services"]["auth"]
-
-    # Lire depuis les cookies
-    token = request.cookies.get("access_token")
-
-    if not token:
-        return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    # Vérifie le token et récupère l'utilisateur
-    user_resp = service.get_user_by_id(token)
-    if not user_resp.get("success"):
-        return jsonify(user_resp), 401
-
-    # Vérifie que l'utilisateur est l'admin défini dans .env
-    admin_id = current_app.config.get("ADMIN_ID")
-    if user_resp["data"]["id"] != admin_id:
-        return jsonify({"success": False, "message": "Accès refusé"}), 403
-
-    # Retourne tous les users (seulement si admin)
-    return jsonify(service.get_all_users()), 200
-
-
 @auth_bp.route("/api/refresh", methods=["POST"])
 def refresh_token():
     service = current_app.config["services"]["auth"]
