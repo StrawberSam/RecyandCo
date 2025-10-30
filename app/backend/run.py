@@ -28,9 +28,6 @@ app = Flask(
 app_config = config["development"]()
 app.config.from_object(app_config)
 
-# Ajouter l'ID admin depuis le .env
-app.config["ADMIN_ID"] = int(os.getenv("ADMIN_ID", 0))
-
 # Initialisation de la DB avec Flask
 db.init_app(app)
 # Gestion des migrations
