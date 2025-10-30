@@ -25,7 +25,6 @@ def login():
 
     # Si connexion réussie → stocker les tokens dans des cookies sécurisés
     if response.get("success"):
-        # Stocker aussi l'access_token dans un cookie
         access_token = response["data"].pop("access_token")
         refresh_token = response["data"].pop("refresh_token")
 
