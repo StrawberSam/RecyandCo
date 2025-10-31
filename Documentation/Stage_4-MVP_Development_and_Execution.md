@@ -1,7 +1,7 @@
 # Stage 4: MVP Development and Execution - Récy&Co
-**Author**: Samira Roche
-**Project**: Récy&Co - Educational web application for waste sorting
-**Period**: September 29 - October 28, 2025
+**Author**: Samira Roche\
+**Project**: Récy&Co - Educational web application for waste sorting\
+**Period**: September 29 - October 28, 2025\
 **Training**: RNCP5 - Web and Mobile Web Developer - Holberton School Laval
 
 ## 1. Introduction
@@ -520,7 +520,7 @@ Integration tests were performed to verify complete application functionality on
   - Badges (retrieval, automatic attribution)
   - Shop (list items, purchase)
 
-[Pytest Tests - 17/17 passed](picture/pytest-services.png "img test for pytest").
+![Pytest Tests - 17/17 passed](picture/pytest-services.png).
 
 **Regression tests identified and fixed:**
 
