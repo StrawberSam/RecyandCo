@@ -8,20 +8,25 @@
     align-items: center;
     gap: 1rem;
     padding: 3rem;
-    max-width: 100%;
+    max-width: 100%; /* Ajouté */
+    overflow: hidden; /* Force à ne pas déborder */
     margin: 0 auto;
 }
 
 .hero-images {
     position: relative;
-    width: 550px;
-    height: 550px;
-    margin-left: 8rem;
+    width: 40%; /* Changé de 550px en pourcentage */
+    max-width: 550px; /* Mais pas plus que 550px */
+    aspect-ratio: 1; /* Garde un ratio carré */
+    flex-shrink: 1; /* Permet de rétrécir si besoin */
+    margin-left: 4rem;
 }
 
 .forest {
-    width: 450px;
-    height: 500px;
+    width: 80%; /* Relatif au conteneur parent */
+    max-width: 450px;
+    height: auto; /* Hauteur automatique */
+    aspect-ratio: 9/10; /* Garde les proportions */
     position: relative;
     z-index: 1;
     filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2));
@@ -29,11 +34,13 @@
 }
 
 .forest-2 {
-    width: 380px;
-    height: 400px;
+    width: 65%; /* Relatif au conteneur parent */
+    max-width: 380px;
+    height: auto; /* Hauteur automatique */
+    aspect-ratio: 9/10;
     position: absolute;
     bottom: 0px;
-    right: -110px;
+    right: -15%; /* En pourcentage au lieu de -110px */
     z-index: 2;
     filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15));
     border-radius: 200px 200px 0 0;
@@ -42,11 +49,8 @@
 .hero-text {
     flex: 1;
     text-align: center;
-    max-width: 1200px;
-}
-
-.hero-text h2 {
-    font-size: 2rem;
+    max-width: 100%; /* Ajouté */
+    padding: 0 1rem; /* Ajouté un peu d'espace */
 }
 
 .hero-text p {
