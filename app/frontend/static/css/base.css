@@ -80,3 +80,41 @@ footer {
 footer a {
   color: black;
 }
+
+/* Partie responsive */
+
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-right: 1rem;
+}
+
+@media (max-width: 768px) {
+  header {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    flex-direction: column;
+    background-color: #B0C7B4;
+    border-radius: 0 0 0 20px;
+    padding: 1rem;
+    gap: 1rem;
+    z-index: 1000;
+  }
+
+  header.active nav {
+    display: flex;
+  }
+}
