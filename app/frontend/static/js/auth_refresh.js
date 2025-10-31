@@ -6,7 +6,7 @@
  * Rafraîchit l'access_token quand il expire
  */
 async function refreshAccessToken() {
-    console.log('🔄 Tentative de rafraîchissement du token...');
+    log.debug('🔄 Tentative de rafraîchissement du token...');
 
     try {
         const response = await fetch('/api/refresh', {
@@ -18,16 +18,16 @@ async function refreshAccessToken() {
 
         if (response.ok && data.success === true) {
             // ✅ Nouveau access_token reçu
-            console.log('✅ Nouveau access_token obtenu !');
+            log.debug('✅ Nouveau access_token obtenu !');
             return true;
         } else {
             // ❌ Refresh_token invalide ou expiré → reconnexion nécessaire
-            console.error('❌ Refresh token invalide:', data.message);
+            log.error('❌ Refresh token invalide:', data.message);
             window.location.href = '/auth';
             return false;
         }
     } catch (error) {
-        console.error('❌ Erreur lors du refresh:', error);
+        log.error('❌ Erreur lors du refresh:', error);
         window.location.href = '/auth';
         return false;
     }
@@ -51,18 +51,18 @@ async function fetchWithAuth(url, options = {}) {
 
     // Si 401 → Token expiré, on essaie de le rafraîchir
     if (response.status === 401) {
-        console.log('⚠️ Access token expiré (401), tentative de refresh...');
+        log.debug('⚠️ Access token expiré (401), tentative de refresh...');
 
         const refreshSuccess = await refreshAccessToken();
 
         if (refreshSuccess) {
-            console.log('🔄 Réessai de la requête avec le nouveau token...');
+            log.debug('🔄 Réessai de la requête avec le nouveau token...');
             // Réessaye la requête avec le nouveau token
             response = await fetch(url, config);
-            console.log('✅ Requête terminée, statut:', response.status);
+            log.debug('✅ Requête terminée, statut:', response.status);
         } else {
             // le refresh a échoué, redirection vers login
-            console.error('Impossible de rafraichîr le token')
+            log.error('Impossible de rafraichîr le token')
             throw new Error('Session expirée')
 
         }
@@ -92,17 +92,17 @@ async function checkAuthStatus() {
             const data = await response.json();
 
             if (data.success && data.data) {
-                console.log('✅ Utilisateur connecté:', data.data.username);
+                log.debug('✅ Utilisateur connecté:', data.data.username);
                 return data.data;  // { id, username, email, total_score }
             }
         }
 
         // Si 401 ou toute autre erreur, on considère l'utilisateur déconnecté
-        console.log('❌ Utilisateur non connecté');
+        log.debug('❌ Utilisateur non connecté');
         return null;
 
     } catch (error) {
-        console.error('❌ Erreur lors de la vérification:', error);
+        log.error('❌ Erreur lors de la vérification:', error);
         return null;
     }
 }
@@ -117,7 +117,7 @@ function updateHeaderAuthState(userData) {
     const logoutBtn = document.getElementById('logout-btn');
 
     if (!loginLink || !logoutBtn) {
-        console.error('❌ Éléments d\'authentification introuvables dans le header');
+        log.error('❌ Éléments d\'authentification introuvables dans le header');
         return;
     }
 
@@ -125,7 +125,7 @@ function updateHeaderAuthState(userData) {
         // ========================================
         // UTILISATEUR CONNECTÉ
         // ========================================
-        console.log('🔄 Mise à jour header : utilisateur connecté');
+        log.debug('🔄 Mise à jour header : utilisateur connecté');
 
         // Cacher le lien "Connexion"
         loginLink.style.display = 'none';
@@ -137,7 +137,7 @@ function updateHeaderAuthState(userData) {
         // ========================================
         // UTILISATEUR DÉCONNECTÉ
         // ========================================
-        console.log('🔄 Mise à jour header : utilisateur déconnecté');
+        log.debug('🔄 Mise à jour header : utilisateur déconnecté');
 
         // Afficher le lien "Connexion"
         loginLink.style.display = 'inline-block';
@@ -151,7 +151,7 @@ function updateHeaderAuthState(userData) {
  * Initialise l'état d'authentification au chargement de la page
  */
 async function initAuthState() {
-    console.log('🔄 Initialisation de l\'état d\'authentification...');
+    log.debug('🔄 Initialisation de l\'état d\'authentification...');
 
     const userData = await checkAuthStatus();
     updateHeaderAuthState(userData);

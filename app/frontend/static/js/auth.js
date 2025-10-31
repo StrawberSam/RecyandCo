@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // ==================================
 
 function handleLogin() {
-  console.log('tentative de connexion');
+  log.debug('tentative de connexion');
 
   // Récupération des valeurs du formulaire
   let email = document.getElementById('email').value;
@@ -57,10 +57,10 @@ function handleLogin() {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('réponse reçue :', data);
+      log.debug('réponse reçue :', data);
 
       if (data.success === true) {
-        console.log('Connexion réussie');
+        log.debug('Connexion réussie');
 
         // Rediriger vers le jeu
         showMessage('Connexion réussie! Redirection...', 'success');
@@ -71,12 +71,12 @@ function handleLogin() {
 
       } else {
         // Identifiant incorrect
-        console.log('Connexion échouée');
+        log.debug('Connexion échouée');
         showMessage('Email ou mot de passe incorrect', 'error');
       }
     })
     .catch(error => {
-      console.error('erreur réseau:', error);
+      log.error('erreur réseau:', error);
       showMessage('Erreur de connexion. Vérifier votre connexion internet.', 'error');
     });
 }
@@ -84,7 +84,7 @@ function handleLogin() {
 // Gère l'inscription de l'utilisateur
 // ==================================
 function handleRegister() {
-  console.log('tentative d\'inscription');
+  log.debug('tentative d\'inscription');
 
   // Récupération des valeurs du formulaire
   let email = document.getElementById('register-email').value;
@@ -109,10 +109,10 @@ function handleRegister() {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('réponse reçue :', data);
+      log.debug('réponse reçue :', data);
 
       if (data.success === true) {
-        console.log('Inscription réussie');
+        log.debug('Inscription réussie');
 
         // Rediriger vers la connexion après inscription réussie
         showMessage('Inscription réussie! Redirection...', 'success');
@@ -123,12 +123,12 @@ function handleRegister() {
 
       } else {
         // Identifiant incorrect
-        console.log('Inscription échouée');
+        log.debug('Inscription échouée');
         showMessage(data.message, 'error');
       }
     })
     .catch(error => {
-      console.error('erreur réseau:', error);
+      log.error('erreur réseau:', error);
       showMessage('Erreur de connexion. Vérifier votre connexion internet.', 'error');
     });
 }

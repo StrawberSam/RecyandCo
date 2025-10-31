@@ -8,7 +8,7 @@ function chargerConsignes() {
     rendreSearchCliquable();
   })
   .catch(error => {
-    console.error('Erreur de chargement: ', error)
+    log.error('Erreur de chargement: ', error)
   })
 }
 

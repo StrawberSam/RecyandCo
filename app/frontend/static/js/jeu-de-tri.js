@@ -6,7 +6,7 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', async function () {
-  console.log('🎮 Jeu de tri chargé !');
+  log.debug('🎮 Jeu de tri chargé !');
   tempsDebut = Date.now();
   chargerInfosUtilisateur();
   chargerDechets();
@@ -44,16 +44,16 @@ let tempsDebut = Date.now();
  * Charge le fichier consignes.json depuis le serveur
  */
 function chargerDechets() {
-    console.log('📂 Chargement du fichier consignes.json...');
+    log.debug('📂 Chargement du fichier consignes.json...');
 
     fetch('/api/rules')
         .then(response => response.json())
         .then(data => {
-            console.log('✅ Fichier chargé !', data);
+            log.debug('✅ Fichier chargé !', data);
             filtrerDechetsJouables(data);
         })
         .catch(error => {
-            console.error('❌ Erreur de chargement :', error);
+            log.error('❌ Erreur de chargement :', error);
         });
 }
 
@@ -61,32 +61,32 @@ function chargerDechets() {
  * Filtre pour ne garder que les déchets des 3 poubelles du jeu
  */
 function filtrerDechetsJouables(data) {
-    console.log('🔍 Filtrage des déchets jouables...');
+    log.debug('🔍 Filtrage des déchets jouables...');
 
     let dechetsJouables = [];
 
     // Ajouter tous les déchets de la poubelle jaune
     if (data.jaune) {
         dechetsJouables = dechetsJouables.concat(data.jaune);
-        console.log(`  ➕ ${data.jaune.length} déchets jaunes ajoutés`);
+        log.debug(`  ➕ ${data.jaune.length} déchets jaunes ajoutés`);
     }
 
     // Ajouter tous les déchets de la poubelle verte
     if (data.verte) {
         dechetsJouables = dechetsJouables.concat(data.verte);
-        console.log(`  ➕ ${data.verte.length} déchets verts ajoutés`);
+        log.debug(`  ➕ ${data.verte.length} déchets verts ajoutés`);
     }
 
     // Ajouter tous les déchets de la poubelle bleue
     if (data.bleue) {
         dechetsJouables = dechetsJouables.concat(data.bleue);
-        console.log(`  ➕ ${data.bleue.length} déchets bleus ajoutés`);
+        log.debug(`  ➕ ${data.bleue.length} déchets bleus ajoutés`);
     }
 
     // Sauvegarder dans la variable globale
     tousLesDechets = dechetsJouables;
 
-    console.log(`✅ Total : ${tousLesDechets.length} déchets jouables !`);
+    log.debug(`✅ Total : ${tousLesDechets.length} déchets jouables !`);
 
     // Choisir 7 déchets au hasard et les afficher
     choisir7DechetsAleatoires();
@@ -110,12 +110,12 @@ function melangerTableau(tableau) {
  * Choisit 7 déchets au hasard parmi tous les déchets jouables
  */
 function choisir7DechetsAleatoires() {
-    console.log('🎲 Sélection de 7 déchets au hasard...');
+    log.debug('🎲 Sélection de 7 déchets au hasard...');
 
     let dechetsmelanges = melangerTableau(tousLesDechets);
     let septDechets = dechetsmelanges.slice(0, 7);
 
-    console.log('✅ 7 déchets sélectionnés');
+    log.debug('✅ 7 déchets sélectionnés');
 
     afficherCartes(septDechets);
 }
@@ -127,19 +127,19 @@ function choisir7DechetsAleatoires() {
  * Affiche les 7 cartes de déchets dans la zone de jeu
  */
 function afficherCartes(lesSeptDechets) {
-    console.log('🎨 Création des cartes visuelles...');
+    log.debug('🎨 Création des cartes visuelles...');
 
     let zoneCartes = document.getElementById('cartes-zone');
     zoneCartes.innerHTML = '';
 
     lesSeptDechets.forEach(function(dechet, index) {
-        console.log(`  📝 Création carte ${index + 1} : ${dechet.nom}`);
+        log.debug(`  📝 Création carte ${index + 1} : ${dechet.nom}`);
 
         let carte = creerCarte(dechet);
         zoneCartes.appendChild(carte);
     });
 
-    console.log('✅ 7 cartes affichées sur la page !');
+    log.debug('✅ 7 cartes affichées sur la page !');
 
     // Initialiser les événements sur les poubelles
     initialiserPoubelles();
@@ -195,7 +195,7 @@ function creerNomCarte(dechet) {
  */
 function ajouterEvenementsDragSurCarte(carte, dechet) {
     carte.addEventListener('dragstart', function(event) {
-        console.log('🖐️ Début du glissement :', dechet.nom);
+        log.debug('🖐️ Début du glissement :', dechet.nom);
 
         // Stocker les infos dans le dataTransfer
         event.dataTransfer.setData('poubelle-correcte', dechet.poubelle);
@@ -232,16 +232,16 @@ function ajouterEvenementDropSurPoubelle(poubelle) {
     poubelle.addEventListener('drop', function(event) {
         event.preventDefault();
 
-        console.log('📦 Carte déposée sur la poubelle !');
+        log.debug('📦 Carte déposée sur la poubelle !');
 
         // Récupérer les infos du dataTransfer
         let bonnePoubell = event.dataTransfer.getData('poubelle-correcte');
         let nomDechet = event.dataTransfer.getData('nom-dechet');
         let poubelleChoisie = this.dataset.bin;
 
-        console.log('🔍 Déchet :', nomDechet);
-        console.log('✅ Bonne réponse :', bonnePoubell);
-        console.log('👉 Vous avez choisi :', poubelleChoisie);
+        log.debug('🔍 Déchet :', nomDechet);
+        log.debug('✅ Bonne réponse :', bonnePoubell);
+        log.debug('👉 Vous avez choisi :', poubelleChoisie);
 
         // Vérifier et remplacer la carte
         verifierEtRemplacer(bonnePoubell, poubelleChoisie, nomDechet);
@@ -256,7 +256,7 @@ function ajouterEvenementDropSurPoubelle(poubelle) {
  */
 function ajouterEvenementClicSurCarte(carte, dechet) {
     carte.addEventListener('click', function() {
-        console.log('👆 Carte cliquée :', dechet.nom);
+        log.debug('👆 Carte cliquée :', dechet.nom);
 
         // Désélectionner toutes les autres cartes
         deselectionnerToutesLesCartes();
@@ -265,7 +265,7 @@ function ajouterEvenementClicSurCarte(carte, dechet) {
         this.classList.add('selectionnee');
         carteSelectionnee = this;
 
-        console.log('✅ Carte sélectionnée :', dechet.nom);
+        log.debug('✅ Carte sélectionnée :', dechet.nom);
     });
 }
 
@@ -284,24 +284,24 @@ function deselectionnerToutesLesCartes() {
  */
 function ajouterEvenementClicSurPoubelle(poubelle) {
     poubelle.addEventListener('click', function() {
-        console.log('🗑️ Poubelle cliquée !');
+        log.debug('🗑️ Poubelle cliquée !');
 
         // Vérifier si une carte est sélectionnée
         if (carteSelectionnee === null) {
-            console.log('⚠️ Aucune carte sélectionnée !');
+            log.debug('⚠️ Aucune carte sélectionnée !');
             return;
         }
 
-        console.log('✅ Une carte est sélectionnée, on vérifie...');
+        log.debug('✅ Une carte est sélectionnée, on vérifie...');
 
         // Récupérer les infos de la carte sélectionnée
         let bonnePoubell = carteSelectionnee.dataset.poubelle;
         let nomDechet = carteSelectionnee.querySelector('p').textContent;
         let poubelleChoisie = this.dataset.bin;
 
-        console.log('🔍 Déchet :', nomDechet);
-        console.log('✅ Bonne réponse :', bonnePoubell);
-        console.log('👉 Vous avez choisi :', poubelleChoisie);
+        log.debug('🔍 Déchet :', nomDechet);
+        log.debug('✅ Bonne réponse :', bonnePoubell);
+        log.debug('👉 Vous avez choisi :', poubelleChoisie);
 
         // Vérifier et remplacer la carte
         verifierEtRemplacer(bonnePoubell, poubelleChoisie, nomDechet);
@@ -310,7 +310,7 @@ function ajouterEvenementClicSurPoubelle(poubelle) {
         carteSelectionnee.classList.remove('selectionnee');
         carteSelectionnee = null;
 
-        console.log('🔄 Sélection réinitialisée');
+        log.debug('🔄 Sélection réinitialisée');
     });
 }
 
@@ -336,7 +336,7 @@ function verifierEtRemplacer(bonnePoubell, poubelleChoisie, nomDechet) {
  * Affiche un feedback de succès
  */
 function afficherSucces(nomDechet) {
-    console.log('🎉 BRAVO ! C\'est correct pour :', nomDechet);
+    log.debug('🎉 BRAVO ! C\'est correct pour :', nomDechet);
 
     // Incrémenter le score
     scoreSession++;
@@ -354,8 +354,8 @@ function afficherSucces(nomDechet) {
  * Affiche un feedback d'erreur
  */
 function afficherErreur(bonnePoubell, nomDechet) {
-    console.log('❌ OUPS ! Ce n\'est pas la bonne poubelle :', nomDechet);
-    console.log('💡 Il fallait la mettre dans la', bonnePoubell);
+    log.debug('❌ OUPS ! Ce n\'est pas la bonne poubelle :', nomDechet);
+    log.debug('💡 Il fallait la mettre dans la', bonnePoubell);
 
     // Comptage des tentatives (même fausses)
     nombreTentatives++;
@@ -373,9 +373,9 @@ function mettreAJourAffichageScore() {
     // Vérifier que l'élèment existe
     if (scoreDisplay) {
         scoreDisplay.textContent = scoreAffiche + 'pts';
-        console.log('Score mis à jour :', scoreAffiche, 'pts');
+        log.debug('Score mis à jour :', scoreAffiche, 'pts');
     } else {
-        console.error('Element score-display introuvable');
+        log.error('Element score-display introuvable');
     }
 }
 
@@ -413,18 +413,18 @@ async function chargerInfosUtilisateur() {
  * Sauvegarde le score de la session en cours SANS quitter le jeu
  */
 function sauvegarderScore() {
-    console.log('💾 Sauvegarde du score en cours...');
+    log.debug('💾 Sauvegarde du score en cours...');
 
     // Si aucun point, pas besoin de sauvegarder
     if (scoreSession === 0) {
-        console.log('ℹ️ Aucun point à sauvegarder pour le moment');
+        log.debug('ℹ️ Aucun point à sauvegarder pour le moment');
         afficherMessageUtilisateur('Aucun point à sauvegarder pour le moment', 'info');
         return;
     }
 
-    console.log('📊 Score session à sauvegarder :', scoreSession);
-    console.log('⏰ tempsDebut:', tempsDebut);
-    console.log('⏰ Date.now():', Date.now());
+    log.debug('📊 Score session à sauvegarder :', scoreSession);
+    log.debug('⏰ tempsDebut:', tempsDebut);
+    log.debug('⏰ Date.now():', Date.now());
 
     // Préparation des données à envoyer
     let dureeMsPartie = Date.now() - tempsDebut;
@@ -435,7 +435,7 @@ function sauvegarderScore() {
         duration_ms: dureeMsPartie
     };
 
-    console.log('📤 Envoi des données :', donneesScore);
+    log.debug('📤 Envoi des données :', donneesScore);
 
     // Désactiver le bouton pendant la sauvegarde (éviter double-clic)
     let btnSave = document.getElementById('btn-save');
@@ -451,11 +451,11 @@ function sauvegarderScore() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('📥 Réponse de l\'API :', data);
+        log.debug('📥 Réponse de l\'API :', data);
 
         if (data.success === true) {
-            console.log('🎉 Score sauvegardé avec succès !');
-            console.log('🏆 Nouveau score total :', data.data.total_score);
+            log.debug('🎉 Score sauvegardé avec succès !');
+            log.debug('🏆 Nouveau score total :', data.data.total_score);
 
             // MAJ du score total utilisateur
             scoreTotalUtilisateur = data.data.total_score;
@@ -477,7 +477,7 @@ function sauvegarderScore() {
             }
 
         } else {
-            console.error('❌ Erreur lors de la sauvegarde :', data);
+            log.error('❌ Erreur lors de la sauvegarde :', data);
             afficherMessageUtilisateur('❌ Erreur lors de la sauvegarde', 'error');
 
             // Réactiver le bouton
@@ -488,7 +488,7 @@ function sauvegarderScore() {
         }
     })
     .catch(error => {
-        console.error('❌ Erreur réseau :', error);
+        log.error('❌ Erreur réseau :', error);
         afficherMessageUtilisateur('❌ Erreur de connexion. Score non sauvegardé.', 'error');
 
         // Réactiver le bouton
@@ -550,7 +550,7 @@ function afficherMessageUtilisateur(message, type) {
  * Remplace une carte triée par une nouvelle carte aléatoire
  */
 function remplacerCarte(nomDechetATrier) {
-    console.log('🔄 Remplacement de la carte :', nomDechetATrier);
+    log.debug('🔄 Remplacement de la carte :', nomDechetATrier);
 
     // 1. Trouver la carte dans le DOM
     let cartes = document.querySelectorAll('.carte-dechet');
@@ -566,14 +566,14 @@ function remplacerCarte(nomDechetATrier) {
     // 2. Supprimer la carte du DOM
     if (carteATirer) {
         carteATirer.remove();
-        console.log('❌ Carte retirée');
+        log.debug('❌ Carte retirée');
     }
 
     // 3. Choisir un nouveau déchet au hasard
     let dechetsMelanges = melangerTableau(tousLesDechets);
     let nouveauDechet = dechetsMelanges[0];
 
-    console.log('➕ Nouveau déchet :', nouveauDechet.nom);
+    log.debug('➕ Nouveau déchet :', nouveauDechet.nom);
 
     // 4. Créer la nouvelle carte
     let zoneCartes = document.getElementById('cartes-zone');
@@ -582,5 +582,5 @@ function remplacerCarte(nomDechetATrier) {
     // 5. Ajouter la nouvelle carte
     zoneCartes.appendChild(nouvelleCarte);
 
-    console.log('✅ Nouvelle carte ajoutée !');
+    log.debug('✅ Nouvelle carte ajoutée !');
 }

@@ -8,7 +8,7 @@ async function init() {
 
     // Récupérer les statistiques
     const statsData = await getStats()
-    console.log('🔍 statsData AVANT displayStats:', statsData);
+    log.debug('🔍 statsData AVANT displayStats:', statsData);
 
     // Affichage des stats
     displayStats(statsData)
@@ -20,7 +20,7 @@ async function init() {
     displayBadges(badgesData)
   } catch (error) {
     // Si quelque chose ne va pas
-    console.error('Erreur lors du chargement du profil: ', error)
+    log.error('Erreur lors du chargement du profil: ', error)
 
     // Reidrection vers la page de connexion
 
@@ -74,32 +74,32 @@ function displayUserInfo(userData) {
 }
 
 async function getStats() {
-  console.log('Récupération des stats');
+  log.debug('Récupération des stats');
   const response = await fetchWithAuth('/api/stats/me', {
     method: 'GET'
   })
 
-  console.log('Statut de la réponse : ', response.status);
+  log.debug('Statut de la réponse : ', response.status);
 
   if (!response.ok) {
     throw new Error('Impossible de récupérer les statistiques')
   }
 
   const json = await response.json()
-  console.log('Réponse complète:', json);
-  console.log('json.data:', json.data);
+  log.debug('Réponse complète:', json);
+  log.debug('json.data:', json.data);
 
   // Extraire les données
   if (json.data) {
-    console.log('Stats extraites:', json.data);
+    log.debug('Stats extraites:', json.data);
     return json.data
   }
-  console.log('Stats retournées directement:', json.data)
+  log.debug('Stats retournées directement:', json.data)
   return json
 }
 
 function displayStats(statsData) {
-  console.log('🎨 Affichage des stats:', statsData);
+  log.debug('🎨 Affichage des stats:', statsData);
   document.getElementById('stats-games').textContent = statsData.parties_jouees
   document.getElementById('stats-best').textContent = statsData.points
   document.getElementById('stats-correct').textContent = statsData.correct_items
@@ -125,7 +125,7 @@ async function getBadges() {
 }
 
 function displayBadges(badgesData) {
-  console.log('🏅 Badges reçus:', badgesData)
+  log.debug('🏅 Badges reçus:', badgesData)
 
   // TODO : Afficher les badges dans le HTML
   // Pour l'instant on log juste pour voir ce qu'on reçoit

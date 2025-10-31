@@ -2,17 +2,17 @@
 let consignesData = null;
 
 function chargerConsignes() {
-    console.log('📂 Chargement des consignes...');
+    log.debug('📂 Chargement des consignes...');
 
     fetch('/api/rules')
         .then(response => response.json())
         .then(data => {
-            console.log('✅ Fichier chargé !', data);
+            log.debug('✅ Fichier chargé !', data);
             consignesData = data;
             rendrepoubelleCliquable();
         })
         .catch(error => {
-            console.error('❌ Erreur de chargement :', error);
+            log.error('❌ Erreur de chargement :', error);
         });
 }
 

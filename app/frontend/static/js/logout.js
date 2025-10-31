@@ -6,7 +6,7 @@
  * Déconnecte l'utilisateur
  */
 async function logout() {
-    console.log('🚪 Déconnexion en cours...');
+    log.debug('🚪 Déconnexion en cours...');
 
     try {
         const response = await fetch('/api/logout', {
@@ -17,7 +17,7 @@ async function logout() {
         const data = await response.json();
 
         if (data.success) {
-            console.log('✅ Déconnexion réussie');
+            log.debug('✅ Déconnexion réussie');
 
             // Mettre à jour l'interface immédiatement
             if (typeof window.updateHeaderAuthState === 'function') {
@@ -33,12 +33,12 @@ async function logout() {
             }, 500);
 
         } else {
-            console.error('❌ Erreur lors de la déconnexion:', data);
+            log.error('❌ Erreur lors de la déconnexion:', data);
             window.location.href = '/';
         }
 
     } catch (error) {
-        console.error('❌ Erreur réseau:', error);
+        log.error('❌ Erreur réseau:', error);
         window.location.href = '/';
     }
 }
@@ -48,19 +48,19 @@ async function logout() {
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔌 Script logout.js chargé');
+    log.debug('🔌 Script logout.js chargé');
 
     const logoutBtn = document.getElementById('logout-btn');
 
     if (logoutBtn) {
-        console.log('✅ Bouton de déconnexion trouvé, événement attaché');
+        log.debug('✅ Bouton de déconnexion trouvé, événement attaché');
 
         logoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('👆 Clic sur le bouton de déconnexion');
+            log.debug('👆 Clic sur le bouton de déconnexion');
             logout();
         });
     } else {
-        console.log('ℹ️ Bouton de déconnexion non trouvé');
+        log.debug('ℹ️ Bouton de déconnexion non trouvé');
     }
 });

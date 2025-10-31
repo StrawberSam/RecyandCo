@@ -38,7 +38,7 @@ async function getInfosUtilisateur() {
 
     return null;
   } catch (error) {
-    console.error('Erreur lors de la récupération des infos utilisateur:', error);
+    log.error('Erreur lors de la récupération des infos utilisateur:', error);
     return null;
   }
 }
