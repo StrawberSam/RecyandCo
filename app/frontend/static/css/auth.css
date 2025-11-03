@@ -1,3 +1,4 @@
+/* Page wrapper */
 .auth-page-wrapper {
     display: flex;
     justify-content: center;
@@ -8,11 +9,11 @@
     flex-wrap: wrap; /* Important pour le responsive */
 }
 
+/* Container principal */
 .auth-container {
     background-color: #F7F8F5;
     text-align: center;
     padding: 2rem;
-
     max-width: 400px;
     width: 90%;
     margin: 0;
@@ -20,15 +21,12 @@
     box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-    text-align:center;
-    padding: 0.5rem;
-}
-
+/* Paragraphes */
 .auth-container p {
     padding: 3rem;
 }
 
+/* Tous les inputs */
 .auth-container input {
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -36,6 +34,7 @@
     width: 250px;
 }
 
+/* Boutons généraux */
 .auth-container button {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 0.75rem 2rem;
@@ -43,46 +42,45 @@
     width: auto;
 }
 
+/* Formulaires */
 #login-form,
 #register-form {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 1rem; /* Augmenté de 0.3rem à 1rem pour plus d'espace */
     align-items: center;
 }
 
+/* Boutons des formulaires */
 #login-form button,
 #register-form button {
     font-size: medium;
-    width: auto; /* largeur automatique selon le texte */
-    padding: 0.75rem 2rem; /* padding pour l'épaissir un peu */
+    width: auto;
+    padding: 0.75rem 2rem;
     border-radius: 25px;
     border: none;
     box-shadow: 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #edeeea;
-
 }
 
-#register-form input {
-    padding: 0.5rem;
-}
-
+/* Lien toggle */
 #toggle-link {
     color: #94A698;
 }
 
+/* Mascotte */
 .mascot {
     width: 150px;
     height: auto;
     margin-bottom: 0.5rem;
 }
 
+/* Warning container */
 .warning-container {
     background-color: #F7F8F5;
-    border-left: 4px solid #B0C7B4; /* Bordure pour le côté "attention" */
+    border-left: 4px solid #B0C7B4;
     text-align: justify;
     padding: 1rem;
-
     max-width: 400px;
     width: 90%;
     margin: 0;
@@ -111,10 +109,18 @@
     color: #666;
 }
 
-/* Conteneur pour input + icône */
-.password-wrapper {
+/* ============================================
+   INPUT AVEC ICÔNE (password + œil)
+   ============================================ */
+
+.input-with-icon {
     position: relative;
+    width: 250px;
+}
+
+.input-with-icon input {
     width: 100%;
+    padding-right: 35px; /* Espace pour l'icône */
 }
 
 /* L'icône de l'œil */
@@ -125,7 +131,8 @@
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 1.2rem;
-    user-select: none; /* Empêche la sélection du texte */
+    user-select: none;
+    z-index: 10;
 }
 
 .toggle-password:hover {

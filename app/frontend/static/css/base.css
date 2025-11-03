@@ -1,4 +1,72 @@
-/* base.css - styles communs */
+/* ============================================
+   SECTION HERO - COMMUN À PLUSIEURS PAGES
+   ============================================ */
+.hero {
+    background-color: #F7F8F5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.hero-images {
+    position: relative;
+    width: 40%;
+    max-width: 550px;
+    aspect-ratio: 1;
+    flex-shrink: 1;
+    margin-left: 4rem;
+}
+
+.forest {
+    width: 80%;
+    max-width: 450px;
+    height: auto;
+    aspect-ratio: 9/10;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2));
+    border-radius: 200px 200px 0 0;
+}
+
+.forest-2 {
+    width: 65%;
+    max-width: 380px;
+    height: auto;
+    aspect-ratio: 9/10;
+    position: absolute;
+    bottom: 0px;
+    right: -15%;
+    z-index: 2;
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15));
+    border-radius: 200px 200px 0 0;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: center;
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+.hero-text p {
+    font-size: 1rem;
+}
+
+/* Menu toggle - style de base (caché sur desktop) */
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-right: 1rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -51,7 +119,6 @@ nav a {
   padding: 0.5rem 0.5rem;
   background-color: #B0C7B4;
   border: none;
-
 }
 
 /* Footer */
@@ -81,10 +148,9 @@ footer a {
   color: black;
 }
 
-/* Partie responsive */
-
+/* Menu toggle - style de base (caché sur desktop) */
 .menu-toggle {
-  display: none;
+  display: none; /* Caché par défaut, affiché en mobile via responsive.css */
   font-size: 2rem;
   cursor: pointer;
   background: none;
@@ -92,29 +158,71 @@ footer a {
   margin-right: 1rem;
 }
 
-@media (max-width: 768px) {
-  header {
-    position: relative;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    flex-direction: column;
-    background-color: #B0C7B4;
-    border-radius: 0 0 0 20px;
-    padding: 1rem;
-    gap: 1rem;
-    z-index: 1000;
-  }
-
-  header.active nav {
+/* ============================================
+   SECTION HERO - COMMUN À PLUSIEURS PAGES
+   ============================================ */
+.hero {
+    background-color: #F7F8F5;
     display: flex;
-  }
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.hero-images {
+    position: relative;
+    width: 40%;
+    max-width: 550px;
+    aspect-ratio: 1;
+    flex-shrink: 1;
+    margin-left: 4rem;
+}
+
+.forest {
+    width: 80%;
+    max-width: 450px;
+    height: auto;
+    aspect-ratio: 9/10;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2));
+    border-radius: 200px 200px 0 0;
+}
+
+.forest-2 {
+    width: 65%;
+    max-width: 380px;
+    height: auto;
+    aspect-ratio: 9/10;
+    position: absolute;
+    bottom: 0px;
+    right: -15%;
+    z-index: 2;
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15));
+    border-radius: 200px 200px 0 0;
+}
+
+.hero-text {
+    flex: 1;
+    text-align: center;
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+.hero-text p {
+    font-size: 1rem;
+}
+
+/* Menu toggle - style de base (caché sur desktop) */
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-right: 1rem;
 }

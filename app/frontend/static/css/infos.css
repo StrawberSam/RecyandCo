@@ -1,80 +1,41 @@
-/* SECTION HERO */
-.hero {
-    background-color: #F7F8F5;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    padding: 3rem;
-    max-width: auto;
-    margin: 0 auto;
-}
+/* ============================================
+   PAGE INFOS - CONSIGNES DE TRI
+   ============================================ */
 
-.hero-images {
-    position: relative;
-    width: 550px;
-    height: 550px;
-    flex-shrink: 0;
-    margin-left: 8rem;
-}
-
-.forest {
-    width: 450px;
-    height: 500px;
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2));
-    border-radius: 200px 200px 0 0;
-}
-
-.forest-2 {
-    width: 380px;
-    height: 400px;
-    position: absolute;
-    bottom: 0px;
-    right: -110px;
-    z-index: 2;
-    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15));
-    border-radius: 200px 200px 0 0;
-}
-
-.hero-text {
-    flex: 1;
-    text-align: center;
-    max-width: 1200px;
-}
-
-.hero-text p {
-    font-size: 1rem;
-}
-
-/* NOUVEAU : Layout poubelles + détails côte à côte */
+/* Layout principal : poubelles + détails côte à côte */
 .sorting-layout {
     display: flex;
-    flex-direction: row; /* Côte à côte */
-    gap: 10rem; /* Espace entre les deux colonnes */
+    flex-direction: row;
+    gap: 10rem;
     padding: 3rem;
-    align-items: flex-start; /* Alignement en haut */
+    align-items: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* GAUCHE : Conteneur des poubelles */
 .bin-info {
     display: flex;
-    flex-direction: column; /* Poubelles empilées verticalement */
-    gap: 30px; /* Espace entre chaque poubelle */
-    flex-shrink: 0; /* Empêche la colonne de rétrécir */
+    flex-direction: column;
+    gap: 30px;
+    flex-shrink: 0;
     margin-left: 5rem;
 }
 
 /* DROITE : Zone des détails */
 .details-tri {
-    flex: 1; /* Prend tout l'espace restant */
+    flex: 1;
+    min-width: 0; /* Important pour le responsive */
 }
 
 #bins-details {
-  padding: 2rem;
-  gap: 40px;
+    padding: 2rem;
+    gap: 40px;
 }
+
+/* ============================================
+   POUBELLES INTERACTIVES
+   ============================================ */
 
 /* Structure de base d'une poubelle */
 .poubelle {
@@ -82,6 +43,11 @@
     width: 80px;
     height: 120px;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.poubelle:hover {
+    transform: scale(1.05);
 }
 
 /* Couvercle de la poubelle */
@@ -110,7 +76,9 @@
     transform: rotate(-10deg);
 }
 
-/* --- COULEURS DES POUBELLES --- */
+/* ============================================
+   COULEURS DES POUBELLES
+   ============================================ */
 
 /* Poubelle Bleue */
 .poubelle-bleue .couvercle,
@@ -133,19 +101,19 @@
 /* Poubelle Grise */
 .poubelle-grise .couvercle,
 .poubelle-grise .corps {
-    background-color: grey;
+    background-color: #808080;
 }
 
 /* Poubelle Biodéchet */
 .poubelle-biodechet .couvercle,
 .poubelle-biodechet .corps {
-    background-color: brown;
+    background-color: #8B4513;
 }
 
 /* Poubelle Déchéterie */
 .poubelle-decheterie .couvercle,
 .poubelle-decheterie .corps {
-    background-color: green;
+    background-color: #2E7D32;
 }
 
 /* Label sur la poubelle */
@@ -162,52 +130,49 @@
     z-index: 10;
 }
 
-/* Icônes des déchets */
-.dechet-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 8px;
-    pointer-events: none;
-}
-
-/* Style de la zone de détails */
-#bins-details {
-    padding: 1rem;
-}
+/* ============================================
+   ZONE DE DÉTAILS DES DÉCHETS
+   ============================================ */
 
 #bins-details h2 {
     margin-bottom: 20px;
-    color: #333;
+    color: #2c5f2d;
     font-size: 1.5rem;
-    text-transform: capitalize; /* "bleue" → "Bleue" */
+    text-transform: capitalize;
 }
 
-/* Style de la liste */
+/* Liste des déchets */
 #bins-details ul {
     list-style: none;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Espace entre chaque déchet */
+    gap: 20px;
 }
 
-/* Style de chaque déchet (chaque <li>) */
+/* Carte individuelle de déchet */
 #bins-details li {
     display: flex;
     flex-direction: column;
-    gap: 10px; /*Espace entre icône, nom et texte */
+    gap: 10px;
     background-color: #f9f9f9;
-    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
+    filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.2));
     padding: 15px;
     border-radius: 20px;
     transition: transform 0.2s ease;
+}
+
+#bins-details li:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(6px 6px 12px rgba(0, 0, 0, 0.25));
 }
 
 /* Icône du déchet */
 .dechet-icon {
     width: 60px;
     height: 60px;
-    align-self: flex-start; /* Alignement à gauche */
+    align-self: flex-start;
+    pointer-events: none;
 }
 
 /* Nom du déchet */
@@ -216,7 +181,7 @@
     color: #333;
 }
 
-/* Bon à savoir */
+/* Texte "Bon à savoir" */
 .bon-a-savoir {
     font-size: 0.95rem;
     line-height: 1.6;

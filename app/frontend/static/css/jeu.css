@@ -1,54 +1,6 @@
 /* ============================================
-   SECTION HERO
+   PAGE JEU - DRAG & DROP
    ============================================ */
-.hero {
-    background-color: #F7F8F5;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    padding: 3rem;
-    max-width: auto;
-    margin: 0 auto; /* Centre automatiquement */
-}
-
-.hero-images {
-    position: relative;
-    width: 550px;
-    height: 550px;
-    flex-shrink: 0;
-    margin-left: 8rem;
-}
-
-.forest {
-    width: 450px;
-    height: 500px;
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.2)); /* Ombre portée */
-    border-radius: 200px 200px 0 0;
-}
-
-.forest-2 {
-    width: 380px;
-    height: 400px;
-    position: absolute; /* Se superpose à la première */
-    bottom: 0px;
-    right: -110px; /* Dépasse un peu à droite */
-    z-index: 2; /* Au-dessus du grand */
-    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.15)); /* Ombre plus légère */
-    border-radius: 200px 200px 0 0;
-}
-
-.hero-text {
-    flex: 1;
-    text-align: center;
-    max-width: 1200px;
-}
-
-.hero-text p {
-    font-size: 1rem;
-}
 
 /* ============================================
    POUBELLES
@@ -56,45 +8,45 @@
 
 /* Conteneur des 3 poubelles */
 .poubelles-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 40px;
-  margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 40px;
+    margin: 40px 0;
 }
 
 /* Structure de base d'une poubelle */
 .poubelle {
-  position: relative;
-  width: 80px;
-  height: 120px;
-  cursor: pointer;
+    position: relative;
+    width: 80px;
+    height: 120px;
+    cursor: pointer;
 }
 
 /* Couvercle de la poubelle */
 .couvercle {
-  width: 90px;
-  height: 20px;
-  border-radius: 5px;
-  position: absolute;
-  top: 0;
-  left: -5px;
-  transform-origin: left center;
-  transition: transform 0.2s ease;
+    width: 90px;
+    height: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    transform-origin: left center;
+    transition: transform 0.2s ease;
 }
 
 /* Corps de la poubelle */
 .corps {
-  width: 80px;
-  height: 90px;
-  border-radius: 0 0 8px 8px;
-  position: absolute;
-  top: 20px;
+    width: 80px;
+    height: 90px;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    top: 20px;
 }
 
 /* Animation du couvercle au survol */
 .poubelle:hover .couvercle {
-  transform: rotate(-10deg);
+    transform: rotate(-10deg);
 }
 
 /* --- COULEURS DES POUBELLES --- */
@@ -102,35 +54,34 @@
 /* Poubelle Bleue */
 .poubelle-bleue .couvercle,
 .poubelle-bleue .corps {
-  background-color: #2196F3;
+    background-color: #2196F3;
 }
 
 /* Poubelle Jaune */
 .poubelle-jaune .couvercle,
 .poubelle-jaune .corps {
-  background-color: #f7cb00;
+    background-color: #f7cb00;
 }
 
 /* Poubelle Verte */
 .poubelle-verte .couvercle,
 .poubelle-verte .corps {
-  background-color: #4CAF50;
+    background-color: #4CAF50;
 }
 
 /* Label sur la poubelle */
 .poubelle-label {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.80rem;
-  color: black;
-  font-weight: 700;
-  pointer-events: none;
-  z-index: 10;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.80rem;
+    color: black;
+    font-weight: 700;
+    pointer-events: none;
+    z-index: 10;
 }
-
 
 /* ============================================
    CARTES DE DÉCHETS
@@ -138,80 +89,82 @@
 
 /* Conteneur principal des cartes */
 .cartes-container {
-  margin: 40px 0;
-  text-align: center;
+    margin: 40px 0;
+    text-align: center;
 }
 
 /* Titre de la section cartes */
 .cartes-container h3 {
-  color: #2E7D32;
-  margin-bottom: 20px;
-  font-size: 1.3rem;
+    color: #2E7D32;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
 }
 
 /* Grille d'affichage des 7 cartes */
 .cartes-grille {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 15px;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /* Style d'une carte de déchet */
 .carte-dechet {
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 15px;
-  cursor: grab;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-align: center;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: grab;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 /* Effet au survol de la carte */
 .carte-dechet:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  border-color: #4CAF50;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-color: #4CAF50;
 }
 
 /* Quand on clique sur la carte */
 .carte-dechet:active {
-  cursor: grabbing;
+    cursor: grabbing;
 }
 
 /* Icône du déchet dans la carte */
 .carte-dechet img {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 8px;
-  pointer-events: none;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+    pointer-events: none;
 }
 
 /* Nom du déchet dans la carte */
 .carte-dechet p {
-  margin: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #333;
-  pointer-events: none;
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    pointer-events: none;
 }
 
 /* mode clic-clic */
 .carte-dechet.selectionnee {
-  border: 3px solid #4CAF50;
-  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
-  transform: scale(1.05);
+    border: 3px solid #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+    transform: scale(1.05);
 }
 
+/* Footer du jeu */
 .game-footer {
-  background-color: white;
-  text-align: center;
+    background-color: white;
+    text-align: center;
 }
 
+/* Bouton secondaire */
 .btn-secondary {
     background-color: #e2e4df;
     padding: 0.75rem 2rem;
@@ -228,24 +181,24 @@
 
 /* Animation de succès (bonne réponse) */
 @keyframes succes-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
 .feedback-succes {
-  animation: succes-pulse 0.5s ease;
-  border-color: #4CAF50 !important;
-  background: rgba(76, 175, 80, 0.2) !important;
+    animation: succes-pulse 0.5s ease;
+    border-color: #4CAF50 !important;
+    background: rgba(76, 175, 80, 0.2) !important;
 }
 
 /* Animation d'erreur (mauvaise réponse) */
 @keyframes erreur-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
 }
 
 .feedback-erreur {
-  animation: erreur-shake 0.5s ease;
-  border-color: #F44336 !important;
+    animation: erreur-shake 0.5s ease;
+    border-color: #F44336 !important;
 }

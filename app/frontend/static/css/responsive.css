@@ -1,0 +1,1345 @@
+/* responsive.css - Récy&Co */
+/* Toutes les règles responsive centralisées */
+
+/* ========================================
+   TABLETTES : max-width 1024px
+   ======================================== */
+@media (max-width: 1024px) {
+
+    /* ==========================================
+     HERO COMMUN (depuis base.css)
+     ========================================== */
+
+    .hero {
+        padding: 2rem;
+        gap: 1.5rem;
+    }
+
+    .hero-images {
+        width: 400px;
+        height: 400px;
+        margin-left: 2rem;
+    }
+
+    .forest {
+        width: 350px;
+        height: 380px;
+    }
+
+    .forest-2 {
+        width: 280px;
+        height: 300px;
+        right: -80px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ========================================
+   TABLETTES : max-width 992px
+   ======================================== */
+@media (max-width: 992px) {
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION HERO (depuis index.css)
+     ========================================== */
+
+    .hero {
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .hero-images {
+        width: 350px;
+        /* Réduit la largeur */
+        height: 350px;
+        /* Réduit la hauteur */
+        margin-left: 2rem;
+        /* Réduit la marge */
+    }
+
+    .forest {
+        width: 280px;
+        /* Plus petit */
+        height: 320px;
+    }
+
+    .forest-2 {
+        width: 240px;
+        /* Plus petit */
+        height: 280px;
+        right: -60px;
+        /* Moins de décalage */
+        bottom: 0px;
+    }
+
+    .hero-text {
+        flex: 1;
+    }
+
+    .hero-text h1 {
+        font-size: 1.8rem;
+        /* Réduit le titre */
+    }
+
+    .hero-text p {
+        font-size: 0.95rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION AUTHENTIFICATION
+     ========================================== */
+
+    .auth-buttons {
+        gap: 5rem;
+        /* Réduit l'espace entre les boutons */
+        padding: 2.5rem 1.5rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION FONCTIONNALITES
+     ========================================== */
+
+    .features-grid {
+        flex-wrap: wrap;
+    }
+
+    .feature-card {
+        width: 260px;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION PROFIL
+     ========================================== */
+
+    .profil-section {
+        padding: 2.5rem 1.5rem;
+        gap: 2rem;
+    }
+
+    .profil-images {
+        width: 400px;
+        height: 400px;
+    }
+
+    .profil-img-1 {
+        width: 220px;
+        height: 320px;
+        right: 150px;
+    }
+
+    .profil-img-2 {
+        width: 300px;
+        height: 400px;
+    }
+
+    /* ==========================================
+     PAGE INFOS (depuis infos.css)
+     ========================================== */
+
+    .sorting-layout {
+        gap: 5rem;
+        padding: 2rem;
+    }
+
+    .bin-info {
+        margin-left: 2rem;
+        gap: 20px;
+    }
+
+    .poubelle {
+        width: 70px;
+        height: 105px;
+    }
+
+    .couvercle {
+        width: 80px;
+        height: 18px;
+    }
+
+    .corps {
+        width: 70px;
+        height: 80px;
+    }
+
+    #bins-details {
+        padding: 1.5rem;
+    }
+}
+
+/* ========================================
+   PETITES TABLETTES / MOBILE : max-width 768px
+   ======================================== */
+@media (max-width: 768px) {
+
+    /* ==========================================
+     HEADER & NAVIGATION (depuis base.css)
+     ========================================== */
+
+    header {
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        flex-direction: column;
+        background-color: #B0C7B4;
+        border-radius: 0 0 0 20px;
+        padding: 1rem;
+        gap: 1rem;
+        z-index: 1000;
+    }
+
+    header.active nav {
+        display: flex;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - TYPOGRAPHIE (depuis index.css)
+     ========================================== */
+
+    h1 {
+        font-size: 2rem;
+        /* Réduit la taille du titre principal */
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION HERO
+     ========================================== */
+
+    .hero {
+        flex-direction: column;
+        /* Empile image et texte */
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+    }
+
+    .hero-images {
+        width: 100%;
+        max-width: 400px;
+        height: 400px;
+        margin-left: 0;
+        /* Supprime la marge gauche */
+        margin: 0 auto;
+        /* Centre l'élément */
+    }
+
+    .forest {
+        width: 100%;
+        max-width: 320px;
+        height: 360px;
+    }
+
+    .forest-2 {
+        width: 85%;
+        max-width: 270px;
+        height: 300px;
+        right: -70px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .hero-text p {
+        font-size: 0.95rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION AUTHENTIFICATION
+     ========================================== */
+
+    .auth-buttons {
+        flex-direction: column;
+        /* Empile les boutons */
+        gap: 3rem;
+        padding: 2rem 1.5rem;
+        align-items: center;
+    }
+
+    .auth-option {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .btn-auth {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION FONCTIONNALITES
+     ========================================== */
+
+    .features {
+        padding: 3rem 1.5rem;
+    }
+
+    .features h2 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .features-grid {
+        flex-direction: column;
+        /* Empile les cartes */
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .feature-card {
+        width: 100%;
+        max-width: 350px;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .feature-icon {
+        width: 100px;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION PROFIL
+     ========================================== */
+
+    .profil-section {
+        flex-direction: column-reverse;
+        /* Texte en haut, images en bas */
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+    }
+
+    .profil-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .profil-images {
+        width: 100%;
+        max-width: 350px;
+        height: 380px;
+        margin: 0 auto;
+    }
+
+    .profil-img-1 {
+        width: 220px;
+        height: 300px;
+        right: 150px;
+    }
+
+    .profil-img-2 {
+        width: 280px;
+        height: 380px;
+    }
+
+    .btn-profil {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION A PROPOS
+     ========================================== */
+
+    .propos-section {
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+    }
+
+    .btn-propos {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    /* ==========================================
+     PAGE ABOUT (depuis about.css)
+     ========================================== */
+
+    .about-container {
+        padding: 2rem 1rem;
+    }
+
+    .about-container h1 {
+        font-size: 2rem;
+    }
+
+    .about-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-container h3 {
+        font-size: 1.2rem;
+    }
+
+    .about-container section {
+        padding: 1.5rem;
+    }
+
+    .about-container .principle {
+        padding: 1rem;
+    }
+
+    /* ==========================================
+     PAGE AUTHENTIFICATION (depuis auth.css)
+     ========================================== */
+
+    .auth-page-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+        margin-top: 8vh;
+    }
+
+    .auth-container {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    .auth-container p {
+        padding: 2rem 1rem;
+    }
+
+    .auth-container input {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .warning-container {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .warning-container h3 {
+        font-size: 1.1rem;
+    }
+
+    .mascot {
+        width: 120px;
+    }
+
+    /* ==========================================
+     PAGE PROFIL (depuis profil.css)
+     ========================================== */
+
+    .profil-container h2,
+    #user-pseudo {
+        font-size: 2rem;
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+    }
+
+    .infos-utilisateur,
+    .statistiques,
+    .badges {
+        padding: 2rem;
+        width: 95%;
+    }
+
+    .informations {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .info-card {
+        min-width: 100%;
+    }
+
+    /* ==========================================
+     PAGE INFOS (depuis infos.css)
+     ========================================== */
+
+    .sorting-layout {
+        flex-direction: column;
+        /* Empile poubelles et détails */
+        gap: 3rem;
+        padding: 2rem 1rem;
+        align-items: center;
+    }
+
+    .bin-info {
+        flex-direction: row;
+        /* Poubelles en ligne */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-left: 0;
+    }
+
+    .details-tri {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    #bins-details {
+        padding: 1.5rem;
+    }
+
+    #bins-details h2 {
+        font-size: 1.3rem;
+    }
+
+    #bins-details li {
+        padding: 12px;
+    }
+
+    .dechet-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* ==========================================
+     PAGE GUIDE DE TRI (depuis guide-tri.css)
+     ========================================== */
+
+    .search-container {
+        padding: 4rem 2rem;
+    }
+
+    .result-card {
+        padding: 2rem;
+    }
+
+    /* ==========================================
+     PAGE JEU (depuis jeu.css)
+     ========================================== */
+
+    .poubelles-container {
+        gap: 30px;
+        margin: 30px 0;
+    }
+
+    .cartes-container {
+        margin: 30px 0;
+    }
+
+    .cartes-container h3 {
+        font-size: 1.2rem;
+    }
+
+    .cartes-grille {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 12px;
+        padding: 15px;
+    }
+
+    .carte-dechet {
+        padding: 12px;
+    }
+
+    .carte-dechet img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .carte-dechet p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========================================
+   MOBILES : max-width 576px
+   ======================================== */
+@media (max-width: 576px) {
+
+    /* ==========================================
+     PAGE ACCUEIL - TYPOGRAPHIE (depuis index.css)
+     ========================================== */
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION HERO
+     ========================================== */
+
+    .hero {
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .hero-images {
+        max-width: 300px;
+        height: 320px;
+    }
+
+    .forest {
+        max-width: 250px;
+        height: 280px;
+    }
+
+    .forest-2 {
+        max-width: 210px;
+        height: 240px;
+        right: -50px;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION AUTHENTIFICATION
+     ========================================== */
+
+    .auth-buttons {
+        padding: 1.5rem 1rem;
+        gap: 2rem;
+    }
+
+    .auth-option p {
+        font-size: 0.9rem;
+    }
+
+    .btn-auth {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION FONCTIONNALITES
+     ========================================== */
+
+    .features {
+        padding: 2rem 1rem;
+    }
+
+    .features h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .features-grid {
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        max-width: 100%;
+        padding: 2rem 1.5rem;
+        border-radius: 30px;
+    }
+
+    .feature-icon {
+        width: 80px;
+    }
+
+    .feature-card h3 {
+        font-size: 1rem;
+    }
+
+    .feature-card a {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION PROFIL
+     ========================================== */
+
+    .profil-section {
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .profil-text h2 {
+        font-size: 1.3rem;
+    }
+
+    .profil-text p {
+        font-size: 0.9rem;
+    }
+
+    .profil-images {
+        max-width: 280px;
+        height: 320px;
+    }
+
+    .profil-img-1 {
+        width: 180px;
+        height: 250px;
+        right: 120px;
+    }
+
+    .profil-img-2 {
+        width: 230px;
+        height: 320px;
+    }
+
+    .btn-profil {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION A PROPOS
+     ========================================== */
+
+    .propos-section {
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .propos-text p {
+        font-size: 0.9rem;
+    }
+
+    .btn-propos {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* ==========================================
+     PAGE AUTHENTIFICATION (depuis auth.css)
+     ========================================== */
+
+    .auth-page-wrapper {
+        padding: 1rem 0.5rem;
+        margin-top: 5vh;
+        gap: 1rem;
+    }
+
+    .auth-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .auth-container p {
+        padding: 1.5rem 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .auth-container input {
+        width: 100%;
+        max-width: 250px;
+        font-size: 0.95rem;
+    }
+
+    .auth-container button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    #login-form button,
+    #register-form button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .warning-container {
+        padding: 1rem 0.75rem;
+    }
+
+    .warning-container h3 {
+        font-size: 1rem;
+    }
+
+    .warning-container p {
+        font-size: 0.9rem;
+    }
+
+    .mascot {
+        width: 100px;
+    }
+
+    .toggle-password {
+        font-size: 1rem;
+        right: 5px;
+    }
+
+    .input-with-icon {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .input-with-icon input {
+        width: 100%;
+    }
+
+    .toggle-password {
+        font-size: 1rem;
+        right: 8px;
+    }
+
+    /* ==========================================
+     PAGE PROFIL (depuis profil.css)
+     ========================================== */
+
+    .profil-container h2,
+    #user-pseudo {
+        font-size: 1.6rem;
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .infos-utilisateur,
+    .statistiques,
+    .badges {
+        padding: 1.5rem;
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .informations {
+        gap: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: 1rem;
+    }
+
+    /* ==========================================
+     PAGE INFOS (depuis infos.css)
+     ========================================== */
+
+    .sorting-layout {
+        padding: 1.5rem 1rem;
+        gap: 2rem;
+    }
+
+    .bin-info {
+        gap: 12px;
+    }
+
+    .poubelle {
+        width: 60px;
+        height: 90px;
+    }
+
+    .couvercle {
+        width: 68px;
+        height: 15px;
+    }
+
+    .corps {
+        width: 60px;
+        height: 70px;
+    }
+
+    .poubelle-label {
+        font-size: 0.7rem;
+        bottom: 8px;
+    }
+
+    #bins-details {
+        padding: 1rem;
+        gap: 30px;
+    }
+
+    #bins-details h2 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    #bins-details ul {
+        gap: 15px;
+    }
+
+    #bins-details li {
+        padding: 10px;
+        border-radius: 15px;
+    }
+
+    #bins-details strong {
+        font-size: 1rem;
+    }
+
+    .bon-a-savoir {
+        font-size: 0.9rem;
+    }
+
+    .dechet-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    /* ==========================================
+     PAGE GUIDE DE TRI (depuis guide-tri.css)
+     ========================================== */
+
+    .search-container {
+        padding: 3rem 1rem;
+    }
+
+    .result-card {
+        padding: 1.5rem;
+    }
+
+    .dechet-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* ==========================================
+     PAGE JEU (depuis jeu.css)
+     ========================================== */
+
+    .poubelles-container {
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .poubelle {
+        width: 60px;
+        height: 90px;
+    }
+
+    .couvercle {
+        width: 68px;
+        height: 15px;
+        left: -4px;
+    }
+
+    .corps {
+        width: 60px;
+        height: 70px;
+        top: 15px;
+    }
+
+    .poubelle-label {
+        font-size: 0.7rem;
+        bottom: 8px;
+    }
+
+    .cartes-container {
+        margin: 20px 0;
+    }
+
+    .cartes-container h3 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .cartes-grille {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .carte-dechet {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .carte-dechet img {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 6px;
+    }
+
+    .carte-dechet p {
+        font-size: 0.75rem;
+    }
+
+    .btn-secondary {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ========================================
+   MOBILES : max-width 480px
+   ======================================== */
+@media (max-width: 480px) {
+
+    /* ==========================================
+     HERO COMMUN (depuis about.css)
+     ========================================== */
+
+    .hero {
+        padding: 1.5rem 1rem;
+    }
+
+    .hero-images {
+        width: 280px;
+        height: 280px;
+    }
+
+    .forest {
+        width: 240px;
+        height: 260px;
+    }
+
+    .forest-2 {
+        width: 190px;
+        height: 210px;
+        right: -50px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.3rem;
+        line-height: 1.4;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+}
+
+/* ========================================
+   TRES PETITS MOBILES : max-width 375px
+   ======================================== */
+@media (max-width: 375px) {
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION HERO (depuis index.css)
+     ========================================== */
+
+    .hero {
+        padding: 1rem 0.75rem;
+    }
+
+    .hero-images {
+        max-width: 260px;
+        height: 280px;
+    }
+
+    .forest {
+        max-width: 220px;
+        height: 250px;
+    }
+
+    .forest-2 {
+        max-width: 180px;
+        height: 210px;
+        right: 0px;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION AUTHENTIFICATION
+     ========================================== */
+
+    .auth-buttons {
+        padding: 1rem 0.75rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION FONCTIONNALITES
+     ========================================== */
+
+    .features {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem 1rem;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION PROFIL
+     ========================================== */
+
+    .profil-section {
+        padding: 1rem 0.75rem;
+    }
+
+    .profil-images {
+        max-width: 240px;
+        height: 280px;
+    }
+
+    .profil-img-1 {
+        width: 150px;
+        height: 220px;
+        right: 100px;
+    }
+
+    .profil-img-2 {
+        width: 200px;
+        height: 280px;
+    }
+
+    /* ==========================================
+     PAGE ACCUEIL - SECTION A PROPOS
+     ========================================== */
+
+    .propos-section {
+        padding: 1rem 0.75rem;
+    }
+
+    /* ==========================================
+     HERO COMMUN (depuis about.css)
+     ========================================== */
+
+    .hero-images {
+        width: 240px;
+        height: 240px;
+    }
+
+    .forest {
+        width: 200px;
+        height: 220px;
+    }
+
+    .forest-2 {
+        width: 160px;
+        height: 180px;
+        right: -40px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.1rem;
+    }
+
+    .hero-text p {
+        font-size: 0.85rem;
+    }
+
+    /* ==========================================
+     PAGE AUTHENTIFICATION (depuis auth.css)
+     ========================================== */
+
+    .auth-page-wrapper {
+        padding: 1rem 0.5rem;
+        margin-top: 3vh;
+    }
+
+    .auth-container {
+        padding: 1rem;
+    }
+
+    .auth-container p {
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .auth-container input {
+        max-width: 220px;
+        padding: 0.4rem;
+        font-size: 0.9rem;
+    }
+
+    .auth-container button {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    #login-form button,
+    #register-form button {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .warning-container h3 {
+        font-size: 0.95rem;
+    }
+
+    .warning-container p {
+        font-size: 0.85rem;
+    }
+
+    .mascot {
+        width: 80px;
+    }
+
+    .input-with-icon {
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .input-with-icon input {
+        width: 100%;
+        padding-right: 30px;
+    }
+
+    .toggle-password {
+        font-size: 0.95rem;
+        right: 6px;
+    }
+
+    /* ==========================================
+     PAGE PROFIL (depuis profil.css)
+     ========================================== */
+
+    .profil-container h2,
+    #user-pseudo {
+        font-size: 1.4rem;
+        margin-top: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .infos-utilisateur,
+    .statistiques,
+    .badges {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .informations {
+        gap: 1rem;
+    }
+
+    .info-card {
+        gap: 0.5rem;
+    }
+
+    .stat-value {
+        font-size: 0.95rem;
+    }
+
+    /* ==========================================
+     PAGE INFOS (depuis infos.css)
+     ========================================== */
+
+    .sorting-layout {
+        padding: 1rem 0.5rem;
+    }
+
+    .bin-info {
+        gap: 10px;
+    }
+
+    .poubelle {
+        width: 50px;
+        height: 75px;
+    }
+
+    .couvercle {
+        width: 58px;
+        height: 12px;
+    }
+
+    .corps {
+        width: 50px;
+        height: 60px;
+    }
+
+    .poubelle-label {
+        font-size: 0.65rem;
+        bottom: 6px;
+    }
+
+    #bins-details {
+        padding: 0.75rem;
+    }
+
+    #bins-details h2 {
+        font-size: 1.1rem;
+    }
+
+    #bins-details li {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    #bins-details strong {
+        font-size: 0.95rem;
+    }
+
+    .bon-a-savoir {
+        font-size: 0.85rem;
+    }
+
+    .dechet-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* ==========================================
+     PAGE GUIDE DE TRI (depuis guide-tri.css)
+     ========================================== */
+
+    .search-container {
+        padding: 2rem 0.5rem;
+    }
+
+    .result-card {
+        padding: 1rem;
+    }
+
+    .dechet-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    /* ==========================================
+     PAGE JEU (depuis jeu.css)
+     ========================================== */
+
+    .poubelles-container {
+        gap: 15px;
+        margin: 15px 0;
+    }
+
+    .poubelle {
+        width: 50px;
+        height: 75px;
+    }
+
+    .couvercle {
+        width: 58px;
+        height: 12px;
+        left: -4px;
+    }
+
+    .corps {
+        width: 50px;
+        height: 60px;
+        top: 12px;
+    }
+
+    .poubelle-label {
+        font-size: 0.65rem;
+        bottom: 6px;
+    }
+
+    .cartes-container h3 {
+        font-size: 1rem;
+    }
+
+    .cartes-grille {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .carte-dechet {
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .carte-dechet img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 4px;
+    }
+
+    .carte-dechet p {
+        font-size: 0.7rem;
+    }
+
+    .btn-secondary {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
+    }
+}
