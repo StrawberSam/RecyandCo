@@ -15,23 +15,30 @@
 
         <div id="message" class="message" style="display: none;"></div>
 
+        <!-- FORMULAIRE DE CONNEXION -->
         <form id="login-form">
+            <!-- Email normal -->
             <input type="email" id="email" name="email" placeholder="Email" required>
-            <div class="password-wrapper">
-                <input type="password" id="password" placeholder="Mot de passe" required />
+
+            <!-- Password avec œil -->
+            <div class="input-with-icon">
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
                 <span class="toggle-password" onclick="togglePasswordVisibility('password', this)">👁️</span>
             </div>
+
             <button type="submit" class="btn-primary">Se connecter</button>
         </form>
 
-        <!-- Formulaire d'inscription (caché par défaut) -->
+        <!-- FORMULAIRE D'INSCRIPTION -->
         <form id="register-form" style="display: none;">
-            <input type="text" id="register-username" placeholder="Pseudo" required />
-            <input type="email" id="register-email" placeholder="Email" required />
-            <div class="password-wrapper">
-                <input type="password" id="register-password" placeholder="Mot de passe" required />
+            <input type="text" id="register-username" name="username" placeholder="Pseudo" required>
+            <input type="email" id="register-email" name="email" placeholder="Email" required>
+
+            <div class="input-with-icon">
+                <input type="password" id="register-password" name="password" placeholder="Mot de passe" required>
                 <span class="toggle-password" onclick="togglePasswordVisibility('register-password', this)">👁️</span>
             </div>
+
             <button type="submit">S'inscrire</button>
         </form>
 
