@@ -459,14 +459,13 @@ function sauvegarderScore() {
 
             // MAJ du score total utilisateur
             scoreTotalUtilisateur = data.data.total_score;
-            mettreAJourAffichageScore();
 
             // Réinitialiser le score de session (car déjà sauvegardé)
             scoreSession = 0;
             nombreCorrects = 0;
             nombreTentatives = 0;
             tempsDebut = Date.now(); // Nouveau départ pour la prochaine session
-
+            mettreAJourAffichageScore();
             // Afficher un message de succès
             afficherMessageUtilisateur('✅ Score sauvegardé avec succès !', 'success');
 
