@@ -51,19 +51,16 @@
 
 /* --- COULEURS DES POUBELLES --- */
 
-/* Poubelle Bleue */
 .poubelle-bleue .couvercle,
 .poubelle-bleue .corps {
     background-color: #2196F3;
 }
 
-/* Poubelle Jaune */
 .poubelle-jaune .couvercle,
 .poubelle-jaune .corps {
     background-color: #f7cb00;
 }
 
-/* Poubelle Verte */
 .poubelle-verte .couvercle,
 .poubelle-verte .corps {
     background-color: #4CAF50;
