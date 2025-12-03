@@ -61,9 +61,9 @@ class User(db.Model):
     total_score = db.Column(db.Integer, default=0, nullable=False)
 
     # Relations
-    scores = db.relationship("Score", back_populates="user")
-    badges = db.relationship("UserBadge", back_populates="user")
-    inventory = db.relationship("UserInventory", back_populates="user")
+    scores = db.relationship("Score", backref="user")
+    badges = db.relationship("UserBadge", backref="user")
+    inventory = db.relationship("UserInventory", backref="user")
 
     def to_dict(self):
         """
@@ -150,9 +150,6 @@ class Score(db.Model):
     duration_ms = db.Column(db.Integer, nullable=False)
     played_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
-    # Relations
-    user = db.relationship("User", back_populates="scores")
-
     def efficiency(self):
         """
         Calcule le taux de réussite de la partie.
@@ -235,7 +232,7 @@ class Badge(db.Model):
     icon = db.Column(db.String(255), nullable=True)
 
     # Relations
-    users = db.relationship("UserBadge", back_populates="badge")
+    users = db.relationship("UserBadge", backref="badge")
 
     def to_dict(self):
         """
@@ -291,13 +288,9 @@ class UserBadge(db.Model):
         """
         super().__init__(**kwargs)
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable=False)
     badge_id = db.Column(db.Integer, db.ForeignKey("badges.id"), primary_key=True, nullable=False)
     awarded_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
-
-    # Relations
-    user = db.relationship("User", back_populates="badges")
-    badge = db.relationship("Badge", back_populates="users")
 
     def to_dict(self):
         """
@@ -353,7 +346,7 @@ class ShopItem(db.Model):
     is_active = db.Column(db.Boolean, nullable=False, server_default="1")
 
     # Relations
-    users = db.relationship("UserInventory", back_populates="item")
+    users = db.relationship("UserInventory", backref="item")
 
     def to_dict(self):
         """
@@ -407,13 +400,9 @@ class UserInventory(db.Model):
         """
         super().__init__(**kwargs)
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), autoincrement=True, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("shop_items.id"), primary_key=True, nullable=False)
     acquired_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
-
-    # Relations
-    user = db.relationship("User", back_populates="inventory")
-    item = db.relationship("ShopItem", back_populates="users")
 
     def to_dict(self):
         """
