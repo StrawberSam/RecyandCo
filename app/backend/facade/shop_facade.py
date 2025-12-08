@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, current_app
-
+from utils.auth_utils import verify_token_and_get_user_id
 shop_bp = Blueprint("shop", __name__)
 
 @shop_bp.route("/api/shop/items", methods=["GET"])
@@ -8,22 +8,14 @@ def get_shop_items():
     response = shop_service.get_active_items()
     return jsonify(response), response["status_code"]
 
-@shop_bp.route("/api/shop/can_purchase", methods=["POST"]) # Vérification possibilité d'achat
+@shop_bp.route("/api/shop/can_purchase", methods=["POST"])
 def can_purchase_item():
-    auth_service = current_app.config["services"]["auth"]
-    shop_service = current_app.config["services"]["shop"]
+    # Vérification du token et récupération de l'user_id
+    user_id, error = verify_token_and_get_user_id()
+    if error:
+        return jsonify(error), error["status_code"]
 
-    #Vérification token
-    token = request.cookies.get("access_token")
-    if not token:
-        return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    user = auth_service.get_user_by_id(token)
-
-    if not user.get("success"):
-        return jsonify(user), 401
-
-    user_id = user["data"]["id"]
+    # Validation des données de la requête
     data = request.get_json()
     if not data:
         return jsonify({"success": False, "message": "Requête invalide : aucun JSON reçu"}), 400
@@ -35,7 +27,8 @@ def can_purchase_item():
     if not isinstance(item_id, int) or item_id <= 0:
         return jsonify({"success": False, "message": "Champ item_id invalide, doit être un entier positif"}), 400
 
-    # appel du service
+    # Vérification possibilté d'achat
+    shop_service = current_app.config["services"]["shop"]
     response = shop_service.can_purchase(user_id, item_id)
 
     if "success" in response and "status_code" in response:
@@ -45,20 +38,11 @@ def can_purchase_item():
 
 @shop_bp.route("/api/shop/purchase", methods=["POST"])
 def purchase_item():
-    auth_service = current_app.config["services"]["auth"]
-    shop_service = current_app.config["services"]["shop"]
+    # Vérification du token et récupération de l'user_id
+    user_id, error = verify_token_and_get_user_id()
+    if error:
+        return jsonify(error), error["status_code"]
 
-    #Vérification token
-    token = request.cookies.get("access_token")
-    if not token:
-        return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    user = auth_service.get_user_by_id(token)
-
-    if not user.get("success"):
-        return jsonify(user), 401
-
-    user_id = user["data"]["id"]
     data = request.get_json()
     if not data:
         return jsonify({"success": False, "message": "Requête invalide : aucun JSON reçu"}), 400
@@ -68,10 +52,10 @@ def purchase_item():
         return jsonify({"success": False, "message": "Champ item_id manquant"}), 400
 
     item_id = data.get("item_id")
-
     if not isinstance(item_id, int) or item_id <= 0:
         return jsonify({"success": False, "message": "Champ item_id invalide"}), 400
 
     # appel du service
+    shop_service = current_app.config["services"]["shop"]
     response = shop_service.purchase_item(user_id, item_id)
     return jsonify(response), response["status_code"]
