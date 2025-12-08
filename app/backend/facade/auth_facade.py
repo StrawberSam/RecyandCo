@@ -1,4 +1,4 @@
-from flask import Blueprint, config, jsonify, make_response, request, current_app
+from flask import Blueprint, jsonify, make_response, request, current_app
 from utils.auth_utils import verify_token_and_get_user_id, set_auth_cookies, clear_auth_cookies
 auth_bp = Blueprint("auth", __name__)
 
