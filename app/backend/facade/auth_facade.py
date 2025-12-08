@@ -1,5 +1,5 @@
 from flask import Blueprint, config, jsonify, make_response, request, current_app
-
+from utils.auth_utils import verify_token_and_get_user_id, set_auth_cookies, clear_auth_cookies
 auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/api/register", methods=["POST"])
@@ -30,25 +30,8 @@ def login():
 
         flask_response = make_response(jsonify(response), 200)
 
-        # Cookie access_token (courte durée)
-        flask_response.set_cookie(
-            "access_token",
-            access_token,
-            httponly=True,
-            secure=False,
-            samesite="Lax",
-            max_age=60*60  # 1 heure
-        )
-
-        # Cookie refresh_token (longue durée)
-        flask_response.set_cookie(
-            "refresh_token",
-            refresh_token,
-            httponly=True,
-            secure=False,
-            samesite="Lax",
-            max_age=60*60*24*7  # 7 jours
-        )
+        # Utilisation de l'utilitaire pour configurer les cookies
+        set_auth_cookies(flask_response, access_token, refresh_token)
 
         return flask_response
 
@@ -57,6 +40,11 @@ def login():
 
 @auth_bp.route("/api/me", methods=["GET"])
 def me():
+    # Vérification du token et récupération de l'user_id
+    user_id, error = verify_token_and_get_user_id()
+    if error:
+        return jsonify(error), error["status_code"]
+
     service = current_app.config["services"]["auth"]
 
     # Lire uniquement depuis les cookies
@@ -80,28 +68,8 @@ def logout():
         "message": "Déconnexion réussie"
     }), 200)
 
-    # Supprimer access_token avec les MÊMES attributs que lors de la création
-    response.set_cookie(
-        'access_token',
-        value='',
-        max_age=0,
-        httponly=True,
-        secure=False,
-        samesite='Lax',
-        path='/'
-    )
-
-    # Supprimer refresh_token avec les MÊMES attributs
-    response.set_cookie(
-        'refresh_token',
-        value='',
-        max_age=0,
-        httponly=True,
-        secure=False,
-        samesite='Lax',
-        path='/'
-    )
-
+    # Utilisation utilitaire pour supprimer les cookies
+    clear_auth_cookies(response)
     return response
 
 @auth_bp.route("/api/refresh", methods=["POST"])
@@ -128,13 +96,5 @@ def refresh_token():
 
     # Met le nouveau access_token dans un cookie
     if new_access_token:
-        response.set_cookie(
-            key="access_token",
-            value=new_access_token,
-            httponly=True,
-            secure=False,
-            samesite='Lax',
-            path='/',
-            max_age=3600
-        )
+        set_auth_cookies(response, new_access_token)
     return response
