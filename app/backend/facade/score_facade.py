@@ -1,23 +1,20 @@
 from flask import Blueprint, jsonify, request, current_app
+from utils.auth_utils import verify_token_and_get_user_id
 
 score_bp = Blueprint("score", __name__)
 
 @score_bp.route("/api/scores", methods=["POST"])
 def add_scores():
-    auth_service = current_app.config["services"]["auth"]
+
+    # Vérification token et récupération user_id
+    user_id, error = verify_token_and_get_user_id()
+    if error:
+        return jsonify(error), error["status_code"]
+
+    # Logique métier : enregistrement du score
     score_service = current_app.config["services"]["score"]
-
-    token = request.cookies.get("access_token")
-    if not token:
-        return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    user = auth_service.get_user_by_id(token)
-    if not user.get("success"):
-        return jsonify(user), 401
-
-    user_id = user["data"]["id"]
-
     data = request.get_json()
+
     response = score_service.add_score(
         user_id=user_id,
         points=data.get("points"),
@@ -29,18 +26,12 @@ def add_scores():
 
 @score_bp.route("/api/scores/me", methods=["GET"])
 def user_score():
-    auth_service = current_app.config["services"]["auth"]
+    # Vérification token et récupération user_id
+    user_id, error = verify_token_and_get_user_id()
+    if error:
+        return jsonify(error), error["status_code"]
+
     score_service = current_app.config["services"]["score"]
-
-    token = request.cookies.get("access_token")
-    if not token:
-        return jsonify({"success": False, "message": "Token manquant"}), 401
-
-    user = auth_service.get_user_by_id(token)
-    if not user.get("success"):
-        return jsonify(user), 401
-
-    user_id = user["data"]["id"]
     response = score_service.get_user_scores(user_id)
     return jsonify(response), response["status_code"]
 
@@ -58,28 +49,16 @@ def get_my_stats():
     Route pour récupérer les statistiques de l'utilisateur connecté.
     Nécessite un token JWT valide dans les cookies.
     """
+    # Vérification token et récupération user_id
+    user_id, error = verify_token_and_get_user_id()
+    if error:
+        return jsonify(error), error["status_code"]
+
     # 1. Récupérer les services
-    auth_service = current_app.config["services"]["auth"]
     score_service = current_app.config["services"]["score"]
 
-    # 2. Récupérer le token depuis les COOKIES
-    token = request.cookies.get("access_token")
-    if not token:
-        return jsonify({
-            "success": False,
-            "message": "Token manquant"
-        }), 401
-
-    # 3. Vérifier le token et récupérer l'utilisateur
-    user = auth_service.get_user_by_id(token)
-    if not user.get("success"):
-        return jsonify(user), 401
-
-    # 4. Récupérer l'user_id
-    user_id = user["data"]["id"]
-
-    # 5. Appeler la fonction du service pour obtenir les stats
+    # 2. Appeler la fonction du service pour obtenir les stats
     stats = score_service.get_user_stats(user_id)
 
-    # 6. Return direct sur le résultat
+    # 3. Return direct sur le résultat
     return jsonify(stats), stats["status_code"]
