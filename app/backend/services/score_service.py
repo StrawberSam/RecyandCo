@@ -7,13 +7,11 @@ de l'historique et du classement global.
 
 Classes:
     ScoreService: Service principal pour la gestion des scores et statistiques
-
-Author: Roche Samira
-Project: Récy&Co - Sorting is fun!
 """
 
 from sqlalchemy import desc
 from db.models import Score, User
+from utils.services_utils import validate_and_get_user, validate_limit
 
 
 class ScoreService:
@@ -82,12 +80,11 @@ class ScoreService:
         """
 
         # Vérifications
-        if not isinstance(user_id, int):
-            return {"success": False, "message": "user_id doit être un entier", "status_code": 400}
+        utilisateur, error = validate_and_get_user(self.db, user_id)
+        if error:
+            return error
 
-        utilisateur = User.query.get(user_id)
-        if not utilisateur:
-            return {"success": False, "message": "User non trouvé", "status_code": 404}
+        assert utilisateur is not None
 
         if points < 0:
             return {"success": False, "message": "Les données de la partie sont invalides", "status_code": 400}
@@ -147,12 +144,11 @@ class ScoreService:
             Cette méthode pourrait être améliorée pour retourner la liste
             complète des parties jouées (historique des scores).
         """
-        if not isinstance(user_id, int):
-            return {"success": False, "message": "user_id doit être un entier", "status_code": 400}
+        utilisateur, error = validate_and_get_user(self.db, user_id)
+        if error:
+            return error
 
-        utilisateur = User.query.get(user_id)
-        if not utilisateur:
-            return {"success": False, "message": "User non trouvé", "status_code": 404}
+        assert utilisateur is not None
 
         return {
             "success": True,
@@ -190,8 +186,10 @@ class ScoreService:
             Le classement est basé sur le score total (total_score),
             pas sur le score d'une seule partie.
         """
-        if not isinstance(limit, int):
-            return {"success": False, "message": "Limit doit être un entier", "status_code": 400}
+        # Validation du paramètre limit
+        error = validate_limit(limit)
+        if error:
+            return error
 
         resultat = (
             self.db.session.query(User)
@@ -239,22 +237,10 @@ class ScoreService:
             des valeurs à 0.
         """
 
-        # Validation
-        if not isinstance(user_id, int):
-            return {
-                "success": False,
-                "message": "user_id doit être un entier",
-                "status_code": 400
-            }
-
-        # Vérification que l'utilisateur existe
-        utilisateur = User.query.get(user_id)
-        if not utilisateur:
-            return {
-                "success": False,
-                "message": "Utilisateur introuvable",
-                "status_code": 404
-            }
+        # Validation et récupération utilisateur
+        _, error = validate_and_get_user(self.db, user_id)
+        if error:
+            return error
 
         # 1. Compter le nombre de parties
         parties_jouees = Score.query.filter_by(user_id=user_id).count()
