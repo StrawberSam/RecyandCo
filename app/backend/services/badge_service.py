@@ -14,6 +14,7 @@ Project: Récy&Co - Sorting is fun!
 
 from datetime import datetime
 from db.models import Badge, User, UserBadge
+from utils.services_utils import validate_and_get_user
 
 class BadgeService:
     """
@@ -71,12 +72,10 @@ class BadgeService:
                     - 404 : Utilisateur introuvable
         """
 
-        if not isinstance(user_id, int):
-            return {"success": False, "message": "user_id doit être un entier", "status_code": 400}
-
-        utilisateur = self.db.session.get(User, user_id)
-        if not utilisateur:
-            return {"success": False, "message": "User non trouvé", "status_code": 404}
+        # Validation et récupération utilisateur
+        utilisateur, error = validate_and_get_user(self.db, user_id)
+        if error:
+            return error
 
         # Récupère les badge de l'user
         resultat = (
@@ -134,11 +133,15 @@ class BadgeService:
         Returns:
             list: Liste vide si l'utilisateur n'existe pas ou aucun nouveau badge
         """
+        if not self.badges:
+            self.load_badges()
 
-        # Récupération utilisateur et ses badges existants
-        utilisateur = self.db.session.get(User, user_id)
-        if not utilisateur:
-            return {"success": False, "message": "Utilisateur introuvable", "status_code": 404}
+        # Validation et récupération utilisateur
+        utilisateur, error = validate_and_get_user(self.db, user_id)
+        if error:
+            return error
+
+        assert utilisateur is not None
 
         user_badges_response = self.get_user_badges(user_id)
         user_badges = user_badges = user_badges_response["data"]
