@@ -7,12 +7,10 @@ et traitement des achats avec déduction des points.
 
 Classes:
     ShopService: Service principal pour la gestion de la boutique
-
-Author: Roche Samira
-Project: Récy&Co - Sorting is fun!
 """
 
 from db.models import ShopItem, User, UserInventory
+from utils.services_utils import validate_and_get_user
 
 class ShopService:
     """
@@ -37,6 +35,68 @@ class ShopService:
             db: Instance SQLAlchemy pour les accès à la base de données
         """
         self.db = db
+
+    def _validate_purchase_conditions(self, user_id, item_id):
+        """
+        Valide toutes les conditions nécessaires pour un achat.
+        Cette méthode privée centralise toutes les vérifications communes
+        entre can_purchase() et purchase_item().
+
+        Args:
+            user_id (int): Identifiant de l'utilisateur
+            item_id (int): Identifiant de l'article
+
+        Returns:
+            tuple: (utilisateur, article, erreur)
+                - Si succès : (User object, ShopItem object, None)
+                - Si échec : (None, None, dict d'erreur)
+
+        Note:
+            Méthode privée (préfixe _) utilisée uniquement en interne par la classe.
+        """
+
+        # Validation et récupération de l'utilisateur
+        utilisateur, error = validate_and_get_user(self.db, user_id)
+        if error:
+            return None, None, error
+
+        assert utilisateur is not None, "utilisateur ne peut pas être None ici"
+
+        # Vérification si article existant
+        article = self.db.session.get(ShopItem, item_id)
+        if not article:
+            return None, None, {
+                "success": False,
+                "message": "Article introuvable",
+                "status_code": 404
+                }
+
+        # Vérification si article actif
+        if not article.is_active:
+            return None, None, {
+                "success": False,
+                "message": "Article indisponible",
+                "status_code": 400
+                }
+
+        # Vérification si l'utilisateur ne possède pas déjà l'article
+        owned_item = self.db.session.get(UserInventory, (user_id, item_id))
+        if owned_item:
+            return None, None, {
+                "success": False,
+                "message": "Article déjà possédé",
+                "status_code": 409
+                }
+
+        # Vérifier le solde de points
+        if utilisateur.total_score < article.price:
+            return None, None, {
+                "success": False,
+                "message": "Points insuffisants",
+                "status_code": 403
+                }
+
+        return utilisateur, article, None
 
     def get_active_items(self):
         """
@@ -85,12 +145,6 @@ class ShopService:
         """
         Vérifie si un utilisateur peut acheter un article spécifique.
 
-        Cette méthode effectue plusieurs vérifications avant d'autoriser un achat :
-        1. L'utilisateur existe
-        2. L'article existe et est actif
-        3. L'utilisateur ne possède pas déjà l'article
-        4. L'utilisateur a suffisamment de points
-
         Args:
             user_id (int): Identifiant de l'utilisateur
             item_id (int): Identifiant de l'article à acheter
@@ -117,27 +171,13 @@ class ShopService:
             que vérifier les conditions. Pour effectuer l'achat, utilisez
             purchase_item().
         """
-        # Rechercher user
-        utilisateur = self.db.session.get(User, user_id)
-        if not utilisateur:
-            return {"success": False, "message": "Utilisateur introuvable", "status_code": 404}
 
-        # Vérification que article existe et est actif
-        article = self.db.session.get(ShopItem, item_id)
-        if not article:
-            return {"success": False, "message": "Article introuvable", "status_code": 404}
+        # Validation conditions d'achat
+        _, article, error = self._validate_purchase_conditions(user_id, item_id)
+        if error:
+            return error
 
-        if not article.is_active:
-            return {"success": False, "message": "Article indisponible", "status_code": 400}
-
-        # Vérification si l'user n'a pas déjà l'article
-        owned_item = self.db.session.get(UserInventory, (user_id, item_id))
-        if owned_item:
-            return {"success": False, "message": "Article déjà possédé", "status_code": 409}
-
-        # Vérifier le solde de points
-        if utilisateur.total_score < article.price:
-            return {"success": False, "message": "Points insuffisants", "status_code": 403}
+        assert article is not None
 
         #Return si tout ok
         return {
@@ -192,27 +232,13 @@ class ShopService:
             pour éviter les conditions de course (race conditions). Un utilisateur
             malveillant ne peut pas acheter un article en spammant des requêtes.
         """
-        # Rechercher user
-        utilisateur = self.db.session.get(User, user_id)
-        if not utilisateur:
-            return {"success": False, "message": "Utilisateur introuvable", "status_code": 404}
+        # Validation des conditions d'achat
+        utilisateur, article, error = self._validate_purchase_conditions(user_id, item_id)
+        if error:
+            return error
 
-        # Vérification que article existe et est actif
-        article = self.db.session.get(ShopItem, item_id)
-        if not article:
-            return {"success": False, "message": "Article introuvable", "status_code": 404}
-
-        if not article.is_active:
-            return {"success": False, "message": "Article indisponible", "status_code": 400}
-
-        # Vérification si l'user n'a pas déjà l'article
-        owned_item = self.db.session.get(UserInventory, (user_id, item_id))
-        if owned_item:
-            return {"success": False, "message": "Article déjà possédé", "status_code": 409}
-
-        # Vérifier le solde de points
-        if utilisateur.total_score < article.price:
-            return {"success": False, "message": "Points insuffisants", "status_code": 403}
+        assert utilisateur is not None
+        assert article is not None
 
         # MaJ des données
         utilisateur.total_score -= article.price
