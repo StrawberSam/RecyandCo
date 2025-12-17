@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request, current_app
+from db.models import Score
 from utils.auth_utils import verify_token_and_get_user_id
+
 
 score_bp = Blueprint("score", __name__)
 
@@ -13,6 +15,7 @@ def add_scores():
 
     # Logique métier : enregistrement du score
     score_service = current_app.config["services"]["score"]
+    badge_service = current_app.config["services"]["badge"]
     data = request.get_json()
 
     response = score_service.add_score(
@@ -22,6 +25,20 @@ def add_scores():
         total_items=data.get("total_items"),
         duration_ms=data.get("duration_ms")
         )
+
+    # Debug
+    print(f"🔍 Response success: {response.get('success')}")
+
+    if response.get("success"):
+        print(f"🔍 Avant check_and_award_badges pour user {user_id}")
+        score_id = response["data"]["score_id"]
+        score_obj = Score.query.get(score_id)
+        print(f"🔍 Score object: {score_obj}, points: {score_obj.points if score_obj else 'None'}")
+
+        # Appel du badge service
+        badge_result = badge_service.check_and_award_badges(user_id, score_obj)
+        print(f"🔍 Badge result: {badge_result}")
+
     return jsonify(response), response["status_code"]
 
 @score_bp.route("/api/scores/me", methods=["GET"])
