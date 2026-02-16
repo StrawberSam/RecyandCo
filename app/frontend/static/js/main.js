@@ -3,10 +3,9 @@
 // ============================================
 
 /**
- * Configuration du mode debug
  * À passer à false en production
  */
-const DEBUG = true; // ← Change en false pour pro
+const DEBUG = true;
 
 /**
  * Système de logs conditionnels
@@ -14,34 +13,23 @@ const DEBUG = true; // ← Change en false pour pro
  * Les erreurs et warnings s'affichent toujours
  */
 window.log = {
-  /**
-   * Log de debug (développement uniquement)
-   */
+
   debug: (...args) => {
     if (DEBUG) {
       console.log('🔍 [DEBUG]', ...args);
     }
   },
 
-  /**
-   * Log d'information (développement uniquement)
-   */
   info: (...args) => {
     if (DEBUG) {
       console.info('ℹ️ [INFO]', ...args);
     }
   },
 
-  /**
-   * Avertissement (toujours affiché)
-   */
   warn: (...args) => {
     console.warn('⚠️ [WARN]', ...args);
   },
 
-  /**
-   * Erreur (toujours affiché)
-   */
   error: (...args) => {
     console.error('❌ [ERROR]', ...args);
   }
