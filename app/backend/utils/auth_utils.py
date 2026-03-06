@@ -85,7 +85,7 @@ def set_auth_cookies(response, access_token: str, refresh_token: Optional[str] =
         "access_token",
         access_token,
         httponly=True,
-        secure=False,
+        secure=current_app.config["SESSION_COOKIE_SECURE"],
         samesite="Lax",
         max_age=60*60 # 1 heure
     )
@@ -96,7 +96,7 @@ def set_auth_cookies(response, access_token: str, refresh_token: Optional[str] =
             "refresh_token",
             refresh_token,
             httponly=True,
-            secure=False,
+            secure=current_app.config["SESSION_COOKIE_SECURE"],
             samesite="Lax",
             max_age=60*60*24*7 # 7 jours
         )

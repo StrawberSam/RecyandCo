@@ -25,7 +25,8 @@ app = Flask(
     )
 
 # Récupération de la config (par défaut : development)
-app_config = config["development"]()
+env = os.getenv("APP_ENV", "default")
+app_config = config[env]()
 app.config.from_object(app_config)
 
 # Initialisation de la DB avec Flask

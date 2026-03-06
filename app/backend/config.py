@@ -38,10 +38,32 @@ class DevelopmentConfig(Config):
     # (fonctionnalité lourde et rarement nécessaire → économie de ressources).
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    SESSION_COOKIE_SECURE = False
+
+class ProductionConfig(Config):
+    """
+    Configuration spécifique pour l'environnement de production.
+    Hérite des réglages de la classe Config et désactive le mode debug.
+    """
+
+    # URI de connexion à la base de données, lue depuis la variable d'environnement DATABASE_URL.
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+
+    SESSION_COOKIE_SECURE = True
+
+    def __init__(self) -> None:
+        super().__init__()
+
+        if not self.SECRET_KEY:
+            raise ValueError("La variable d'environnement SECRET_KEY est manquante. L'application ne peut pas démarrer en production sans une clé secrète définie.")
+
+        if not self.SQLALCHEMY_DATABASE_URI:
+            raise ValueError("Base de données en production manquante.")
 
 # Dictionnaire permettant de choisir facilement une configuration
 # selon l'environnement ("development", "production", etc.).
 config = {
     'development': DevelopmentConfig,
-    'default': DevelopmentConfig
+    'production' : ProductionConfig,
+    'default': ProductionConfig
 }

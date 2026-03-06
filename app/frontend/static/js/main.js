@@ -5,7 +5,7 @@
 /**
  * À passer à false en production
  */
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * Système de logs conditionnels
