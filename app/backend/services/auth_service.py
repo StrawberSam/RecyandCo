@@ -164,6 +164,9 @@ class AuthService:
             expiration_minutes=self.config.JWT_REFRESH_EXP_MINUTES
         )
 
+        utilisateur.last_login_at = datetime.now(timezone.utc)
+        self.db.session.commit()
+
         return {
             "success": True,
             "data": {
