@@ -128,7 +128,7 @@ def clear_auth_cookies(response):
         value='',
         max_age=0,
         httponly=True,
-        secure=False,
+        secure=current_app.config["SESSION_COOKIE_SECURE"],
         samesite='Lax',
         path='/'
     )
@@ -139,7 +139,7 @@ def clear_auth_cookies(response):
         value='',
         max_age=0,
         httponly=True,
-        secure=False,
+        secure=current_app.config["SESSION_COOKIE_SECURE"],
         samesite='Lax',
         path='/'
     )
