@@ -1,13 +1,135 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+datasource db {
+  provider = "mysql"
+}
 
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
-datasource db {
-  provider = "postgresql"
+model User {
+  id String @id @default(uuid())
+  username String @db.VarChar(50)
+  email String @unique @db.VarChar(255)
+  password_hash String @db.VarChar(255)
+  role Role @default(USER)
+  created_at DateTime @default(now())
+  last_login_at DateTime?
+
+  scores Score[]
+  userBadges User_Badge[]
+  userInventories User_Inventory[]
+}
+
+model Score {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  points Int
+  correct_items Int
+  total_items Int
+  duration_ms Int
+  played_at DateTime @default(now())
+}
+
+model Badge {
+  id String @id @default(uuid())
+  code String @db.VarChar(50) @unique
+  label String @db.VarChar(100)
+  description String @db.Text
+  threshold Int?
+  icon String @db.VarChar(255)
+
+  userBadges User_Badge[]
+}
+
+model User_Badge {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId String
+  badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  awarded_at DateTime @default(now())
+
+  @@id([userId, badgeId])
+}
+
+model Shop_Item {
+  id String @id @default(uuid())
+  sku String @db.VarChar(100) @unique
+  name String @db.VarChar(100) @unique
+  price Int
+  is_active Boolean @default(true)
+
+  userInventories User_Inventory[]
+}
+
+model User_Inventory {
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId String
+  item Shop_Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  acquired_at DateTime @default(now())
+
+  @@id([userId, itemId])
+}
+
+model Comcom {
+  id String @id @default(uuid())
+  nom String @db.VarChar(100)
+  email String @unique @db.VarChar(255)
+  password_hash String @db.VarChar(255)
+  role Role @default(COMCOM)
+  created_at DateTime @default(now())
+  last_login_at DateTime?
+  site_web String @unique @db.VarChar(255)
+  telephone String @unique @db.Char(10)
+  status Status @default(EN_ATTENTE)
+  abonnement_debut DateTime @default(now())
+  abonnement_fin DateTime?
+
+  regleTris Regle_Tri[]
+  prestataires Prestataire[]
+}
+
+model Regle_Tri {
+  id String @id @default(uuid())
+  ComcomId String
+  Comcom Comcom @relation(fields: [ComcomId], references: [id], onDelete: Cascade)
+  nom_dechet String @db.VarChar(100)
+  categorie_conteneur Conteneur
+  explication String @db.LongText
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Prestataire {
+  id String @id @default(uuid())
+  nom String @unique @db.VarChar(255)
+  adresse String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  telephone String @unique @db.Char(10)
+
+  comcoms Comcom[]
+}
+
+enum Role {
+  USER
+  SUPER_ADMIN
+  COMCOM
+}
+
+enum Status {
+  ACTIF
+  EN_ATTENTE
+  EXPIRE
+}
+
+enum Conteneur {
+  BLEU
+  JAUNE
+  VERT
+  BIODECHET
+  DECHETERIE
+  VETEMENT
+  ORDURE_MENAGERE
 }
