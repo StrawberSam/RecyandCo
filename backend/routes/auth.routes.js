@@ -1,13 +1,10 @@
 import express from 'express';
+import { authLogin, authRegister } from '../controllers/auth.controller.js';
 const router = express.Router();
 
 // Opération CRUD
-router.post('/register', (req, res) => {
-  res.send('create user');
-});
+router.post('/register', authRegister);
 
-router.post('/login', (req, res) => {
-  res.send('connect user');
-});
+router.post('/login', authLogin);
 
 export default router;
