@@ -1,5 +1,6 @@
 import { PrismaClient } from '../generated/prisma/index.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { validateRegisterData } from '../utils/validation.utils.js';
 const prisma = new PrismaClient();
 
@@ -40,4 +41,52 @@ async function register(username, email, password) {
   }
 }
 
-export {register};
+async function login(email, password) {
+  // Authentifie un utilisateur et génère des tokens JWT.
+
+  if (email == '' || password == '') {
+    throw new Error('Email ou mot de passe manquant')
+  }
+
+  const user = await prisma.user.findUnique({ where: { email: email } });
+  if (!user) {
+    throw new Error('Email introuvable')
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password_hash);
+  if (!isPasswordValid) {
+    throw new Error('Mot de passe incorrect')
+  }
+
+  // Génération Tokens
+  const access_token = jwt.sign(
+  { id: user.id, username: user.username },
+  process.env.JWT_SECRET,
+  { expiresIn: process.env.JWT_EXP }
+  )
+
+  const refresh_token = jwt.sign(
+  { id: user.id },
+  process.env.JWT_SECRET,
+  { expiresIn: process.env.JWT_REFRESH_EXP }
+  )
+
+  await prisma.user.update({
+  where: { id: user.id },
+  data: { last_login_at: new Date() }
+})
+
+  return {
+    "success": true,
+    "data": {
+      "access_token": access_token,
+      "refresh_token": refresh_token,
+      "user": {
+        "id": user.id,
+        "username": user.username
+      }
+    }
+  }
+}
+
+export {register, login};
