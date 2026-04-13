@@ -17,6 +17,6 @@
     "validator": "^13.15.35"
   },
   "devDependencies": {
-    "prisma": "^7.6.0"
+    "prisma": "^6.19.3"
   }
 }
