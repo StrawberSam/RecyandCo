@@ -2,3 +2,4 @@ node_modules/
 .env
 backend/.gitignore
 cortex-snapshot.json
+.vscode/settings.json
